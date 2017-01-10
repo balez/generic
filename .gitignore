@@ -1,0 +1,18 @@
+*~
+*#
+#*
+*.cmo
+*.cma
+*.cmi
+*.cmx
+*.o
+*.dep
+a.out
+*.bck
+generic/doc/**
+essais/**
+generic/ppx/**
+
+# executables
+test_marshal
+reify
