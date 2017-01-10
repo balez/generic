@@ -40,7 +40,8 @@ exception Serialize_exception of string
 exception Anti_unify_exception (* TODO better name *)
 
 let exn s f = try Lazy.force f
-  with _ -> raise (Serialize_exception s)
+  with Serialize_exception _ as e -> raise e
+     | _ -> raise (Serialize_exception s)
 
 (* direction of the conversion, TO bytes or FROM bytes *)
 type direction = To | From
