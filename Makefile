@@ -9,6 +9,8 @@ OCAMLOPT=ocamlopt $(OCAMLOPTFLAGS)
 OCAMLDEP=ocamldep $(INCLUDES)
 OCAMLDOC=ocamldoc.opt $(INCLUDES) -w -40
 
+METAQUOT=$(shell ocamlfind query ppx_tools)/ppx_metaquot
+
 # * Source files
 # NS: list of namespaces (ml)
 # NSI: list of namespace interfaces (mli)
@@ -85,7 +87,7 @@ generic_test_marshal.ml\
 MAIN_MLI=
 
 # * Rules
-.PHONY: doc lib clean
+.PHONY: doc ppx lib clean
 all: lib ppx doc tests
 doc: doc/index.html # doc/dep.dot
 lib: generic.cma
@@ -96,8 +98,10 @@ tests: test_marshal
 generic.cma: generic_util_obj_stub.o $(NS:.ml=.cmo) $(ML:.ml=.cmo)
 	$(OCAMLC) -custom -o $@ -a $^
 
-reify: reify.ml
-	ocamlc -o reify -I +compiler-libs -I $(dir) ocamlcommon.cma generic.cma -ppx $(metaquot) $<
+reify.cmo: reify.ml
+	ocamlc -c -I +compiler-libs -ppx $(METAQUOT) $<
+reify: generic.cma reify.cmo
+	ocamlc -o $@ -I +compiler-libs ocamlcommon.cma $^
 
 # NOTE about the rule "doc/index.html":
 # I added the library as a prerequisite
@@ -113,12 +117,11 @@ doc/dep.dot: lib $(NS) $(NSI) $(ML) $(MLI)
 	mkdir -p doc
 	$(OCAMLDOC) -dot -o doc/dep.dot $(wordlist 2, $(words $^), $^)
 
+generic_test_marshal.cmo: generic_test_marshal.ml ppx
+	$(OCAMLC) -o $@ -ppx ./reify -c $<
 
-generic_test_marshal.cmo: generic_test_marshal.ml
-	$(OCAMLC) -o $@ -ppx ppx/reify -c $<
-
-generic_test_marshal.ppx: generic_test_marshal.ml
-	$(OCAMLC) -o $@ -dsource -ppx ppx/reify -c $<
+generic_test_marshal.ppx: generic_test_marshal.ml ppx
+	$(OCAMLC) -o $@ -dsource -ppx ./reify -c $<
 
 test_marshal: generic.cma generic_test_marshal.cmo
 	$(OCAMLC) -o $@ $^
