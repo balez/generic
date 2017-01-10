@@ -9,9 +9,7 @@
 *.dep
 a.out
 *.bck
-generic/doc/**
-essais/**
-generic/ppx/**
+doc/**
 
 # executables
 test_marshal
