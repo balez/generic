@@ -46,6 +46,7 @@ let local_invalid_arg msg = invalid_arg (__MODULE__ ^ "." ^ msg)
 let reify_attrname = "reify"
 let reify_all_attrname = "reify_all"
 let abstract_attrname = "abstract"
+let no_desc_attrname = "no_desc"
 let dont_reify_attrname = "dont_reify"
 let generic_core_ty = Ldot (Lident "Generic_core", "Ty")
 let ty_lid = Ldot (generic_core_ty, "ty")
@@ -65,7 +66,8 @@ let has_reify = has_attr reify_attrname
 let tydecl_has_reify = tydecl_has_attr reify_attrname
 let has_dont_reify = has_attr dont_reify_attrname
 let tydecl_dont_reify = tydecl_has_attr dont_reify_attrname
-let tydecl_has_abstract = tydecl_has_attr abstract_attrname
+let tydecl_abstract = tydecl_has_attr abstract_attrname
+let tydecl_no_desc = tydecl_has_attr no_desc_attrname
 
 (* Obtain the name of the witness given the name of the type.
    (not a longident)
@@ -345,7 +347,7 @@ let desc_synonym module_path t t' =
 
 (** Extends [Desc_fun.view] for type [t] *)
 let desc_ext module_path t =
-  if tydecl_has_abstract t then
+  if tydecl_abstract t then
     [%expr Generic_core.Desc.Abstract]
   else
   match t.ptype_manifest with
@@ -469,9 +471,12 @@ let new_desc module_path t =
     t.ptype_manifest = None
     && t.ptype_kind == Ptype_open
   in
-  [ty_desc_ext;
-   if open_type && not (tydecl_has_abstract t)
-   then ext_reg else desc_fun_ext]
+  [ty_desc_ext]
+  @
+  if tydecl_no_desc t
+  then []
+  else [if open_type && not (tydecl_abstract t)
+        then ext_reg else desc_fun_ext]
 
 (** Structure and signature items have commonalities that we
     capture with the `item` type. This allows us to share the
