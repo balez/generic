@@ -126,6 +126,17 @@ generic_test_marshal.ppx: generic_test_marshal.ml ppx
 test_marshal: generic.cma generic_test_marshal.cmo
 	$(OCAMLC) -o $@ $^
 
+
+generic_test_gadt.cmo: generic_test_gadt.ml ppx
+	$(OCAMLC) -o $@ -ppx ./reify -c $<
+
+generic_test_gadt.ppx: generic_test_gadt.ml ppx
+	$(OCAMLC) -o $@ -dsource -ppx ./reify -c $<
+
+test_gadt: generic.cma generic_test_gadt.cmo
+	$(OCAMLC) -o $@ $^
+
+
 # ** Build Dependencies
 # IMPORTANT: source files names may not include the character ':'
 # Using [sed] we add the dependency file itself as a target.
