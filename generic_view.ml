@@ -7,3 +7,4 @@
 (** The spine view shows the applicative structure of a value
     as a constructor applied to its arguments, it underlies the Scrap Your Boilerplate library for Haskell. *)
 module Spine = Generic_view_spine
+module Sumprod = Generic_view_sumprod

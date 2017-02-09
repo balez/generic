@@ -12,7 +12,9 @@ end
 include T
 
 (** Synonym, so that [Product.T.product] might be refered to as [Product.t] *)
-type 'a t = 'a product
+type 'a t = 'a product =
+  | Nil : unit t
+  | Cons : 'a Ty.ty * 'b t -> ('a * 'b) t
 
 module Build = struct
   let pc x y = Cons (x,y)

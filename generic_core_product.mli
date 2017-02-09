@@ -20,7 +20,9 @@ module T : sig
 end
 
 (** Synonym, so that [Product.T.product] might be refered to as [Product.t] *)
-type 'a t = 'a T.product
+type 'a t = 'a T.product =
+  | Nil : unit t
+  | Cons : 'a ty * 'b t -> ('a * 'b) t
 
 (** {2 Product Constructors } *)
 (** Functions [p0] to [p6] build products from 0 to 6 types. *)

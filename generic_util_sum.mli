@@ -1,18 +1,20 @@
 (** Empty and Sum datatypes. *)
-
 open Generic_core
 
 (** {2 Types} *)
 (** Type with zero element. *)
 type empty
 
-(** Sum type. [L] stands for {i left} and [R] stands for {i right}. *)
-type ('a, 'b) choice = L of 'a | R of 'b
+(** Sum type. *)
+type ('a, 'b) sum = Left of 'a | Right of 'b
 
-(** Type witnesses for [empty] and [choice]. *)
+(** Type witnesses for [empty] and [sum]. *)
 type _ Ty.t +=
     Empty : empty Ty.t
-  | Choice : 'a Ty.t * 'b Ty.t -> ('a, 'b) choice Ty.t
+  | Sum : 'a Ty.t * 'b Ty.t -> ('a, 'b) sum Ty.t
+
+val left : 'a -> ('a,'b) sum
+val right : 'b -> ('a,'b) sum
 
 (** {2 Operations} *)
 
@@ -23,3 +25,5 @@ type _ Ty.t +=
     impossible cases to be given anyway.
 *)
 val empty_elim : empty -> 'a
+val either : ('a -> 'c) -> ('b -> 'c) -> ('a, 'b) sum -> 'c
+val sum : ('a -> 'c) -> ('b -> 'd) -> ('a,'b) sum -> ('c,'d) sum

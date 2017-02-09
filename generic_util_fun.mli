@@ -6,7 +6,7 @@ val const : 'a -> 'b -> 'a
 (** Identity function *)
 val id : 'a -> 'a
 
-(** Swap the arguments *)
+(** flip the arguments of a function *)
 val flip : ('a -> 'b -> 'c) -> 'b -> 'a -> 'c
 
 val curry : ('a * 'b -> 'c) -> 'a -> 'b -> 'c

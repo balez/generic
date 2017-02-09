@@ -94,8 +94,6 @@ let with_field v i f =
      f (field v i);
      let _ = Stack.pop path in ()
 
-(* let field v i = assert false *)
-
 (* Updating procedure for abstract values *)
 let abstract_update = (Stack.create () : (unit -> unit) Stack.t)
 

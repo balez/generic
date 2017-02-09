@@ -228,8 +228,7 @@ module Ext = struct
 
     In practice, that function will only be called on the
     type given by the field [ty] of the record
-    "extensible". This allows parametric extensible types to
-    be dealt with.
+    "extensible". This supports extensible GADTs.
    *)
   type con = { con : 'a . 'a ty -> 'a Con.t}
 
@@ -483,7 +482,7 @@ module T = struct
     | Extensible : 'a Ext.t -> 'a desc
     | Custom     : 'a Custom.t -> 'a desc
     | Class      : 'c Class.t  -> 'c desc
-    | Synonym    : 'b ty * ('a,'b) Equal.t -> 'a desc
+    | Synonym    : 'a ty * ('a,'b) Equal.t -> 'b desc
     | Abstract   : 'a desc
     | NoDesc     : 'a desc
 end (* T *)

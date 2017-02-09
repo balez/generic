@@ -173,7 +173,11 @@ module Variant : sig
   (** {b Variant.}
       A variant is given by its [name] the module in which it was defined and the set [cons] of its constructors.
   *)
-  type 'v variant = { name : string; module_path : string list; cons : 'v cons; }
+  type 'v variant = {
+    name : string;
+    module_path : string list;
+    cons : 'v cons;
+  }
 
   (** Synonym for convenience. *)
   type 'v t = 'v variant
@@ -203,6 +207,8 @@ module Ext : sig
       [(s0,...,sn) t] (without any type variable).
       Thus the [con] function may only be called on the witnesses
       of type [(s0,...sn) t ty].
+
+      This design supports GADTs by default.
   *)
   type con = { con : 'a. 'a ty -> 'a Con.t; }
 
@@ -532,7 +538,7 @@ module T : sig
     | Extensible : 'a Ext.t -> 'a desc
     | Custom     : 'a Custom.t -> 'a desc
     | Class      : 'c Class.t  -> 'c desc
-    | Synonym    : 'b ty * ('a,'b) Equal.t -> 'a desc
+    | Synonym    : 'a ty * ('a,'b) Equal.t -> 'b desc
     | Abstract   : 'a desc
     | NoDesc     : 'a desc
 end
@@ -545,7 +551,7 @@ type 'a desc = 'a T.desc =
     | Extensible : 'a Ext.t -> 'a desc
     | Custom     : 'a Custom.t -> 'a desc
     | Class      : 'c Class.t  -> 'c desc
-    | Synonym    : 'b ty * ('a,'b) Equal.t -> 'a desc
+    | Synonym    : 'a ty * ('a,'b) Equal.t -> 'b desc
     | Abstract   : 'a desc
     | NoDesc     : 'a desc
 
