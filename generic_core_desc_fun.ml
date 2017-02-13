@@ -6,7 +6,7 @@ open Product.Build
 
 type 'a ty = 'a Ty.t
 
-let local_invalid_arg s = invalid_arg (__MODULE__ ^ s)
+let local_invalid_arg s = invalid_arg (__MODULE__ ^ "." ^ s)
 
 let cons = Desc.Variant.cons
 let c0 = Desc.Con.c0
@@ -42,7 +42,7 @@ type (_,_) app += App : 'a Desc.t -> ('a, tag) app
 
 let unapp = function
   | App x -> x
-  | _ -> invalid_arg "Generic_core_desc_fun.unapp"
+  | _ -> local_invalid_arg "unapp"
 
 type desc_fun =
   { f : 'a . 'a ty -> 'a Desc.t }
