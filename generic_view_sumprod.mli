@@ -18,8 +18,12 @@ type 'a sp =
   | Sum   : 'a sp * 'b sp -> ('a, 'b) sum sp
   | Unit  : unit sp
   | Prod  : 'a sp * 'b sp -> ('a * 'b) sp
+  | Delay : 'a ty -> 'a sp (* to break the recursion *)
   | Con   : string * 'a sp -> 'a sp
   | Field : string * 'a sp -> 'a sp
-  | Iso   : ('a, 'b) Fun.iso * 'a sp -> 'b sp
+  | Iso   : 'a sp * ('a, 'b) Fun.iso -> 'b sp
 
+val sumprod : 'a ty -> 'a sp
+
+(** view = sumprod *)
 val view : 'a ty -> 'a sp
