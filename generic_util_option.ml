@@ -47,3 +47,5 @@ let leftist_plus x y = match x, y with
   | Some _ , _ -> x
   | None , Some _ -> y
   | None , None -> None
+
+let to_list = function None -> [] | Some x -> [x]

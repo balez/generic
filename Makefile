@@ -58,7 +58,6 @@ generic_core_antiunify.ml\
 generic_core_repr.ml\
 generic_view_spine.ml\
 generic_view_sumprod.ml\
-generic_view_uniplate.ml\
 generic_fun_marshal.ml\
 generic_fun_uniplate.ml\
 generic_fun_equal.ml\
