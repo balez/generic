@@ -1,14 +1,11 @@
-(** Uniplate view
+(** Uniplate library for boilerplate-less tree-traversals
 
-    The uniplate view represents recursive types as rose trees.
-
-    It is inspired by the Haskell uniplate and multiplate libraries.
+    The library is inspired by the Haskell uniplate library.
 
 http://hackage.haskell.org/package/uniplate
-http://hackage.haskell.org/package/multiplate-0.0.3/docs/Data-Generics-Multiplate.html
 http://community.haskell.org/~ndm/darcs/uniplate/uniplate.htm
 
-The terminology and many comments follow are taken from Traversal implementation.
+The function names, implementation and many comments are taken from Traversal implementation.
 
 http://www-ps.informatik.uni-kiel.de/~sebf/projects/traversal.html
 *)
