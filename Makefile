@@ -58,8 +58,10 @@ generic_core_antiunify.ml\
 generic_core_repr.ml\
 generic_view_spine.ml\
 generic_view_sumprod.ml\
+generic_view_uniplate.ml\
 generic_fun_marshal.ml\
-generic_fun_equal.ml
+generic_fun_uniplate.ml\
+generic_fun_equal.ml\
 
 MLI=\
 generic_core_antiunify.mli\
@@ -82,7 +84,9 @@ generic_util_sum.mli\
 generic_view_spine.mli\
 generic_view_sumprod.mli\
 generic_fun_marshal.mli\
+generic_fun_uniplate.mli\
 generic_fun_equal.mli
+
 
 # MAIN is the list of main files
 MAIN_ML=\
@@ -130,7 +134,6 @@ generic_test_marshal.ppx: generic_test_marshal.ml ppx
 
 test_marshal: generic.cma generic_test_marshal.cmo
 	$(OCAMLC) -o $@ $^
-
 
 generic_test_gadt.cmo: generic_test_gadt.ml ppx
 	$(OCAMLC) -o $@ -ppx ./reify -c $<

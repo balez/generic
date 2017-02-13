@@ -89,6 +89,14 @@ let any = Any
 (* *** Some Patterns
 *)
 let pair = T.Pair (Any, Any)
+let triple = T.Triple (Any,Any,Any)
+let quadruple = T.Quadruple (Any,Any,Any,Any)
+let quintuple = T.Quintuple (Any,Any,Any,Any,Any)
+let sextuple = T.Sextuple (Any,Any,Any,Any,Any,Any)
+let septuple = T.Septuple (Any,Any,Any,Any,Any,Any,Any)
+let octuple = T.Octuple (Any,Any,Any,Any,Any,Any,Any,Any)
+let nonuple = T.Nonuple (Any,Any,Any,Any,Any,Any,Any,Any,Any)
+let decuple = T.Decuple (Any,Any,Any,Any,Any,Any,Any,Any,Any,Any)
 let option = T.Option Any
 let list = T.List Any
 let array = T.Array Any

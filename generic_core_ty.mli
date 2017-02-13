@@ -28,7 +28,6 @@ module T : sig
     | Int32 : int32 ty
     | Int64 : int64 ty
     | Nativeint : nativeint ty
-    | Lazy : 'a ty -> 'a Lazy.t ty
     | Exn : exn ty
     | Bool : bool ty
     | Int : int ty
@@ -36,12 +35,13 @@ module T : sig
     | Char : char ty
     | Bytes : bytes ty
     | String : string ty
+    | Unit : unit ty
+    | Lazy : 'a ty -> 'a Lazy.t ty
     | Option : 'a ty -> 'a option ty
     | List : 'a ty -> 'a list ty
     | Array : 'a ty -> 'a array ty
     | Ref : 'a ty -> 'a ref ty
     | Ty : 'a ty -> 'a ty ty
-    | Unit : unit ty
     | Pair : 'a ty * 'b ty -> ('a * 'b) ty
     | Triple   : 'a ty * 'b ty * 'c ty -> ('a * 'b * 'c) ty
     | Quadruple : 'a ty * 'b ty * 'c ty * 'd ty -> ('a * 'b * 'c * 'd) ty
@@ -135,6 +135,17 @@ Patterns for common type constructors are given.
 
 val pair : ('a * 'b) pat
 (** pair == Pair (Any,Any) *)
+
+val triple : ('a * 'b * 'c) pat
+(** triple == Triple (Any,Any,Any) *)
+
+val quadruple : ('a*'b*'c*'d) pat
+val quintuple : ('a*'b*'c*'d*'e) pat
+val sextuple  : ('a*'b*'c*'d*'e*'f) pat
+val septuple  : ('a*'b*'c*'d*'e*'f*'g) pat
+val octuple   : ('a*'b*'c*'d*'e*'f*'g*'h) pat
+val nonuple   : ('a*'b*'c*'d*'e*'f*'g*'h*'i) pat
+val decuple   : ('a*'b*'c*'d*'e*'f*'g*'h*'i*'j) pat
 
 val option : 'a option pat
 (** option == Option Any *)
