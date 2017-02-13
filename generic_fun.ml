@@ -2,3 +2,4 @@
 
 (** Safe generic marshalling and unmarshalling operations. *)
 module Marshal = Generic_fun_marshal
+module Uniplate = Generic_fun_uniplate
