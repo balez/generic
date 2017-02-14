@@ -27,3 +27,23 @@ type (_,_) app += Exponential : ('a -> 'b) -> ('a, 'b exponential) app
 let get_exponential = function
   | Exponential f -> f
   | _ -> assert false (* there is only way to deconstruct ('a, 't exponential) app *)
+
+(** {2 Core parametric  types} *)
+
+type option' = OPTION
+type (_,_) app += Option : 'a option -> ('a, option') app
+let get_option = function
+  | Option x -> x
+  | _ -> assert false
+
+type list' = LIST
+type (_,_) app += List : 'a list -> ('a, list') app
+let get_list = function
+  | List x -> x
+  | _ -> assert false
+
+type array' = ARRAY
+type (_,_) app += Array : 'a array -> ('a, array') app
+let get_array = function
+  | Array x -> x
+  | _ -> assert false

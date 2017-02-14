@@ -91,3 +91,17 @@ type (_, _) t += Exponential : ('a -> 'b) -> ('a, 'b exponential) t
 
 (** Get the argument of the [Exponential] constructor *)
 val get_exponential : ('a, 'b exponential) t -> 'a -> 'b
+
+
+(** {2 Core parametric  types} *)
+type option' = OPTION
+type (_,_) t += Option : 'a option -> ('a, option') t
+val get_option : ('a, option') t -> 'a option
+
+type list' = LIST
+type (_,_) t += List : 'a list -> ('a, list') t
+val get_list : ('a, list') t -> 'a list
+
+type array' = ARRAY
+type (_,_) t += Array : 'a array -> ('a, array') t
+val get_array : ('a, array') t -> 'a array
