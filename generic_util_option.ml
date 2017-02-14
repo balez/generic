@@ -10,6 +10,8 @@ let option f = function
   | Some x -> Some (f x)
   | None -> None
 
+let map = option
+
 (** [unopt s n] eliminates an option value by replacing the constructor [Some] by [s] and [None] by [n].
  *)
 let unopt n s = function
