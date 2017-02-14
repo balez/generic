@@ -52,12 +52,12 @@ let rec map_family a f x = f (map_child_families a a f x)
 and map_child_families : 'a . 'a ty -> 'b ty -> ('b -> 'b) -> ('a -> 'a)
   = fun a b f x -> map_children a b (map_family b f) x
 
-let rec recurse_family a f x =
+let rec eval_family a f x =
   let rec g x = Option.unopt x (map_family a g) (f x)
   in map_family a g x
 
-let recurse_child_families a b f x =
-  map_children a b (recurse_family b f) x
+let eval_child_families a b f x =
+  map_children a b (eval_family b f) x
 
 let rec fold a f x = fold_children a a f f x
 and fold_children : 'a 'ra . 'a ty -> 'b ty -> ('a -> 'rb list -> 'ra) -> ('b -> 'rb list -> 'rb) -> 'a -> 'ra
