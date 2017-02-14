@@ -279,6 +279,8 @@ module Con : sig
   *)
   type 'v conap = Conap : ('a, 'v) desc * 'a -> 'v conap
 
+  val conap : 'v con -> 'v -> 'v conap option
+
   val con : 'v conap -> 'v con
   (** @return the constructor of a constructor application O(1). *)
 

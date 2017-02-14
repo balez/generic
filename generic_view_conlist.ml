@@ -12,7 +12,8 @@ open Desc
 open Ty.T
 let ( -< ) = Fun.(-<)
 
-type 'a view = 'a Con.t list option
+type 'a view = 'a Con.t list
+type 'a t = 'a view
 
 let set_map from set r x = set (from r) x
 
@@ -34,7 +35,7 @@ let repr r (Con.Con {name; args; embed; proj}) =
             ; proj = proj -< r.to_repr
             }
 
-let rec view : type a . a ty -> a view
+let rec view : type a . a ty -> a view option
   = fun t ->
     match Desc_fun.view t with
     | Product (p, iso) ->
@@ -59,3 +60,8 @@ let rec view : type a . a ty -> a view
       (match Repr.repr t with
        | Repr.Repr r -> Option.map (List.map (repr r)) (view r.repr_ty))
     | _ -> None
+
+(* @raise Not_found if the constructor is not in the list *)
+let conap cs x =
+  try Option.get_some (Listx.find_some (fun c -> Con.conap c x) cs)
+  with Exn.Failed -> raise Not_found

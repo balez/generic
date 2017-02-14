@@ -69,7 +69,7 @@ module Fields = struct
 end
 
 module Record = struct
-  let local_invalid_arg str = invalid_arg (__MODULE__ ^ str)
+  let local_invalid_arg str = invalid_arg (__MODULE__ ^ "." ^ str)
   module T = struct
     type ('p,'r) record =
       { name : string
@@ -90,7 +90,7 @@ module Record = struct
 end (* Record *)
 
 module Con = struct
-  let local_invalid_arg str = invalid_arg (__MODULE__ ^ str)
+  let local_invalid_arg str = invalid_arg (__MODULE__ ^ "." ^ str)
 
   (* ** Caveat
 
@@ -182,10 +182,12 @@ module Con = struct
   type 'v conap =
     | Conap : ('a, 'v) desc * 'a -> 'v conap
 
-  (* PRIVATE. PARTIAL. raise Invalid_argument *)
-  let partial_conap (Con c) x = match c.proj x with
-    | Some y -> Conap (c,y)
-    | None -> local_invalid_arg "partial_conap: incorrect constructor"
+  let conap (Con c) x =
+    Option.map (fun y -> Conap (c,y)) (c.proj x)
+
+  let partial_conap c x =
+    try Option.get_some (conap c x)
+    with Exn.Failed -> local_invalid_arg ("partial_conap: the constructor could not be found")
 
   let con (Conap (c,x)) = Con c
   let subterms_prod (Conap (c,x)) = Product.Dynprod (product c, x)
@@ -193,7 +195,7 @@ module Con = struct
 end (* Con *)
 
 module Variant = struct
-  let local_invalid_arg str = invalid_arg (__MODULE__ ^ str)
+  let local_invalid_arg str = invalid_arg (__MODULE__ ^ "." ^ str)
 
   (* * Variants
 
@@ -289,7 +291,7 @@ end (* Variant *)
 module Ext = struct
   module H = Hashtbl
 
-  let local_invalid_arg str = invalid_arg (__MODULE__ ^ str)
+  let local_invalid_arg str = invalid_arg (__MODULE__ ^ "." ^ str)
 
   (* * Variants extensibles
 
@@ -388,7 +390,7 @@ module Ext = struct
 end (* Ext *)
 
 module Poly = struct
-  let local_invalid_arg str = invalid_arg (__MODULE__ ^ str)
+  let local_invalid_arg str = invalid_arg (__MODULE__ ^ "." ^ str)
 
   (* * Polymorphic Variants
 

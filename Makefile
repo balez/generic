@@ -84,6 +84,7 @@ generic_util_iter.mli\
 generic_util_sum.mli\
 generic_view_spine.mli\
 generic_view_sumprod.mli\
+generic_view_conlist.mli\
 generic_fun_marshal.mli\
 generic_fun_uniplate.mli\
 generic_fun_multiplate.mli\

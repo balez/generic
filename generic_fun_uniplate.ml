@@ -23,15 +23,15 @@ let equal = Equal.equal
 
 let rec scrap_spine : type a b . a ty -> b Spine.t -> a list * (a list -> b Spine.t)
   = fun a s -> let open Spine.T in match s with
-  | Con c -> ([], Fun.const s)
-  | App (f, c, x) ->
-    let (cs, replace) = scrap_spine a f
-    in match equal a c with
-    | Some Equal.Refl ->
-      ( x :: cs
-      , function (y :: cs) -> App (replace cs, c, y)
-               | _ -> local_invalid_arg "scrap_spine, replacing an incorrect number of children.")
-    | None -> (cs, fun cs -> App (replace cs, c, x))
+    | Con c -> ([], Fun.const s)
+    | App (f, c, x) ->
+      let (cs, replace) = scrap_spine a f
+      in match equal a c with
+      | Some Equal.Refl ->
+        ( x :: cs
+        , function (y :: cs) -> App (replace cs, c, y)
+                 | _ -> local_invalid_arg "scrap_spine, replacing an incorrect number of children.")
+      | None -> (cs, fun cs -> App (replace cs, c, x))
 
 let scrap a b x =
   let (cs, rep) = scrap_spine b (Spine.view a x)
