@@ -129,7 +129,7 @@ module Variant = struct
   let ncst_len (_,cn) = Array.length cn
   let ncst_get (_,cn) = Array.get cn
   let ncst (_,cn)     = Array.to_list cn
-  let list_of_cons cs = cst cs @ ncst cs
+  let con_list cs = cst cs @ ncst cs
 
   (* PRIVATE
 
@@ -262,6 +262,8 @@ module Ext = struct
 
   (* STATEFUL *)
   let iter ext f = fold ext (fun c _ -> f c) ()
+
+  let con_list ext = fold ext (fun h t -> h :: t) []
 
   (* PRIVATE. STATEFUL. PARTIAL.
   @raise Invalid_argument if the value is not of an extensible type.

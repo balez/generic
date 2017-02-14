@@ -113,7 +113,7 @@ module Variant : sig
 
   (** {b Set of constructors}.
       ['v cons] is the set of constructors of variant ['v], it
-      is an abstract type.  We may access the constructors using {!list_of_cons},
+      is an abstract type.  We may access the constructors using {!con_list},
       or using {!cst} and {!ncst} which respectively return
       constant and non-constant constructors in the order that
       they are listed in the datatype definition.
@@ -158,9 +158,9 @@ module Variant : sig
   val ncst : 'v cons -> 'v Con.t list
   (** [ncst cs] returns the list of the non-constant constructors in [cs]. *)
 
-  val list_of_cons : 'v cons -> 'v Con.t list
+  val con_list : 'v cons -> 'v Con.t list
   (** @return the list of constructors corresponding to
-      the abstract [cons] value.  [list_of_cons (cons cs)] is a
+      the abstract [cons] value.  [con_list (cons cs)] is a
       permutation of [cs].
   *)
 
@@ -235,6 +235,9 @@ module Ext : sig
   val iter : 'a extensible -> ('a Con.t -> unit) -> unit
   (** Executes an effectful function on each of the (known)
       constructors of an extensible datatype.  *)
+
+  val con_list : 'a extensible -> 'a Con.t list
+  (** returns the current list of constructors *)
 
   val con : 'a extensible -> 'a -> 'a Con.t
   (** [con ext x] @return the constructor description corresponding to the constructor of
