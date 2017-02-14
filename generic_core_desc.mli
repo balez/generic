@@ -23,6 +23,194 @@ open Generic_core
 open Generic_util
 open Ty.T
 
+(** {2 Records}
+
+    A record type is described as a set of fields, each field is described by its name, type
+    and a procedure to update its value if it is mutable.
+
+    To complete the description of a record type, it is
+    associated to a product type and an isomorphism to
+    convert between the record and the product.
+*)
+
+(** Generic representation of a record field. *)
+module Field : sig
+  (** Module suitable for open. *)
+  module T : sig
+    (** {b Field.} The type [('t,'r) field] describes a field of type ['t] for the record ['r].
+        Each field has a [name], a type witness [ty], a procedure [set] to change
+        the field if it is mutable.
+    *)
+    type ('a, 'r) field = {
+      name : string; (** name of the field *)
+      ty : 'a ty; (** type of the field *)
+      set : ('r -> 'a -> unit) option; (** procedure for updating the field if it is mutable *)
+    }
+  end
+  (** {b Field.} The type [('a,'r) t] describes a field of type ['a] for the record ['r].
+      Each field has a [name], a type witness [ty], a procedure [set] to change
+      the field if it is mutable.
+  *)
+  type ('a,'r) t = ('a,'r) T.field = {
+    name : string; (** name of the field *)
+    ty : 'a ty; (** type of the field *)
+    set : ('r -> 'a -> unit) option; (** procedure for updating the field if it is mutable *)
+  }
+
+  val is_mutable : ('t, 'r) t -> bool
+  (** @return true iff the given field mutable, i.e. [is_mutable f = f.set != None] *)
+
+  val anon : 'a ty -> ('a, 'b) t
+  (** Anonynomous field, useful for defining variant constructors with no labels. *)
+end
+
+(** Generic representation of a record's collection of fields. *)
+module Fields : sig
+  module T : sig
+    (** {b List of fields.}
+        The type [('p, 'r) fields] is the list of fields for the
+        record ['r], ['p] is a product type isomorphic to the record
+        type ['r], it gathers all of the field types, in the same
+        order are they are provided in the list.
+    *)
+    type ('p, 'r) fields =
+      | Nil : (unit, 'r) fields
+      | Cons : ('t, 'r) Field.t * ('ts, 'r) fields -> ('t * 'ts, 'r) fields
+  end
+
+  (** {b List of fields.}
+        The type [('p, 'r) t] is the list of fields for the
+        record ['r], ['p] is a product type isomorphic to the record
+        type ['r], it gathers all of the field types, in the same
+        order are they are provided in the list.
+  *)
+  type ('p, 'r) t =  ('p,'r) T.fields =
+    | Nil : (unit, 'r) t
+    | Cons : ('t, 'r) Field.t * ('ts, 'r) t -> ('t * 'ts, 'r) t
+
+  val product : ('p, 'r) t -> 'p Product.t
+  (** @return the list of types witnessing the product type ['p].
+      Everything else is discarded ([name] of field, [set] procedure).
+  *)
+
+  val types_of_mutable_fields : ('p, 'r) t -> Ty.ty' list
+  (** @return the list of the types of all mutable fields. *)
+
+  val anon : 'p Product.t -> ('p, 'r) t
+
+  module Build : sig
+    val fc : 'a ty -> ('b, 'c) t -> ('a * 'b, 'c) t
+    val f0 : (unit, 'a) t
+    val f1 : 'a ty -> ('a * unit, 'b) t
+    val f2 :
+      'a ty -> 'b ty -> ('a * ('b * unit), 'c) t
+    val f3 :
+      'a ty -> 'b ty -> 'c ty -> ('a * ('b * ('c * unit)), 'd) t
+    val f4 :
+      'a ty -> 'b ty -> 'c ty -> 'd ty ->
+      ('a * ('b * ('c * ('d * unit))), 'e) t
+    val f5 :
+      'a ty ->
+      'b ty ->
+      'c ty ->
+      'd ty ->
+      'e ty ->
+      ('a * ('b * ('c * ('d * ('e * unit)))), 'f) t
+    val f6 :
+      'a ty ->
+      'b ty ->
+      'c ty ->
+      'd ty ->
+      'e ty ->
+      'f ty ->
+      ('a * ('b * ('c * ('d * ('e * ('f * unit))))), 'g) t
+    val f7 :
+      'a ty ->
+      'b ty ->
+      'c ty ->
+      'd ty ->
+      'e ty ->
+      'f ty ->
+      'g ty ->
+      ('a * ('b * ('c * ('d * ('e * ('f * ('g * unit)))))), 'h) t
+    val f8 :
+      'a ty ->
+      'b ty ->
+      'c ty ->
+      'd ty ->
+      'e ty ->
+      'f ty ->
+      'g ty ->
+      'h ty ->
+      ('a * ('b * ('c * ('d * ('e * ('f * ('g * ('h * unit))))))), 'i) t
+    val f9 :
+      'a ty ->
+      'b ty ->
+      'c ty ->
+      'd ty ->
+      'e ty ->
+      'f ty ->
+      'g ty ->
+      'h ty ->
+      'i ty ->
+      ('a * ('b * ('c * ('d * ('e * ('f * ('g * ('h * ('i * unit)))))))),
+       'j)
+        t
+    val f10 :
+      'a ty ->
+      'b ty ->
+      'c ty ->
+      'd ty ->
+      'e ty ->
+      'f ty ->
+      'g ty ->
+      'h ty ->
+      'i ty ->
+      'j ty ->
+      ('a *
+       ('b * ('c * ('d * ('e * ('f * ('g * ('h * ('i * ('j * unit))))))))),
+       'k)
+        t
+  end
+end
+
+(** Generic representation of record datatypes. *)
+module Record : sig
+  module T : sig
+    (** {b Record.}
+        A record has a [name], a list of [fields] and an isomorphism [iso]
+        between the product of the fields' types and the record type.
+    *)
+    type ('p, 'r) record =
+      { name : string
+      ; module_path : string list
+      ; fields : ('p, 'r) Fields.t
+      ; iso : ('p, 'r) Fun.iso
+      }
+  end
+
+  (** {b Record.} The type [(p,r) t] represents the record
+      type [r] isomorphic to the product type [p]. *)
+  type ('p,'r) t = ('p,'r) T.record =
+    { name : string
+    ; module_path : string list
+    ; fields : ('p, 'r) Fields.t
+    ; iso : ('p, 'r) Fun.iso
+    }
+
+  val product : ('p, 'r) t -> 'p Product.t
+  (** @return the list of field types witnessing the product type ['p] for the record type ['r].
+  *)
+
+  val types_of_mutable_fields : ('p, 'r) t -> Ty.ty' list
+  (** @return the list of the types of all mutable fields. *)
+
+  val tuple : ('p, 'r) t -> 'r -> 'p Product.tuple
+  (** @return a tuple of the fields of a record value. *)
+end (* Record *)
+
+(** {2 Variants} *)
+
 (** Generic representation of variant constructors. *)
 module Con : sig
 
@@ -57,10 +245,12 @@ module Con : sig
   *)
   type ('t, 'v) desc = {
     name : string; (** name of the constructor *)
-    args : 't Product.t; (** arguments of the constructor *)
+    args : ('t, 'v) Fields.t; (** arguments of the constructor *)
     embed : 't -> 'v;  (** applies the constructor to the arguments. *)
     proj : 'v -> 't option; (** tries to deconstruct that constructor *)
   }
+
+  val product : ('t, 'v) desc -> 't Product.t
 
   (** {b Constructor.}
       The type ['t] of the constructor arguments is hidden by existential quantification.
@@ -72,7 +262,7 @@ module Con : sig
 
   val name : 'v con -> string
   val make :
-    string -> 'a Product.t -> ('a -> 'b) -> ('b -> 'a option) -> 'b con
+    string -> ('a, 'b) Fields.t -> ('a -> 'b) -> ('b -> 'a option) -> 'b con
   (** Builds a [con] using the corresponding field values *)
 
   val c0 : string -> 'a -> 'a con
@@ -322,112 +512,7 @@ module Poly : sig
   type _ ty += Poly_variant : 'v t -> 'v ty
 end (* Poly *)
 
-
-(** {2 Records}
-
-    A record type is described as a set of fields, each field is described by its name, type
-    and a procedure to update its value if it is mutable.
-
-    To complete the description of a record type, it is
-    associated to a product type and an isomorphism to
-    convert between the record and the product.
-*)
-
-(** Generic representation of a record field. *)
-module Field : sig
-  (** Module suitable for open. *)
-  module T : sig
-    (** {b Field.} The type [('t,'r) field] describes a field of type ['t] for the record ['r].
-        Each field has a [name], a type witness [ty], a procedure [set] to change
-        the field if it is mutable.
-    *)
-    type ('a, 'r) field = {
-      name : string; (** name of the field *)
-      ty : 'a ty; (** type of the field *)
-      set : ('r -> 'a -> unit) option; (** procedure for updating the field if it is mutable *)
-    }
-  end
-  (** {b Field.} The type [('a,'r) t] describes a field of type ['a] for the record ['r].
-      Each field has a [name], a type witness [ty], a procedure [set] to change
-      the field if it is mutable.
-  *)
-  type ('a,'r) t = ('a,'r) T.field = {
-    name : string; (** name of the field *)
-    ty : 'a ty; (** type of the field *)
-    set : ('r -> 'a -> unit) option; (** procedure for updating the field if it is mutable *)
-  }
-
-  val is_mutable : ('t, 'r) t -> bool
-  (** @return true iff the given field mutable, i.e. [is_mutable f = f.set != None] *)
-end
-
-(** Generic representation of a record's collection of fields. *)
-module Fields : sig
-  module T : sig
-    (** {b List of fields.}
-        The type [('p, 'r) fields] is the list of fields for the
-        record ['r], ['p] is a product type isomorphic to the record
-        type ['r], it gathers all of the field types, in the same
-        order are they are provided in the list.
-    *)
-    type ('p, 'r) fields =
-      | Nil : (unit, 'r) fields
-      | Cons : ('t, 'r) Field.t * ('ts, 'r) fields -> ('t * 'ts, 'r) fields
-  end
-
-  (** {b List of fields.}
-        The type [('p, 'r) t] is the list of fields for the
-        record ['r], ['p] is a product type isomorphic to the record
-        type ['r], it gathers all of the field types, in the same
-        order are they are provided in the list.
-  *)
-  type ('p, 'r) t =  ('p,'r) T.fields =
-    | Nil : (unit, 'r) t
-    | Cons : ('t, 'r) Field.t * ('ts, 'r) t -> ('t * 'ts, 'r) t
-
-  val product : ('p, 'r) t -> 'p Product.t
-  (** @return the list of types witnessing the product type ['p].
-      Everything else is discarded ([name] of field, [set] procedure).
-  *)
-
-  val types_of_mutable_fields : ('p, 'r) t -> Ty.ty' list
-  (** @return the list of the types of all mutable fields. *)
-end
-
-(** Generic representation of record datatypes. *)
-module Record : sig
-  module T : sig
-    (** {b Record.}
-        A record has a [name], a list of [fields] and an isomorphism [iso]
-        between the product of the fields' types and the record type.
-    *)
-    type ('p, 'r) record =
-      { name : string
-      ; module_path : string list
-      ; fields : ('p, 'r) Fields.t
-      ; iso : ('p, 'r) Fun.iso
-      }
-  end
-
-  (** {b Record.} The type [(p,r) t] represents the record
-      type [r] isomorphic to the product type [p]. *)
-  type ('p,'r) t = ('p,'r) T.record =
-    { name : string
-    ; module_path : string list
-    ; fields : ('p, 'r) Fields.t
-    ; iso : ('p, 'r) Fun.iso
-    }
-
-  val product : ('p, 'r) t -> 'p Product.t
-  (** @return the list of field types witnessing the product type ['p] for the record type ['r].
-  *)
-
-  val types_of_mutable_fields : ('p, 'r) t -> Ty.ty' list
-  (** @return the list of the types of all mutable fields. *)
-
-  val tuple : ('p, 'r) t -> 'r -> 'p Product.tuple
-  (** @return a tuple of the fields of a record value. *)
-end (* Record *)
+(** {2 Rest} *)
 
 (** Generic representation of an object's or a classe's method. *)
 module Method : sig

@@ -2,6 +2,93 @@ open Generic_core
 open Generic_util
 open Ty.T
 
+(** Generic representation of record fields. *)
+module Field = struct
+  module T = struct
+    type ('a, 'r) field = {
+      name : string;
+      ty : 'a ty;
+      (*  bound : int;*)
+      set : ('r -> 'a -> unit) option;
+    }
+  end
+
+  type ('a,'r) t = ('a,'r) T.field = {
+    name : string; (** name of the field *)
+    ty : 'a ty; (** type of the field *)
+    set : ('r -> 'a -> unit) option; (** procedure for updating the field if it is mutable *)
+  }
+
+  let is_mutable fd = fd.set != None
+  let anon t = {name = ""; ty = t; set = None}
+end
+
+module Fields = struct
+  module T = struct
+    type ('p, 'r) fields =
+      | Nil : (unit, 'r) fields
+      | Cons : ('t, 'r) Field.t * ('ts, 'r) fields -> ('t * 'ts, 'r) fields
+  end
+
+  type ('p, 'r) t =  ('p,'r) T.fields =
+    | Nil : (unit, 'r) t
+    | Cons : ('t, 'r) Field.t * ('ts, 'r) t -> ('t * 'ts, 'r) t
+
+  let rec product : type p . (p,'r) t -> p Product.t
+    = function
+      | Nil -> Nil
+      | Cons (f,fs) -> Cons (f.ty, product fs)
+
+  let rec types_of_mutable_fields : type p . (p, 'r) t -> Ty.ty' list
+    = function
+      | Nil -> []
+      | Cons (f, fs) ->
+        if Field.is_mutable f then
+          E f.ty :: types_of_mutable_fields fs
+        else types_of_mutable_fields fs
+
+  let rec anon : type p . p Product.t -> (p, 'r) t
+    = function
+      | Product.Nil -> Nil
+      | Product.Cons (t, ts) -> Cons (Field.anon t, anon ts)
+
+  module Build = struct
+    let fc x y = Cons (Field.anon x,y)
+    let f0 = Nil
+    let f1 x = fc x f0
+    let f2 x = Fun.res1 (fc x) f1
+    let f3 x = Fun.res2 (fc x) f2
+    let f4 x = Fun.res3 (fc x) f3
+    let f5 x = Fun.res4 (fc x) f4
+    let f6 x = Fun.res5 (fc x) f5
+    let f7 x = Fun.res6 (fc x) f6
+    let f8 x = Fun.res7 (fc x) f7
+    let f9 x = Fun.res8 (fc x) f8
+    let f10 x = Fun.res9 (fc x) f9
+  end
+end
+
+module Record = struct
+  let local_invalid_arg str = invalid_arg (__MODULE__ ^ str)
+  module T = struct
+    type ('p,'r) record =
+      { name : string
+      ; module_path : string list
+      ; fields : ('p, 'r) Fields.t
+      ; iso : ('p, 'r) Fun.iso
+      }
+  end
+  type ('p,'r) t = ('p,'r) T.record =
+    { name : string
+    ; module_path : string list
+    ; fields : ('p, 'r) Fields.t
+    ; iso : ('p, 'r) Fun.iso
+    }
+  let product r = Fields.product r.fields
+  let types_of_mutable_fields r = Fields.types_of_mutable_fields r.fields
+  let tuple r x = (product r, r.iso.bck x)
+end (* Record *)
+
 module Con = struct
   let local_invalid_arg str = invalid_arg (__MODULE__ ^ str)
 
@@ -17,7 +104,7 @@ module Con = struct
 
   type ('a, 'v) desc =
     { name  : string
-    ; args  : 'a Product.t (* we should rename desc.args to desc.args_ty *)
+    ; args  : ('a, 'v) Fields.t (* we should rename desc.args to desc.args_ty *)
     ; embed : 'a -> 'v (* this function should NEVER inspect 'a or the library would cause a segfault. *)
     ; proj  : 'v -> 'a option
     }
@@ -27,10 +114,13 @@ module Con = struct
 
   type 'v t = 'v con
 
+  let product c = Fields.product c.args
+  let con_arity c = Product.length (product c)
   let name (Con c) = c.name
+  let arity (Con c) = con_arity c
 
   let make name args embed proj = Con {name; args; embed; proj}
-  let c0 n x = make n Product.p0 (fun () -> x)
+  let c0 n x = make n Fields.Nil (fun () -> x)
                       (fun y -> if x == y then Some () else None)
 
   (* PRIVATE! and DANGEROUS
@@ -40,7 +130,7 @@ module Con = struct
    *)
 
   let dummy (Con c) =
-    let n = Product.length c.args in
+    let n = con_arity c in
     let dummy_args = Obj.magic (Listx.replicate n 0)
     in Obj.repr (c.embed dummy_args)
 
@@ -74,9 +164,6 @@ module Con = struct
     else let v = new_block tg n in
          begin set_fields v 0 (ts,xs); v end
 
-  (* The arity of a constructor *)
-  let arity (Con d) = Product.length (d.args)
-
   (* PRIVATE
    "ctag" computes the tag of the values corresponding to a
    constructor description. It gives the "embed" function
@@ -101,7 +188,7 @@ module Con = struct
     | None -> local_invalid_arg "partial_conap: incorrect constructor"
 
   let con (Conap (c,x)) = Con c
-  let subterms_prod (Conap (c,x)) = Product.Dynprod (c.args, x)
+  let subterms_prod (Conap (c,x)) = Product.Dynprod (product c, x)
   let subterms x = Product.list_of_dynprod (subterms_prod x)
 end (* Con *)
 
@@ -141,7 +228,7 @@ module Variant = struct
   *)
   let empty_con () = Con.Con
                        { name = "empty_con"
-                       ; args = Product.p1 Sum.Empty
+                       ; args = Cons ({name=""; ty = Sum.Empty; set = None}, Nil)
                        ; embed = (fun _ -> assert false) (* this is the empty function *)
                        ; proj = (fun _ -> None)
                        }
@@ -365,72 +452,6 @@ module Poly = struct
 
   type _ ty += Poly_variant : 'v t -> 'v ty
 end (* Poly *)
-
-(** Generic representation of record fields. *)
-module Field = struct
-  module T = struct
-    type ('a, 'r) field = {
-      name : string;
-      ty : 'a ty;
-      (*  bound : int;*)
-      set : ('r -> 'a -> unit) option;
-    }
-  end
-
-  type ('a,'r) t = ('a,'r) T.field = {
-    name : string; (** name of the field *)
-    ty : 'a ty; (** type of the field *)
-    set : ('r -> 'a -> unit) option; (** procedure for updating the field if it is mutable *)
-  }
-
-  let is_mutable fd = fd.set != None
-end
-
-module Fields = struct
-  module T = struct
-    type ('p, 'r) fields =
-      | Nil : (unit, 'r) fields
-      | Cons : ('t, 'r) Field.t * ('ts, 'r) fields -> ('t * 'ts, 'r) fields
-  end
-
-  type ('p, 'r) t =  ('p,'r) T.fields =
-    | Nil : (unit, 'r) t
-    | Cons : ('t, 'r) Field.t * ('ts, 'r) t -> ('t * 'ts, 'r) t
-
-  let rec product : type p . (p,'r) t -> p Product.t
-    = function
-      | T.Nil -> Nil
-      | T.Cons (f,fs) -> Cons (f.ty, product fs)
-
-  let rec types_of_mutable_fields : type p . (p, 'r) t -> Ty.ty' list
-    = function
-      | T.Nil -> []
-      | T.Cons (f, fs) ->
-        if Field.is_mutable f then
-          E f.ty :: types_of_mutable_fields fs
-        else types_of_mutable_fields fs
-end
-
-module Record = struct
-  let local_invalid_arg str = invalid_arg (__MODULE__ ^ str)
-  module T = struct
-    type ('p,'r) record =
-      { name : string
-      ; module_path : string list
-      ; fields : ('p, 'r) Fields.t
-      ; iso : ('p, 'r) Fun.iso
-      }
-  end
-  type ('p,'r) t = ('p,'r) T.record =
-    { name : string
-    ; module_path : string list
-    ; fields : ('p, 'r) Fields.t
-    ; iso : ('p, 'r) Fun.iso
-    }
-  let product r = Fields.product r.fields
-  let types_of_mutable_fields r = Fields.types_of_mutable_fields r.fields
-  let tuple r x = (product r, r.iso.bck x)
-end (* Record *)
 
 module Method = struct
   (* indices of bound variables are 0..bound - 1 *)

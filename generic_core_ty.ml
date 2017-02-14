@@ -59,6 +59,7 @@ type 'a t = 'a ty
 (* ** Forgetting the index
 The GADT syntax allows us to forget the type index using existential quantification.
 The type =ty'= is the union of all ='a ty= for all ='a=.
+TODO: rename ty' to typename
 *)
 type ty' = E : 'a ty -> ty'
 

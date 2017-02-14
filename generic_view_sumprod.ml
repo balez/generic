@@ -1,5 +1,5 @@
 (** Sum of Product view
-    inspired by the Haskell LIGD library.
+    inspired by Haskell LIGD library.
 
     Cheney, James, & Hinze, Ralf. (2002). A lightweight
     implementation of generics and dynamics. Pages 90--104 of
@@ -107,7 +107,7 @@ and cons : type v . v Con.t list -> v varsp
 
 and var : type v . v varsp -> v Con.t -> v varsp
   = fun (Varsp (s, f, b)) (Con.Con h) ->
-        let s' = Con (h.name, Sum (prod h.args, s))
+        let s' = Con (h.name, Sum (fields h.args, s))
         and f' = either h.embed f
         and b' x = (match h.proj x with
             | Some y -> Some (Left y)

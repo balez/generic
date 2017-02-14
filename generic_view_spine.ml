@@ -89,7 +89,7 @@ let rec spine_of_product : type a b . (a -> b) -> a Product.tuple -> b spine
      App (spine_rest, t, x)
 ;;
 let spine_of_variant (Desc.Con.Conap (desc,args)) =
-  spine_of_product desc.embed (desc.args, args)   (* we should rename [desc.args] to [desc.args_ty] *)
+  spine_of_product desc.embed (Desc.Con.product desc, args)   (* we should rename [desc.args] to [desc.args_ty] *)
 ;;
 
 let rec spine : type a . a ty -> a -> a spine

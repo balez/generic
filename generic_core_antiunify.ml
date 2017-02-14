@@ -39,8 +39,8 @@ and anti_unify_recurse : type a b . a ty -> b ty -> a ty
   if Ty.eq x y then x (* short circuit the recursive unification *)
   else if Ty.neq (Ty.conpat x) (Ty.conpat y) then Ty.Any
   else match Ty_desc.conap x with
-         Desc.Con.Conap (c, xs)
-         -> c.embed (anti_unify_prod (c.args, xs, Ty_desc.subterms y))
+      Desc.Con.Conap (c, xs)
+      -> c.embed (anti_unify_prod (Desc.Con.product c, xs, Ty_desc.subterms y))
 and anti_unify_prod : type a . a Product.t * a * Ty.dyn list -> a
   = let open Product.T in function
   | Nil , (), [] -> ()

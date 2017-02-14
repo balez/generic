@@ -282,7 +282,7 @@ and check_product : type p . p Product.t -> obj -> unit
   = fun p v -> check_fields_from 0 p v
 
 (* check_fields_from i p v
-will check the fields i,i+1,...(size v -1)
+will check the block fields i,i+1,...(size v -1)
 with the types given in the product description 'p'
  *)
 and check_fields_from : type p . int -> p Product.t -> obj -> unit
@@ -293,6 +293,16 @@ and check_fields_from : type p . int -> p Product.t -> obj -> unit
         (Listx.from_to a (size v - 1))
   with Invalid_argument _ ->
     raise (Serialize_exception "Block of incorrect length.")
+
+and check_record_fields : type p r . int -> (p, r) Desc.Fields.t -> (p -> r) -> obj -> unit
+  = fun i r fwd v ->
+    (* Mutable fields impose a monomorphic constraint on the
+       record type, thus they can't contain `Any' *)
+    guard (List.for_all Patterns.no_free_var' (Desc.Fields.types_of_mutable_fields r));
+    (* Recursively checking each field *)
+    check_fields_from i (Desc.Fields.product r) v;
+    (* Checking that the fields are in the same order as in the record_desc *)
+    guard (Objx.fields_all2 (==) v (to_obj (fwd (from_obj (Objx.listify v)))))
 
 (* "check_record": Since we cannot be sure that the record
 description lists the fields in the correct order, we must
@@ -305,13 +315,7 @@ field values themselves.) *)
 and check_record : type p r . (p, r) Desc.Record.t -> obj -> unit
   = fun r v ->
     check_tag 0 v;
-    (* Mutable fields impose a monomorphic constraint on the
-       record type, thus they can't contain `Any' *)
-    guard (List.for_all Patterns.no_free_var' (Desc.Record.types_of_mutable_fields r));
-    (* Recursively checking each field *)
-    check_product (Desc.Record.product r) v;
-    (* Checking that the fields are in the same order as in the record_desc *)
-    guard (Objx.fields_all2 (==) v (to_obj (r.iso.fwd (from_obj (Objx.listify v)))))
+    check_record_fields 0 r.fields r.iso.fwd v;
 
 and check_variant : type v . v Desc.Variant.cons -> obj -> unit
   = fun cs v ->
@@ -355,14 +359,14 @@ and check_poly_variant : type v . v Desc.Poly.t -> obj -> unit
   with Not_found -> raise (Serialize_exception "Polymorphic variant, constructor not found.")
 
 and check_args : type v . v Desc.Con.t -> obj -> unit
-  = fun (Desc.Con.Con c) -> check_product c.args
+  = fun (Desc.Con.Con c) -> check_record_fields 0 c.args c.embed
 
 (* Singleton constructor *)
 and check_single : type v . v Desc.Con.t -> obj -> unit
   = fun (Desc.Con.Con c) v ->
-  let open Product.T in
+  let open Desc.Fields.T in
   match c.args with
-  | Cons (t, Nil) -> check_field t v 1
+  | Cons ({ty;_}, Nil) -> check_field ty v 1
   | _ -> raise (Serialize_exception "Polymorphic variant, invalid singleton constructor.")
 
 and check_extensible : type t . t Desc.Ext.t -> obj -> unit
@@ -371,7 +375,7 @@ and check_extensible : type t . t Desc.Ext.t -> obj -> unit
       visit_val_add v (to_obj w);
       let Desc.Con.Con c = Desc.Ext.con x w
       in one_of [ lazy (guard (tag v == object_tag)) (* constant constructor *)
-                ; lazy (check_fields_from 1 c.args (to_obj w))]
+                ; lazy (check_record_fields 1 c.args c.embed (to_obj w))]
   with Not_found -> raise (Serialize_exception "Extensible type, constructor not found.")
 
 (* (comment from stdlib/lazy.ml)

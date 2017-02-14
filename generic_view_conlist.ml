@@ -1,12 +1,9 @@
 (** List of constructors view.
+    Inspired by haskell Replib library.
     Records and products are viewed as a list of one constructor.
     Abstract types are dealt with by viewing their public representation.
     Synonyms are followed,
     Base types and custom types are ignored: Int, Int32, Int64, Char, Float, String, Bytes, Array.
-
-    TODO, use records instead of products for the arguments of
-    constructors, this way we would keep the meta information of
-    field names.
 *)
 
 open Generic_core
@@ -17,26 +14,39 @@ let ( -< ) = Fun.(-<)
 
 type 'a view = 'a Con.t list option
 
+let set_map from set r x = set (from r) x
+
+
+let field_map m = let open Field.T in
+  fun {name; ty; set} ->
+    {name; ty; set = Option.map (set_map m) set}
+
+let rec fields_map : type p . ('b -> 'a) -> (p, 'a) Fields.t -> (p, 'b) Fields.t
+  = fun m -> let open Fields.T in function
+  | Nil -> Nil
+  | Cons (f, fs) -> Cons (field_map m f, fields_map m fs)
+
 (** @raise Exn.Failed if the representation doesn't correspond to a valid abstract value *)
 let repr r (Con.Con {name; args; embed; proj}) =
-  Con.Con { name; args
-          ; embed = Option.get_some -< r.Repr.from_repr -< embed
-          ; proj = proj -< r.to_repr
-          }
+    Con.Con { name = name
+            ; args = fields_map r.Repr.to_repr args
+            ; embed = Option.get_some -< r.Repr.from_repr -< embed
+            ; proj = proj -< r.to_repr
+            }
 
 let rec view : type a . a ty -> a view
   = fun t ->
     match Desc_fun.view t with
     | Product (p, iso) ->
       Some [Con { name  = ""
-                ; args  = p
+                ; args  = Fields.anon p
                 ; embed = iso.fwd
                 ; proj  = (fun x -> Some (iso.bck x))
                 }
            ]
     | Record r ->
       Some [Con { name  = ""
-                ; args  = Record.product r
+                ; args  = r.fields
                 ; embed = r.iso.fwd
                 ; proj  = (fun x -> Some (r.iso.bck x))
                 }
