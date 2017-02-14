@@ -56,10 +56,6 @@ type 'b varsp =
 let empty_varsp : 'a varsp
   = Varsp (Empty, empty_elim, (fun x -> None))
 
-let iso_eq : type a b . (a, b) Equal.t -> (a, b) Fun.iso
-  = function
-    | Equal.Refl -> { fwd = Fun.id; bck = Fun.id }
-
 (* forward conversion may throw Exn.Failed *)
 let iso_repr r = let open Repr in
   { Fun.fwd = Option.get_some -< r.from_repr
@@ -80,9 +76,10 @@ let rec view : type a . a ty -> a sp
     match Desc_fun.view t with
     | Product (p, iso) -> Iso (prod p, iso)
     | Record r -> Iso (fields r.fields, r.iso)
-    | Variant v -> sp_of_varsp (cons (Variant.list_of_cons v.cons))
+    | Variant v -> sp_of_varsp (cons (Variant.con_list v.cons))
     | Extensible e -> sp_of_varsp (ext e)
-    | Synonym (t', eq) -> Iso (view t', iso_eq eq)
+    | Synonym (t', eq) -> (match eq with
+          Equal.Refl -> view t')
     | Abstract ->
       (match Repr.repr t with
        | Repr.Repr r -> Iso (view r.repr_ty, iso_repr r))
