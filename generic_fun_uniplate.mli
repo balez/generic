@@ -42,8 +42,7 @@ val map_children : 'a ty -> 'b ty -> ('b -> 'b) -> ('a -> 'a)
 
 (** A family is a list of descendents.
 A descendent of a value is either the value itself or a descendent of one of its children.
-[family] builds
-a pre-order family where the value is listed before its descendents *)
+[family] builds a pre-order family where the value is listed before its descendents *)
 val family : 'a ty -> 'a -> 'a list
 
 (** A post-order family where the value is listed after its descendents.

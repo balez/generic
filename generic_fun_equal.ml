@@ -32,7 +32,7 @@ module Conlist = struct
   let rec equal : type a . a Ty.t -> a -> a -> bool
     = fun t -> match view t with
       | None -> ( = )              (* Base case (core types) *)
-      | Some cs -> equal_conlist cs
+      | Some cs -> equal_conlist cs (* generic case *)
 
   and equal_conlist : type a . a Conlist.view -> a -> a -> bool
     = fun cs x y -> match conap cs x with
