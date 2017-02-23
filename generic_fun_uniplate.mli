@@ -1,13 +1,15 @@
-(** Uniplate library for boilerplate-less tree-traversals
+(** Library for boilerplate-less tree-traversals.
 
-    The library is inspired by the Haskell uniplate library.
+    It is inspired by the Haskell uniplate by Neil Mitchell.
 
-http://hackage.haskell.org/package/uniplate
-http://community.haskell.org/~ndm/darcs/uniplate/uniplate.htm
+- {{:http://hackage.haskell.org/package/uniplate}http://hackage.haskell.org/package/uniplate}
+- {{:http://community.haskell.org/~ndm/darcs/uniplate/uniplate.htm}tutorial}
 
-The function names, implementation and many comments are taken from Traversal implementation.
-
-http://www-ps.informatik.uni-kiel.de/~sebf/projects/traversal.html
+    The function names, implementation and many comments are
+    taken from
+    {{:http://www-ps.informatik.uni-kiel.de/~sebf/projects/traversal.html}Traversal}
+    implementation by Sebastian Fischer, and are the same as in
+    the {!module:Generic_fun_multiplate} generalisation.
 *)
 
 open Generic_core

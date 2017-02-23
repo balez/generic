@@ -2,10 +2,10 @@
 
     The uniplate view represents recursive types as rose trees.
 
-    It is inspired by the Haskell uniplate and multiplate libraries.
+    It is inspired by the Haskell uniplate by Neil Mitchell.
 
-http://hackage.haskell.org/package/uniplate
-http://community.haskell.org/~ndm/darcs/uniplate/uniplate.htm
+- http://hackage.haskell.org/package/uniplate
+- http://community.haskell.org/~ndm/darcs/uniplate/uniplate.htm
 
 *)
 
