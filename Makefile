@@ -33,8 +33,8 @@ NS=generic_util.ml generic_core.ml generic_view.ml generic_fun.ml
 NSI=
 
 ML=\
-generic_util_app.ml\
 generic_util_fun.ml\
+generic_util_app.ml\
 generic_util_hash.ml\
 generic_util_iter.ml\
 generic_util_list.ml\
@@ -46,7 +46,6 @@ generic_util_sum.ml\
 generic_util_option.ml\
 generic_util_monad.ml\
 generic_core_ty.ml\
-generic_core_equal.ml\
 generic_core_product.ml\
 generic_core_desc.ml\
 generic_core_ty_desc.ml\
@@ -56,6 +55,7 @@ generic_core_consumer.ml\
 generic_core_desc_fun.ml\
 generic_core_antiunify.ml\
 generic_core_repr.ml\
+generic_core_equal.ml\
 generic_view_spine.ml\
 generic_view_sumprod.ml\
 generic_view_conlist.ml\
@@ -65,8 +65,13 @@ generic_fun_multiplate.ml\
 generic_fun_equal.ml\
 
 MLI=\
+generic_util_obj.mli\
+generic_util_obj_inspect.mli\
+generic_util_app.mli\
+generic_util_fun.mli\
+generic_util_iter.mli\
+generic_util_sum.mli\
 generic_core_antiunify.mli\
-generic_core_equal.mli\
 generic_core_extensible.mli\
 generic_core_consumer.mli\
 generic_core_patterns.mli\
@@ -76,12 +81,7 @@ generic_core_ty.mli\
 generic_core_desc_fun.mli\
 generic_core_desc.mli\
 generic_core_repr.mli\
-generic_util_obj.mli\
-generic_util_obj_inspect.mli\
-generic_util_app.mli\
-generic_util_fun.mli\
-generic_util_iter.mli\
-generic_util_sum.mli\
+generic_core_equal.mli\
 generic_view_spine.mli\
 generic_view_sumprod.mli\
 generic_view_conlist.mli\
@@ -115,6 +115,10 @@ reify.cmo: reify.ml
 reify: generic.cma reify.cmo
 	ocamlc -o $@ -I +compiler-libs ocamlcommon.cma $^
 
+# some times one wants to dump the source after a ppx expansion and check the results:
+tmp.cmo: tmp.ml
+	ocamlc -I +compiler-libs -c $<
+
 # NOTE about the rule "doc/index.html":
 # I added the library as a prerequisite
 # because ocamldoc complained of ubound modules otherwise.
@@ -130,7 +134,7 @@ doc/dep.dot: lib $(NS) $(NSI) $(ML) $(MLI)
 	$(OCAMLDOC) -dot -o doc/dep.dot $(wordlist 2, $(words $^), $^)
 
 generic_test_marshal.cmo: generic_test_marshal.ml ppx
-	$(OCAMLC) -o $@ -ppx ./reify -c $<
+	$(OCAMLC) -o $@ -ppx ./reify -c $< -dsource
 
 generic_test_marshal.ppx: generic_test_marshal.ml ppx
 	$(OCAMLC) -o $@ -dsource -ppx ./reify -c $<
