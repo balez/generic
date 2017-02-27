@@ -72,8 +72,9 @@ let scrap_conlist : 'a Conlist.t -> 'a -> 'a scrapped
 
 let scrap : 'a ty -> 'a -> 'a scrapped
   = fun t x -> match Conlist.view t with
-    | Some cs -> scrap_conlist cs x
-    | None -> Scrapped (Product.Nil, (), Fun.const x)
+    | [] -> Scrapped (Product.Nil, (), Fun.const x)
+    | cs -> scrap_conlist cs x
+
 
 let children t x =
   let Scrapped (p, cs, rep) = scrap t x

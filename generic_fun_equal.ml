@@ -26,13 +26,29 @@ module Sumprod = struct
       | Empty -> Sum.empty_elim x
 end
 
+module Spine = struct
+  open Spine
+  open Spine.T
+  let rec equal : type a . a Ty.t -> a -> a -> bool
+    = fun t -> equal_het t t
+  and equal_het : type a b . a Ty.t -> b Ty.t -> a -> b -> bool
+    = fun a b x y -> equal_spine (view a x, view b y)
+  and equal_spine : type a b . a Spine.t * b Spine.t -> bool
+    = function
+      | Con x , Con y -> raise Exn.Undefined
+      | App (f, a, x) , App (g, b, y) ->
+        equal_het a b x y
+        && equal_spine (f, g)
+      | _ , _ -> false
+end
+
 module Conlist = struct
   open Conlist
 
   let rec equal : type a . a Ty.t -> a -> a -> bool
     = fun t -> match view t with
-      | None -> ( = )              (* Base case (core types) *)
-      | Some cs -> equal_conlist cs (* generic case *)
+      | [] -> ( = )              (* Base case (core types) *)
+      | cs -> equal_conlist cs (* generic case *)
 
   and equal_conlist : type a . a Conlist.view -> a -> a -> bool
     = fun cs x y -> match conap cs x with

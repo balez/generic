@@ -35,33 +35,34 @@ let repr r (Con.Con {name; args; embed; proj}) =
             ; proj = proj -< r.to_repr
             }
 
-let rec view : type a . a ty -> a view option
+let rec view : type a . a ty -> a view
   = fun t ->
     match Desc_fun.view t with
     | Product (p, iso) ->
-      Some [Con { name  = ""
-                ; args  = Fields.anon p
-                ; embed = iso.fwd
-                ; proj  = (fun x -> Some (iso.bck x))
-                }
-           ]
+      [Con { name  = ""
+           ; args  = Fields.anon p
+           ; embed = iso.fwd
+           ; proj  = (fun x -> Some (iso.bck x))
+           }
+      ]
     | Record r ->
-      Some [Con { name  = ""
-                ; args  = r.fields
-                ; embed = r.iso.fwd
-                ; proj  = (fun x -> Some (r.iso.bck x))
-                }
-           ]
-    | Variant v -> Some (Variant.con_list v.cons)
-    | Extensible e -> Some (Ext.con_list e)
+      [Con { name  = ""
+           ; args  = r.fields
+           ; embed = r.iso.fwd
+           ; proj  = (fun x -> Some (r.iso.bck x))
+           }
+      ]
+    | Variant v -> Variant.con_list v.cons
+    | Extensible e -> Ext.con_list e
     | Synonym (t', eq) -> (match eq with
           Equal.Refl -> view t')
     | Abstract ->
       (match Repr.repr t with
-       | Repr.Repr r -> Option.map (List.map (repr r)) (view r.repr_ty))
-    | _ -> None
+       | Repr.Repr r -> List.map (repr r) (view r.repr_ty))
+    | _ -> []
 
 (* @raise Not_found if the constructor is not in the list *)
 let conap cs x =
-  try Option.get_some (Listx.find_some (fun c -> Con.conap c x) cs)
-  with Exn.Failed -> raise Not_found
+  match Listx.find_some (fun c -> Con.conap c x) cs with
+  | None -> raise Not_found
+  | Some c -> c
