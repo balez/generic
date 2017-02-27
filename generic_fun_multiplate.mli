@@ -14,7 +14,7 @@ open Ty.T
 open App.T
 
 type 'f plate = {plate : 'a . 'a ty -> 'a -> ('a,'f) app}
-(** a plate is a type indexed function that may change values of any type
+(** A plate is a type-indexed function that may transform values of any type
 while carrying some effect in an applicative functor or a monad.
 *)
 
