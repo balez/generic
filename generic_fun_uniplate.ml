@@ -57,14 +57,14 @@ let rec fold a f x = f x (List.map (fold a f) (children a x))
 
 (* Applicative and monadic variants *)
 
-let fmap_children t a f x =
+let traverse_children t a f x =
   let (cs, rep) = scrap a x
   in (App.fun_of_app t).fmap rep (Listx.traverse t f cs)
 
-let rec fmap_family m a f x = let open App in
-  join m (liftM m f (fmap_children (app_of_mon m) a (fmap_family m a f) x))
+let rec traverse_family m a f x = let open App in
+  join m (liftM m f (traverse_children (app_of_mon m) a (traverse_family m a f) x))
 
-let rec freduce_family m a f x =
+let rec mreduce_family m a f x =
   let rec g x = m.bind (f x) (function None -> m.return x
-                                     | Some y -> fmap_family m a g y)
-  in fmap_family m a g x
+                                     | Some y -> traverse_family m a g y)
+  in traverse_family m a g x

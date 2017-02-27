@@ -71,26 +71,26 @@ let children t x =
   in let open Product in
   list_of_dynprod (Dynprod (p, cs))
 
-let fmap_children_p a f = {plate = fun t x ->
+let traverse_children_p a f = {plate = fun t x ->
   let Scrapped (p, cs, rep) = scrap t x
   in (App.fun_of_app a).fmap rep (traverse a f p cs)}
-let fmap_children a f = (fmap_children_p a f).plate
+let traverse_children a f = (traverse_children_p a f).plate
 
 let map_children_p f = {id_plate = fun t x -> let open App in
-  get_id (fmap_children id_applicative (id_plate f) t x)}
+  get_id (traverse_children id_applicative (id_plate f) t x)}
 let map_children f = (map_children_p f).id_plate
 
-let rec fmap_family_p m f =
-  compose_monad m f (fmap_children_p (App.app_of_mon m) (fmap_family_p m f))
-let fmap_family m f = (fmap_family_p m f).plate
+let rec traverse_family_p m f =
+  compose_monad m f (traverse_children_p (App.app_of_mon m) (traverse_family_p m f))
+let traverse_family m f = (traverse_family_p m f).plate
 
 let rec map_family_p f = {id_plate = fun t x -> let open App in
-  get_id (fmap_family id_monad (id_plate f) t x)}
+  get_id (traverse_family id_monad (id_plate f) t x)}
 let map_family f = (map_family_p f).id_plate
 
 let fold_children_p m f = {const_plate = fun t x ->
   let open App in
-  get_const (fmap_children (const_applicative m) (const_plate f) t x)}
+  get_const (traverse_children (const_applicative m) (const_plate f) t x)}
 let fold_children m f = (fold_children_p m f).const_plate
 
 let rec pre_fold_p m f =

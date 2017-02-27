@@ -71,14 +71,14 @@ val fold : 'a ty -> ('a -> 'r list -> 'r) -> 'a -> 'r
 
 (** applicative and monadic variants *)
 
-val fmap_children : 'f applicative -> 'a ty ->
+val traverse_children : 'f applicative -> 'a ty ->
   ('a -> ('a, 'f) app) -> ('a -> ('a, 'f) app)
 (** applicative variant of {!map_children} *)
 
-val fmap_family : 'f monad -> 'a ty ->
+val traverse_family : 'f monad -> 'a ty ->
   ('a -> ('a, 'f) app) -> ('a -> ('a, 'f) app)
 (** monadic variant of {!map_family} *)
 
-val freduce_family : 'f monad -> 'a ty ->
+val mreduce_family : 'f monad -> 'a ty ->
   ('a -> ('a option, 'f) app) -> 'a -> ('a, 'f) app
 (** monadic variant of {!reduce_family} *)

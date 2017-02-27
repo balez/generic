@@ -67,8 +67,8 @@ val children : 'a ty -> 'a -> Ty.dyn list
     value.
 *)
 
-val fmap_children_p : 'f applicative -> 'f plate -> 'f plate
-val fmap_children : 'f applicative -> 'f plate -> 'a ty -> 'a -> ('a, 'f) app
+val traverse_children_p : 'f applicative -> 'f plate -> 'f plate
+val traverse_children : 'f applicative -> 'f plate -> 'a ty -> 'a -> ('a, 'f) app
 (** Replace each child using the plate.
     (left to right traversal of children).
 Note that [fmap_children] corresponds to [multiplate] and [mapChildrenM] in the Haskell library.
@@ -79,8 +79,8 @@ val map_children : id_plate -> 'a ty -> 'a -> 'a
 (** Specialisation of [fmap_children] with the identity functor.
 Replace each child using the pure plate. *)
 
-val fmap_family_p : 'f monad -> 'f plate -> 'f plate
-val fmap_family : 'f monad -> 'f plate -> 'a ty -> 'a -> ('a, 'f) app
+val traverse_family_p : 'f monad -> 'f plate -> 'f plate
+val traverse_family : 'f monad -> 'f plate -> 'a ty -> 'a -> ('a, 'f) app
 (** Bottom up (Depth-first, post-order) traversal of a value of a recursive type.
 
     Given a plate whose fields transform each type, [fmap_family_p]
