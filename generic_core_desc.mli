@@ -360,6 +360,9 @@ module Variant : sig
   (** O(1). Deconstructs a value into a pair of a constructor and its arguments.
       @raise Invalid_argument if ['v cons] doesn't reflect all the possible
       constructors of variant ['v].
+{[
+conap cs x = Conap (c,y)  ==>  c.embed y = x
+]}
   *)
 
   (** {b Variant.}
@@ -380,7 +383,7 @@ module Ext : sig
 
   (** Extensible variants allow new constructors to be added to
       a type after it has been defined. The generic view for
-      extensible variant must also be extensible so that the
+      extensible variants must also be extensible so that the
       description of the new constructors may be added to the
       description of the extensible variant.
 
