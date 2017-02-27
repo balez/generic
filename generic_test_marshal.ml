@@ -82,6 +82,13 @@ let _ =
     test_cast "3 : Int" 3 Int;
   end
 
+(*****************************************)
+(* variants *)
+type ('a,'b) my_variant = A of {a1: 'a; a2: int} | B of 'b * (bool * 'b) * 'a
+
+(* records *)
+type ('a,'b) my_record = {a : 'a option; b : 'b list}
+
 (**************************************************)
 (* Types abstraits *)
 
