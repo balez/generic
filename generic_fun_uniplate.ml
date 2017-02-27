@@ -15,6 +15,7 @@ open Generic_view
 
 open Ty.T
 open Desc.T
+open App.T
 
 let local_invalid_arg str = invalid_arg (__MODULE__ ^ str)
 
@@ -33,33 +34,37 @@ let rec scrap_spine : type a b . a ty -> b Spine.t -> a list * (a list -> b Spin
                  | _ -> local_invalid_arg "scrap_spine, replacing an incorrect number of children.")
       | None -> (cs, fun cs -> App (replace cs, c, x))
 
-let scrap a b x =
-  let (cs, rep) = scrap_spine b (Spine.view a x)
+let scrap a x =
+  let (cs, rep) = scrap_spine a (Spine.view a x)
   in (List.rev cs, fun cs -> Spine.rebuild (rep (List.rev cs)))
 
-let children a b x = fst (scrap a b x)
-let replace_children a b x = snd (scrap a b x)
+let children a x = fst (scrap a x)
+let replace_children a x = snd (scrap a x)
 
-let map_children a b f x =
-  let (cs, rep) = scrap a b x
+let rec family a x = x :: List.concat (List.map (family a) (children a x))
+
+let map_children a f x =
+  let (cs, rep) = scrap a x
   in rep (List.map f cs)
 
-let rec family a x = x :: child_families a a x
-and child_families : 'a . 'a ty -> 'b ty -> 'a -> 'b list
-  = fun a b x -> List.concat (List.map (family b) (children a b x))
+let rec map_family a f x = f (map_children a (map_family a f) x)
 
-let rec map_family a f x = f (map_child_families a a f x)
-and map_child_families : 'a . 'a ty -> 'b ty -> ('b -> 'b) -> ('a -> 'a)
-  = fun a b f x -> map_children a b (map_family b f) x
-
-let rec eval_family a f x =
-  let rec g x = Option.unopt x (map_family a g) (f x)
+let rec reduce_family a f x =
+  let rec g x = match f x with None -> x | Some y -> map_family a g y
   in map_family a g x
 
-let eval_child_families a b f x =
-  map_children a b (eval_family b f) x
+let rec fold a f x = f x (List.map (fold a f) (children a x))
 
-let rec fold a f x = fold_children a a f f x
-and fold_children : 'a 'ra . 'a ty -> 'b ty -> ('a -> 'rb list -> 'ra) -> ('b -> 'rb list -> 'rb) -> 'a -> 'ra
-  = fun a b f g x ->
-  f x (List.map (fold b g) (children a b x))
+(* Applicative and monadic variants *)
+
+let fmap_children t a f x =
+  let (cs, rep) = scrap a x
+  in (App.fun_of_app t).fmap rep (Listx.traverse t f cs)
+
+let rec fmap_family m a f x = let open App in
+  join m (liftM m f (fmap_children (app_of_mon m) a (fmap_family m a f) x))
+
+let rec freduce_family m a f x =
+  let rec g x = m.bind (f x) (function None -> m.return x
+                                     | Some y -> fmap_family m a g y)
+  in fmap_family m a g x

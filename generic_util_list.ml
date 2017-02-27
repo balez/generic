@@ -153,3 +153,7 @@ let match_list f =
     | h :: t -> try f h
                 with Match_failure (_,_,_) -> go t
   in go
+
+let rec traverse a f = let open App.T in function
+    | [] -> a.pure []
+    | h :: t -> App.liftA2 a cons (f h) (traverse a f t)

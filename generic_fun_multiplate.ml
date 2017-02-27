@@ -43,7 +43,7 @@ let pure_const_plate {mempty; _} =
 
 (****************************************************)
 
-let map a {plate} p x
+let traverse a {plate} p x
   = let rec go : type p . p Product.t * p -> (p, 'f) App.t
     = let open Product in function
       | Nil , () -> a.pure ()
@@ -51,16 +51,6 @@ let map a {plate} p x
         let pair a b = (a,b) in
         App.liftA2 a pair (plate t x) (go (ts, xs))
     in go (p,x)
-
-let rec id_map : type p . id_plate -> p Product.t -> p -> p
-  = fun f p x -> let open Product in match p, x with
-    | Nil , () -> ()
-    | Cons (t, ts) , (x, xs) -> (f.id_plate t x, id_map f ts xs)
-
-let rec const_map : type p . 'r const_plate -> p Product.t -> p -> 'r list
-  = fun f p x -> let open Product in match p, x with
-    | Nil , () -> []
-    | Cons (t, ts) , (x, xs) -> f.const_plate t x :: const_map f ts xs
 
 (****************************************************)
 type 'a scrapped =
@@ -83,7 +73,7 @@ let children t x =
 
 let fmap_children_p a f = {plate = fun t x ->
   let Scrapped (p, cs, rep) = scrap t x
-  in (App.fun_of_app a).fmap rep (map a f p cs)}
+  in (App.fun_of_app a).fmap rep (traverse a f p cs)}
 let fmap_children a f = (fmap_children_p a f).plate
 
 let map_children_p f = {id_plate = fun t x -> let open App in
