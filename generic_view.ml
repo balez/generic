@@ -16,5 +16,5 @@ module Sumprod = Generic_view_sumprod
 
 module Conlist = Generic_view_conlist
 (** List of constructors view, inspired by Haskell Replib library.
-    Records and products are viewed as a list of one constructor.
+    Records and products are viewed as variants of one constructor.
 *)
