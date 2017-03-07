@@ -5,7 +5,7 @@ open Ty.T
 open Ty.Dyn
 open Util
 
-(** Example from the paper "Scrap Your Boilerplate: A Practical Design Pattern for Generic Programming"
+(** Examples from the paper "Scrap Your Boilerplate: A Practical Design Pattern for Generic Programming"
     By Ralf Lammel and Simon Peyton Jones *)
 module SYB_Examples = struct
   (* organisation of a company *)
@@ -65,5 +65,5 @@ module SYB_Examples = struct
     in
     pre_fold App.float_sum bill_plate Company
 
-  
+
 end
