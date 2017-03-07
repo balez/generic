@@ -29,6 +29,8 @@
    mapper. The later approach doesn't have side effects.  We
    define clojures to share the contextual information
    between the records fields. (See [main] for instance)
+
+TODO: better use multiplate!
 *)
 
 open Ast_mapper
@@ -183,8 +185,8 @@ let pat_record_pun fields =
 
 (** General constructor where the arguments are given as a list.
  *)
-let cons constructor tuple name =
-  let consN args = constructor (loc name) args
+let cons construct tuple name =
+  let consN args = construct (loc name) args
   in
   let cons0 = consN None
   and cons1 param = consN (Some param)
@@ -199,6 +201,22 @@ let pat_cons n = cons Pat.construct Pat.tuple (Lident n)
 
 let exp_cons' = cons Exp.construct Exp.tuple
 let pat_cons' = cons Pat.construct Pat.tuple
+
+(* a constructor expression with inlined record,
+the fields are given by the the list of labels of type [string loc]
+and the arguments are given by the [args] in the same order.
+*)
+let cons_record construct record name labels args =
+  let consN = construct (loc name)
+  in match args with
+  | [] ->
+    assert (List.length labels = 0);
+    consN None
+  | ps ->
+    consN (Some (record (List.combine labels args)))
+
+let exp_cons_record n = cons_record Exp.construct (fun x -> Exp.record x None) (Lident n)
+let pat_cons_record n = cons_record Pat.construct (fun x -> Pat.record x Closed) (Lident n)
 
 (** Builds the [core_type] corresponding to [sigma ty] given
 the core type representing [sigma] *)
@@ -286,20 +304,27 @@ let exp_fields vars =
 
     [single]: true if the constructor is the only one for this variant.
     [vars]: type parameters (free variables)
-    [args]: list of the label declarations for the arguments
+    [lds]: list of the label declarations for the arguments
     [constr]: name of the constructor
 *)
-let make_con single vars args constr =
-  let num_args = List.length args in
+let make_con is_tuple single vars lds constr =
+  let num_args = List.length lds in
   let pat_args = pat_vars num_args in
   let exp_args = exp_vars num_args in
   let pat_embed = pat_nested_tuple pat_args in
-  let exp_embed = exp_cons constr exp_args in
-  let pat_proj = pat_cons constr pat_args in
+  let labels = List.map (fun l -> lid l.pld_name.txt) lds in
+  let exp_embed =
+    if is_tuple then exp_cons constr exp_args
+    else exp_cons_record constr labels exp_args
+  in
+  let pat_proj =
+    if is_tuple then pat_cons constr pat_args
+    else pat_cons_record constr labels pat_args
+  in
   let exp_proj = exp_nested_tuple exp_args in
   [%expr Generic_core.Desc.Con.make
       [%e exp_str constr]
-      [%e exp_fields vars args]
+      [%e exp_fields vars lds]
       (fun [%p pat_embed] -> [%e exp_embed])
       [%e if single
         then [%expr (fun [%p pat_proj] -> Some [%e exp_proj])]
@@ -309,6 +334,10 @@ let make_con single vars args constr =
             | _ -> None)]]
   ]
 
+let is_tuple = function
+  | Pcstr_tuple _ -> true
+  | _ -> false
+
 (** [single]: true if the constructor is the only one for this variant.
     [vars] the type parameters of the variant.
     [c] the constructor declaration.
@@ -316,7 +345,7 @@ let make_con single vars args constr =
 let variant_constructor single vars c =
   let lds = lds_of_args c.pcd_args
   and constr = c.pcd_name.txt in
-  make_con single vars lds constr
+  make_con (is_tuple c.pcd_args) single vars lds constr
 
 (* The argument must be a type variable. *)
 let var_name ct = match ct.ptyp_desc with
@@ -424,14 +453,14 @@ let sig_witness t =
             )
          ])
 
-let make_ext_con vars exp_ty pat_ty args constr =
+let make_ext_con is_tuple vars exp_ty pat_ty args constr =
   [%stri let () = Generic_core.Desc_fun.ext_add_con
                [%e exp_ty]
     { Generic_core.Desc.Ext.con =
         fun (type a)
             (ty : a Generic_core.Ty.ty) -> (match ty with
             | [%p pat_ty]
-              -> [%e make_con false vars args constr]
+              -> [%e make_con is_tuple false vars args constr]
             | _ -> assert false : a Generic_core.Desc.Con.t)}
     ]
 
@@ -443,11 +472,11 @@ let ext_constructor ty params c =
   in let exp_t = exp_cons' ty exp_params
   and pat_t = pat_cons' ty pat_params
   and constr = c.pext_name.txt
-  and args = match c.pext_kind with
-    | Pext_decl (args, _) -> lds_of_args args
+  and (tuple, lds) = match c.pext_kind with
+    | Pext_decl (args, _) -> (is_tuple args, lds_of_args args)
     | _ -> assert false
   in
-  make_ext_con params exp_t pat_t args constr
+  make_ext_con tuple params exp_t pat_t lds constr
 
 (* Effectful statements, to update the type description:
    Desc.view, and Ty_desc.ext
@@ -460,6 +489,7 @@ let new_desc module_path t =
   let pat_constr = pat_cons constr (pat_vars num_params) in
   let ty_desc_ext = (* extend Generic_core.Ty_desc.ext *)
     make_ext_con
+      true
       (var_names num_params)
       [%expr Generic_core.Ty.Ty [%e exp_conpat]]
       [%pat? Generic_core.Ty.Ty [%p pat_constr]]
@@ -632,7 +662,7 @@ let rec main super reify_all module_lid =
       let lds = lds_of_args args
       and constr = e.pext_name.txt
       in
-      [make_ext_con [] [%expr Exn] [%pat? Exn] lds constr]
+      [make_ext_con false [] [%expr Exn] [%pat? Exn] lds constr]
     | _ -> [] (* TODO DEAL WITH THIS CASE  *)
   and sig_exn _ = []
   and str_typ_ext e =
