@@ -125,21 +125,28 @@ let ty_vars n =
 
 let var_name = "x"
 
-let pat_var n =
-  Pat.var (loc (var var_name n))
+let pat_var' v n =
+  Pat.var (loc (var v n))
+
+let pat_var = pat_var' var_name
 
 (** List of pattern variables of size [n] *)
-let pat_vars n =
-  List.map pat_var (Listx.from_to 1 n)
+let pat_vars' v n =
+  List.map (pat_var' v) (Listx.from_to 1 n)
 
-let lid_var n =
-  lid (var var_name n)
+let pat_vars = pat_vars' var_name
 
-let exp_var n =
-  Exp.ident (lid_var n)
+let lid_var' v n =
+  lid (var v n)
+let lid_var = lid_var' var_name
 
-let exp_vars n =
-  List.map exp_var (Listx.from_to 1 n)
+let exp_var' v n =
+  Exp.ident (lid_var' v n)
+let exp_var = exp_var' var_name
+
+let exp_vars' v n =
+  List.map (exp_var' v) (Listx.from_to 1 n)
+let exp_vars = exp_vars' var_name
 
 let var_names n =
   List.map (var var_name) (Listx.from_to 1 n)
@@ -181,7 +188,6 @@ let exp_record_pun fields =
 let pat_record_pun fields =
   Pat.record (List.map (fun loc -> (to_lid loc, Pat.var loc))
                 fields) Closed
-
 
 (** General constructor where the arguments are given as a list.
  *)
@@ -225,10 +231,6 @@ let ty sigma = (* Typ.constr (loc ty) [param] *)
 
 let unit_pattern = (* Pat.construct (loc (Lident "()")) None *)
   [%pat? ()]
-
-(** let () = expr *)
-let statement expr =   (* Str.value Nonrecursive [Vb.mk unit_pattern expr]*)
-  [%stri let () = [%e expr]]
 
 let anys n = Listx.replicate n [%expr Generic_core.Ty.Any]
 
@@ -526,6 +528,32 @@ let new_desc module_path t =
   else [if open_type && not (tydecl_abstract t)
         then ext_reg else desc_fun_ext]
 
+(* Extending Generic_core_equal for type [t] *)
+let ext_equal t =
+  let ty_name = t.ptype_name.txt in
+  let constr = witness_name ty_name in
+  let num_params = List.length t.ptype_params in
+  let exp_conpat = exp_cons constr (anys num_params) in
+  let pat_constr_x = pat_cons constr (pat_vars' "x" num_params) in
+  let pat_constr_y = pat_cons constr (pat_vars' "y" num_params) in
+  let rec match_equal n =
+  if n <= 0 then [%expr Some (Generic_core_equal.Refl : (a, b) Generic_core_equal.equal)]
+  else [%expr
+    match Generic_core_equal.equal [%e exp_var' "x" n] [%e exp_var' "y" n] with
+    | Some Generic_core_equal.Refl -> [%e match_equal (n - 1)]
+    | _ -> None]
+  in
+    [%stri
+      let () =
+        Generic_core_equal.ext [%e exp_conpat]
+          { Generic_core_equal.f =
+              fun (type a) (type b) (a : a ty) (b : b ty) ->
+                match (a, b) with
+                | ([%p pat_constr_x], [%p pat_constr_y]) ->
+                  [%e match_equal num_params]
+                | (_, _) -> None }
+    ]
+
 (** Structure and signature items have commonalities that we
     capture with the `item` type. This allows us to share the
     code of `new_item' for structures and signatures. *)
@@ -654,6 +682,7 @@ let rec main super reify_all module_lid =
     List.map str_witness types
     @ (* then we extend ty_desc and desc_fun.view *)
     List.concat (List.map (new_desc module_path) types)
+    @ (List.map ext_equal types) (* then we extend equal *)
   and sig_desc types =
     List.map sig_witness types
   and str_exn e =
