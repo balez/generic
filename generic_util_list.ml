@@ -1,6 +1,8 @@
 (** Useful functions on lists. *)
 
 open Generic_util
+open App.T
+
 let (-<) = Fun.(-<)
 
 (** [foldr c n l = List.fold_right c l n] *)
@@ -76,7 +78,7 @@ let rec drop_while p = function
     if p h then drop_while p t else l
 
 (** [find_some f l] applies an option-valued function [f] to
-    a list [l] and returns the first element that is not [None]
+    the elements of a list [l] and returns the first element that is not [None]
     or [None] if no such element exists.
 *)
 
@@ -120,8 +122,26 @@ let set n x xs =
   in
   if n < 0 then xs else go n xs
 
-(** {[concatmap f x = concat -< map f]} *)
+(** {[concatmap f x = concat -< map f]}
+    [concatmap] is the flipped bind operator of the list monad
+ *)
 let concatmap f xs = List.concat (List.map f xs)
+
+type list' = LIST
+type (_,_) app += List : 'a list -> ('a, list') app
+let get_list = function
+  | List x -> x
+  | _ -> assert false
+
+
+let monoid =
+  { mempty = []
+  ; mappend = (fun x y -> x @ y)
+  }
+let monad =
+  { return = (fun x -> List [x])
+  ; bind = (fun xs f -> List (concatmap (get_list -< f) (get_list xs)))
+  }
 
   (** Raised by {!sl_insert} when trying to insert an element that is already in the list. *)
 exception Insert_duplicate
@@ -157,3 +177,5 @@ let match_list f =
 let rec traverse a f = let open App.T in function
     | [] -> a.pure []
     | h :: t -> App.liftA2 a cons (f h) (traverse a f t)
+
+let sequence a = traverse a (fun x -> x)

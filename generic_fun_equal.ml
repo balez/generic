@@ -2,7 +2,11 @@ open Generic_core
 open Generic_util
 open Generic_view
 
-module Sumprod = struct
+module type Equal = sig
+  val equal : 'a Ty.t -> 'a -> 'a -> bool
+end
+
+module Sumprod : Equal = struct
   let rec equal : type a . a Ty.t -> a -> a -> bool
     = fun t -> equal_sp (Sumprod.view t)
 
@@ -26,7 +30,7 @@ module Sumprod = struct
       | Empty -> Sum.empty_elim x
 end
 
-module Spine = struct
+module Spine : Equal = struct
   open Spine
   open Spine.T
   let rec equal : type a . a Ty.t -> a -> a -> bool
@@ -42,7 +46,7 @@ module Spine = struct
       | _ , _ -> false
 end
 
-module Conlist = struct
+module Conlist : Equal = struct
   open Conlist
 
   let rec equal : type a . a Ty.t -> a -> a -> bool

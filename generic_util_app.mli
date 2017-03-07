@@ -81,10 +81,6 @@ type option' = OPTION
 type (_,_) t += Option : 'a option -> ('a, option') t
 val get_option : ('a, option') t -> 'a option
 
-type list' = LIST
-type (_,_) t += List : 'a list -> ('a, list') t
-val get_list : ('a, list') t -> 'a list
-
 type array' = ARRAY
 type (_,_) t += Array : 'a array -> ('a, array') t
 val get_array : ('a, array') t -> 'a array
@@ -154,7 +150,6 @@ val liftA3 : 'f T.applicative -> ('a -> 'b -> 'c -> 'd) ->
 val liftA4 : 'f T.applicative -> ('a -> 'b -> 'c -> 'd -> 'e) ->
  ('a, 'f) T.app -> ('b, 'f) T.app -> ('c, 'f) T.app -> ('d, 'f) T.app -> ('e, 'f) T.app
 
-
 (** {2 Monad} *)
 
 val liftM : 'f T.monad -> ('a -> 'b) ->
@@ -172,3 +167,32 @@ val join : 'a T.monad -> (('b, 'a) T.app, 'a) T.app -> ('b, 'a) T.app
 val id_applicative : id T.applicative
 val id_monad : id T.monad
 val const_applicative : 'a T.monoid -> 'a const T.applicative
+
+(** {2 state monad} *)
+type 'b state = STATE
+type (_, _) T.app += State : ('b -> 'a * 'b) -> ('a, 'b state) T.app
+val run_state : ('a, 'b state) T.app -> 'b -> 'a * 'b
+val state : 'a state T.monad
+val get : ('a, 'a state) T.app
+val put : 'a -> (unit, 'a state) T.app
+
+(** {2 reader monad} *)
+type 'b reader = READER
+type (_, _) T.app += Reader : ('b -> 'a) -> ('a, 'b reader) T.app
+val run_reader : ('a, 'b reader) T.app -> 'b -> 'a
+val reader : 'a reader T.monad
+val ask : ('a, 'a reader) T.app
+val local : ('a -> 'b) -> ('c, 'b reader) T.app -> ('c, 'a reader) T.app
+
+(** {io monad} *)
+type io = IO_
+type (_, _) T.app += IO : (unit -> 'a) -> ('a, io) T.app
+val run_io : ('a, io) T.app -> 'a
+val io : io T.monad
+val lift_io : (unit -> 'a) -> ('a, io) T.app
+
+(** {2 monoids} *)
+val int_sum : int T.monoid
+val int_prod : int T.monoid
+val float_sum : float T.monoid
+val float_prod : float T.monoid

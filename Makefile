@@ -29,7 +29,7 @@ METAQUOT=$(shell ocamlfind query ppx_tools)/ppx_metaquot
 # linking order of the corresponding cmos.  All the
 # namespaces are linked before the ml files.
 
-NS=generic_util.ml generic_core.ml generic_view.ml generic_fun.ml
+NS=generic_util.ml generic_core.ml generic_view.ml generic_fun.ml generic.ml
 NSI=
 
 ML=\
@@ -90,13 +90,14 @@ generic_fun_uniplate.mli\
 generic_fun_multiplate.mli\
 generic_fun_equal.mli
 
-
-# MAIN is the list of main files
-MAIN_ML=\
+# OTHER is the list of independent files from the library (ppx, tests)
+OTHER_ML=\
+reify.ml\
 generic_test_marshal.ml\
+generic_test_multiplate.ml\
 
-# interfaces for the main files
-MAIN_MLI=
+# interfaces for the independent files
+OTHER_MLI=
 
 # * Rules
 .PHONY: doc ppx lib clean
@@ -133,11 +134,14 @@ doc/dep.dot: lib $(NS) $(NSI) $(ML) $(MLI)
 	mkdir -p doc
 	$(OCAMLDOC) -dot -o doc/dep.dot $(wordlist 2, $(words $^), $^)
 
-generic_test_marshal.cmo: generic_test_marshal.ml ppx
-	$(OCAMLC) -o $@ -ppx ./reify -c $< -dsource
+%.ppx: %.ml ppx
+	$(OCAMLC) -o $<.ppx.cmo -ppx ./reify -c $< -dsource
 
-generic_test_marshal.ppx: generic_test_marshal.ml ppx
-	$(OCAMLC) -o $@ -dsource -ppx ./reify -c $<
+generic_test_multiplate.cmo: generic_test_multiplate.ml ppx
+	$(OCAMLC) -o $@ -ppx ./reify -c $<
+
+generic_test_marshal.cmo: generic_test_marshal.ml ppx
+	$(OCAMLC) -o $@ -ppx ./reify -c $<
 
 test_marshal: generic.cma generic_test_marshal.cmo
 	$(OCAMLC) -o $@ $^
@@ -205,8 +209,8 @@ $(NSI:.mli=.cmi): %.cmi: %.mli
 -include $(MLI:.mli=.mli.dep)
 -include $(NS:.ml=.ml.dep)
 -include $(NSI:.mli=.mli.dep)
--include $(MAIN_ML:.ml=.ml.dep)
--include $(MAIN_MLI:.mli=.mli.dep)
+-include $(OTHER_ML:.ml=.ml.dep)
+-include $(OTHER_MLI:.mli=.mli.dep)
 
 # * Clean up
 

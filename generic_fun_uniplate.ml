@@ -53,7 +53,8 @@ let rec reduce_family a f x =
   let rec g x = match f x with None -> x | Some y -> map_family a g y
   in map_family a g x
 
-let rec fold a f x = f x (List.map (fold a f) (children a x))
+let rec para a f x =
+  f x (List.map (para a f) (children a x))
 
 (* Applicative and monadic variants *)
 

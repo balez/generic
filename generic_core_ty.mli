@@ -189,11 +189,13 @@ emulate by packaging type witnesses with the values.
 *)
 
 (** Values tagged with their type witness. *)
-type 'a typed = 'a ty * 'a
+module Typed : sig type 'a typed = 'a ty * 'a end
+type 'a typed = 'a Typed.typed
 
 (** Dynamic values are the union of all types.
 
 Using type-tagged values allows us to recover the type of the
 value by pattern matching on the type witness.
 *)
-type dyn = Dyn : 'a typed -> dyn
+module Dyn : sig type dyn = Dyn : 'a typed -> dyn end
+type dyn = Dyn.dyn = Dyn : 'a typed -> dyn

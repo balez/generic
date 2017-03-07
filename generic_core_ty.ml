@@ -147,6 +147,13 @@ let conpat' (E t) = E (conpat t)
 (* * Dynamic values
 *)
 
-type 'a typed = 'a ty * 'a
+module Typed = struct
+  type 'a typed = 'a ty * 'a
+end
+type 'a typed = 'a Typed.typed
 
-type dyn = Dyn : 'a typed -> dyn
+
+module Dyn = struct
+  type dyn = Dyn : 'a typed -> dyn
+end
+type dyn = Dyn.dyn = Dyn : 'a typed -> dyn

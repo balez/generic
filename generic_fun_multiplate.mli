@@ -11,6 +11,7 @@
 open Generic_core
 open Generic_util
 open Ty.T
+open Ty.Dyn
 open App.T
 
 type 'f plate = {plate : 'a . 'a ty -> 'a -> ('a,'f) app}
@@ -61,10 +62,18 @@ val scrap : 'a ty -> 'a -> 'a scrapped
     the children.
 *)
 
-val children : 'a ty -> 'a -> Ty.dyn list
+val children : 'a ty -> 'a -> dyn list
+val children_d : dyn -> dyn list
 (** [children] is a generic function that computes a list of
     dynamic values which are the immediate children of the given
     value.
+*)
+
+val family : 'a ty -> 'a -> dyn list
+val family_d : dyn -> dyn list
+(** [family] is a generic function that computes a list of
+    dynamic values which are the descendent of a given value, that is:
+    the value itself and the descendents of its immediate children
 *)
 
 val traverse_children_p : 'f applicative -> 'f plate -> 'f plate
@@ -95,8 +104,14 @@ val map_family : id_plate -> 'a ty -> 'a -> 'a
 (** Specialisation of [fmap_family] with the identity monad.
 *)
 
+val para_p : ('r list -> 'r) const_plate -> 'r const_plate
+val para_d : (dyn -> 'r list -> 'r) -> (dyn -> 'r)
+val para : (dyn -> 'r list -> 'r) -> 'a ty -> 'a -> 'r
+(* Paramorphism *)
+
 val fold_children_p : 't monoid -> 't const_plate -> 't const_plate
-val fold_children : 't monoid -> 't const_plate -> 'a ty ->  'a -> 't
+val fold_children_d : 't monoid -> (dyn -> 't) -> (dyn -> 't)
+val fold_children : 't monoid -> (dyn -> 't) -> 'a ty -> 'a -> 't
 (** Use the plate on each child to get an element of the
     monoid, and use the monoid to reduce them to a single
     value. (left to right traversal of children).
@@ -104,7 +119,8 @@ val fold_children : 't monoid -> 't const_plate -> 'a ty ->  'a -> 't
 *)
 
 val pre_fold_p : 't monoid -> 't const_plate -> 't const_plate
-val pre_fold : 't monoid -> 't const_plate -> 'a ty -> 'a -> 't
+val pre_fold_d : 't monoid -> (dyn -> 't) -> (dyn -> 't)
+val pre_fold : 't monoid -> (dyn -> 't) -> 'a ty -> 'a -> 't
 (** Folds a family in pre-order.
 
     Given a plate whose fields all return a Monoid o,
@@ -117,9 +133,9 @@ val pre_fold : 't monoid -> 't const_plate -> 'a ty -> 'a -> 't
     child, and so forth.
 *)
 
-
 val post_fold_p : 't monoid -> 't const_plate -> 't const_plate
-val post_fold : 't monoid -> 't const_plate -> 'a ty -> 'a -> 't
+val post_fold_d : 't monoid -> (dyn -> 't) -> (dyn -> 't)
+val post_fold : 't monoid -> (dyn -> 't) -> 'a ty -> 'a -> 't
 (** folds a family in post-order
 
    Given a plate whose fields all return a Monoid o,
@@ -131,3 +147,15 @@ val post_fold : 't monoid -> 't const_plate -> 'a ty -> 'a -> 't
    child, and so forth until finally the input itself produces
    the rightmost element of the concatenation.
 *)
+
+(* TODO:
+val breadth_fold_p : 't monoid -> 't const_plate -> 't const_plate
+(** folds a family in breadth first order:
+    The concatenation sequence begins with the input, then its children in left to right order,
+    then the grand-children in left to right order,
+    then the grand-grand-children, etc.
+*)
+*)
+
+
+(* TODO: lazy family *)

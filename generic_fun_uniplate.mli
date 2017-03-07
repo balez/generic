@@ -67,7 +67,7 @@ val map_family : 'a ty -> ('a -> 'a) -> ('a -> 'a)
 val reduce_family : 'a ty -> ('a -> 'a option) -> 'a -> 'a
 
 (** Paramorphism. this is a bottom-up  *)
-val fold : 'a ty -> ('a -> 'r list -> 'r) -> 'a -> 'r
+val para : 'a ty -> ('a -> 'r list -> 'r) -> 'a -> 'r
 
 (** applicative and monadic variants *)
 

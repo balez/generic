@@ -192,8 +192,8 @@ and check : type a . a ty -> obj -> obj
                      visit_val v;
                    end
                  ; lazy begin
-                    guard (Ty.neq u Ty.Any);
-                    memo_check u v
+                     guard (Ty.neq u Ty.Any); (* why ? *)
+                     memo_check u v
                    end
                  ]
       with Not_found -> memo_check t v

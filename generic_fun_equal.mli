@@ -1,10 +1,10 @@
 open Generic_core
 open Ty.T
 
-module Sumprod : sig
+module type Equal = sig
   val equal : 'a ty -> 'a -> 'a -> bool
 end
 
-module Conlist : sig
-  val equal : 'a ty -> 'a -> 'a -> bool
-end
+module Sumprod : Equal
+module Conlist : Equal
+module Spine : Equal

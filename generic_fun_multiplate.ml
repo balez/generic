@@ -2,12 +2,18 @@ open Generic_core
 open Generic_util
 open Generic_view
 open Ty.T
+open Ty.Dyn
 open Desc
 open App.T
 
 type 'f plate = {plate : 'a . 'a ty -> 'a -> ('a,'f) App.t}
 type id_plate = {id_plate : 'a . 'a ty -> 'a -> 'a}
 type 'b const_plate = {const_plate : 'a . 'a ty -> 'a -> 'b}
+type 'b dyn_plate = Ty.dyn -> 'b
+
+let const_of_dyn_plate p =
+  { const_plate = fun t x -> p (Dyn (t,x)) }
+let dyn_of_const_plate p (Dyn (t,x)) = p.const_plate t x
 
 let id_plate {id_plate} =
   {plate = fun t x -> App.Id (id_plate t x)}
@@ -65,11 +71,11 @@ let scrap : 'a ty -> 'a -> 'a scrapped
     | [] -> Scrapped (Product.Nil, (), Fun.const x)
     | cs -> scrap_conlist cs x
 
-
 let children t x =
   let Scrapped (p, cs, rep) = scrap t x
   in let open Product in
   list_of_dynprod (Dynprod (p, cs))
+let children_d (Dyn (t,x)) = children t x
 
 let traverse_children_p a f = {plate = fun t x ->
   let Scrapped (p, cs, rep) = scrap t x
@@ -91,12 +97,32 @@ let map_family f = (map_family_p f).id_plate
 let fold_children_p m f = {const_plate = fun t x ->
   let open App in
   get_const (traverse_children (const_applicative m) (const_plate f) t x)}
-let fold_children m f = (fold_children_p m f).const_plate
+let fold_children_d m f =
+  dyn_of_const_plate (fold_children_p m (const_of_dyn_plate f))
+let fold_children m f =
+  (fold_children_p m (const_of_dyn_plate f)).const_plate
 
 let rec pre_fold_p m f =
   append_plate m f (fold_children_p m (pre_fold_p m f))
-let pre_fold m f = (pre_fold_p m f).const_plate
+let pre_fold_d m f =
+  dyn_of_const_plate (pre_fold_p m (const_of_dyn_plate f))
+let pre_fold m f =
+  (pre_fold_p m (const_of_dyn_plate f)).const_plate
 
 let rec post_fold_p m f =
   append_plate m (fold_children_p m (post_fold_p m f)) f
-let post_fold m f = (post_fold_p m f).const_plate
+let post_fold_d m f =
+  dyn_of_const_plate (post_fold_p m (const_of_dyn_plate f))
+let post_fold m f =
+  (post_fold_p m (const_of_dyn_plate f)).const_plate
+
+let family t x =
+  pre_fold Listx.monoid (fun x -> [x]) t x
+let family_d (Dyn (t,x)) =
+  family t x
+
+let rec para_d step x =
+  step x (List.map (para_d step) (children_d x))
+let para step t x = para_d step (Dyn (t,x))
+let para_p step =
+  const_of_dyn_plate (para_d (dyn_of_const_plate step))
