@@ -13,6 +13,7 @@ open Generic_util
 open Ty.T
 open Ty.Dyn
 open App.T
+open Product.T
 
 type 'f plate = {plate : 'a . 'a ty -> 'a -> ('a,'f) app}
 (** A plate is a type-indexed function that may transform values of any type
@@ -47,6 +48,14 @@ val compose_monad : 'f monad -> 'f plate -> 'f plate -> 'f plate
 val compose_right_id : 'f plate -> id_plate -> 'f plate
 val compose_left_id : 'f functorial -> id_plate -> 'f plate -> 'f plate
 val append_plate : 'r monoid -> 'r const_plate -> 'r const_plate -> 'r const_plate
+
+val traverse : 'f applicative -> 'f plate -> 'a product -> 'a -> ('a, 'f) app
+(** Traversing a product type with effects *)
+
+val map : id_plate -> 'a product -> 'a -> 'a
+(** Mapping a function on each component of a product. [map] is
+    the specialisation of [traverse] with the identity
+    functor. *)
 
 type 'a scrapped =
   Scrapped : 'b Product.t * 'b * ('b -> 'a) -> 'a scrapped

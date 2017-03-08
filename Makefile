@@ -59,9 +59,10 @@ generic_core_equal.ml\
 generic_view_spine.ml\
 generic_view_sumprod.ml\
 generic_view_conlist.ml\
-generic_fun_marshal.ml\
 generic_fun_uniplate.ml\
 generic_fun_multiplate.ml\
+generic_fun_deepfix.ml\
+generic_fun_marshal.ml\
 generic_fun_equal.ml\
 
 MLI=\

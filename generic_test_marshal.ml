@@ -9,11 +9,18 @@ open Product.Build
 
 module M = Generic_fun_marshal
 
-let print_exn e =
-  print_endline (Printexc.to_string e)
-  (* ; Printexc.print_backtrace stdout *)
+let () = Printexc.record_backtrace true
 
-let print_obj = Obj_inspect.print_obj
+let print_exn e =
+  print_endline (Printexc.to_string e);
+  Printexc.print_backtrace stdout
+
+let print_obj' = Obj_inspect.print_obj
+let print_obj s v =
+    print_newline();
+    print_endline ("*** " ^ s);
+    print_obj' v
+
 (* let address = Obj_inspect.address
 let print_address x = print_string (address x); print_newline ()
 *)
@@ -28,52 +35,66 @@ let (-<) = Fun.(-<)
 let debug = true
 
 let test_to msg x t =
+  print_newline();
   try let y = M.to_repr t x in
-      print_endline ("Success        " ^ msg); y
-  with e -> print_endline (  "Failure (To)   " ^ msg);
+    print_endline (
+"Success test To    " ^ msg); y
+  with e -> print_endline (
+"Failure test To    " ^ msg);
             print_exn e;
             (Obj.repr x)
 
 let test_from msg x t =
+  print_newline();
   try let _ = M.from_repr t x in
-    print_endline ("Success        " ^ msg);
-  with e -> print_endline (  "Failure (From) " ^ msg);
+    print_endline (
+"Success test From  " ^ msg);
+  with e -> print_endline (
+"Failure test From  " ^ msg);
             print_exn e
 
 let cast msg x t =
+  print_newline();
   try let y = M.to_repr t x in
       try let z = M.from_repr t y in
-          print_endline ("Success        " ^ msg);
+          print_endline (
+"Success cast       " ^ msg);
           z
-      with e -> print_endline (  "Failure (From) " ^ msg);
+      with e -> print_endline (
+"Failure cast From  " ^ msg);
                 print_exn e;
                 x
-  with e -> print_endline        ("Failure (To)   " ^ msg);
+  with e -> print_endline (
+"Failure cast To    " ^ msg);
             print_exn e;
             x
 
 let test_cast m x t = let _ = cast m x t in ()
-let expect_fail () = print_endline "Expecting failure..."
+let expect_fail () = print_endline
+ "Expecting failure:"
 let test_cast_fail m x t =
   expect_fail ();
   let _ = cast m x t in ()
 
 let test_marshal eq msg x t =
+  print_newline();
   begin
-    print_endline ("test_marshal [" ^ msg ^ "]");
-    let y = M.from_string t (M.to_string t x []) 0 in
-    if eq then
-      begin if x = y then
-          print_endline ("Equal")
-        else begin
-          print_endline ("Error [x =");
-          print_obj x;
-          print_endline ("], [y =");
-          print_obj y;
-          print_endline ("]");
+    print_endline ("test_marshal (" ^ msg ^ ")");
+    try
+      let y = M.from_string t (M.to_string t x []) 0 in
+      if eq then
+        begin if x = y then
+            print_endline ("Equal")
+          else begin
+            print_endline ("Error [x =");
+            print_obj' x;
+            print_endline ("], [y =");
+            print_obj' y;
+            print_endline ("]");
+          end
         end
-      end
-    else print_endline ("Done ["^msg^"]");
+      else print_endline ("Done ["^msg^"]");
+    with e -> print_exn e
   end
 
 let _ =
@@ -84,10 +105,36 @@ let _ =
 
 (*****************************************)
 (* variants *)
-type ('a,'b) my_variant = A of {a1: 'a; a2: int} | B of 'b * (bool * 'b) * 'a
+type ('a,'b) my_variant = A of {a1: 'a; a2: int} | B of 'a * int | C of 'b * (bool * 'b) * 'a
+
+let () =
+  let ty = My_variant (Char, Char)
+  and a = A {a1 = 'A'; a2 = 3}
+  and a_str = "A {a1 = 'A'; a2 = 3}"
+  and b = B ('A', 3)
+  and b_str = "B ('A', 3)"
+  and c = C ('x', (true, 'y'), 'z')
+  and c_str = "C ('x', (true, 'y'), 'z')"
+  in
+  begin
+    (* print_obj a_str a; *)
+    (* print_obj b_str b; *)
+    test_cast a_str a ty;
+    test_marshal true a_str a ty;
+    test_cast   b_str b ty;
+    test_marshal true b_str b ty;
+    test_cast   c_str c ty;
+    test_marshal true c_str c ty;
+  end
 
 (* records *)
 type ('a,'b) my_record = {a : 'a option; b : 'b list}
+let () =
+  begin
+    test_cast "{a = Some 'x'; b = [2.5; 3.5]}" {a = Some 'x'; b = [2.5; 3.5]} (My_record (Char, Float));
+    test_marshal true "{a = Some 'x'; b = [2.5; 3.5]}" {a = Some 'x'; b = [2.5; 3.5]} (My_record (Char, Float));
+  end
+
 
 (**************************************************)
 (* Types abstraits *)
@@ -196,7 +243,7 @@ let cycle_123 =
   in Lazy.force x
 
 let () =
-  print_obj (Stream.from_cycle cycle_123);
+  (* print_obj cycle_123; *)
   test_cast "cycle_123" cycle_123 Stream.T (* TODO investigate failure *)
 
 (**************************************************)
@@ -289,14 +336,16 @@ let () =
                        : a Repr.t)
            | _ -> assert false };
 
+    test_cast "(new point 3) : point" (new point 3) Point;
+    test_marshal false "(new point 3) : point" (new point 3) Point
+    (* (* Uncomment to check sharing *)
     let p = cast "(new point 3) : point" (new point 3) Point in
-    print_endline ("*** p#get_x = " ^ string_of_int p#get_x);
+    print_obj "p" p;
     let pp = M.to_repr (Pair (Point, Point)) (p,p) in
-    print_endline "*** pp = to_repr (p,p)";
-    print_obj pp;
+    print_obj "pp = to_repr (p,p)" pp;
     let p' = M.from_repr (Pair (Point, Point)) pp in
-    print_endline "*** from_repr pp";
-    print_obj p';
+    print_obj "p' = from_repr pp" p';
+    *)
   end
 
 class a init =
@@ -385,17 +434,16 @@ let () =
     print_endline "*** let y = Some [] in (y,y) : (int list ref, string list ref)";
     expect_fail ();
     test_from "let y = Some [] in (y,y) : (int list ref, string list ref)" zr zt';
-    print_endline "*** zr";
-    print_obj zr;
+    print_obj "zr" zr;
     try let z' =  M.from_repr zt' zr in
         print_endline "*** assigning values of different types";
         match z' with
         | (r1,r2) ->
-           print_obj z';
+           print_obj "z'" z';
            r2 := [""];
-           print_obj z';
+           print_obj "z'" z';
            r1 := [5];
-           print_obj z'
+           print_obj "z'" z'
     with _ -> ()
   end
 

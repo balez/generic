@@ -58,6 +58,8 @@ let traverse a {plate} p x
         App.liftA2 a pair (plate t x) (go (ts, xs))
     in go (p,x)
 
+let map f p x = App.get_id (traverse App.id_applicative (id_plate f) p x)
+
 (****************************************************)
 type 'a scrapped =
   Scrapped : 'b Product.t * 'b * ('b -> 'a) -> 'a scrapped

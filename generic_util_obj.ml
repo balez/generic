@@ -1,8 +1,6 @@
 open Generic_util
 
 module O = Obj
-let first_non_constant_constructor_tag = O.first_non_constant_constructor_tag (* 0 *)
-let last_non_constant_constructor_tag = O.last_non_constant_constructor_tag (* 245 *)
 
 type tag =
   | Constructor of int
@@ -57,21 +55,23 @@ let con_id t =
   let b = O.is_int ot in
   (b, (if b then O.obj else O.tag) ot)
 
+let non_constant_constructor_tag t =
+    t >= O.first_non_constant_constructor_tag
+  && t <= O.last_non_constant_constructor_tag
+
 let is_con v =
   O.is_int v
-  || O.tag v >= first_non_constant_constructor_tag
-     && O.tag v <= last_non_constant_constructor_tag
+  || non_constant_constructor_tag (O.tag v)
+
+let is_tuple v =
+  O.is_block v
+  || non_constant_constructor_tag (O.tag v)
 
 (** The size of a block or [0] for an immediate value.
 *)
 let gsize = function
   | v when O.is_int v -> 0
   | v -> O.size v
-
-let is_tuple x =
-  let t = O.tag x in
-  t > O.first_non_constant_constructor_tag
-  && t < O.no_scan_tag
 
 (** [x] and [y] must both be block of the same length,
 and the binary predicate must hold for all their fields:

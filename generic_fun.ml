@@ -1,5 +1,10 @@
 (** Namespace for modules defining generic functions *)
 
+module Deepfix = Generic_fun_deepfix
+(** Recursively fixes the values extensible variant types after a deserialization.
+    Note: Generic_fun_marshal already fixes the values.
+*)
+
 module Marshal = Generic_fun_marshal
 (** Type-safe generic marshalling and unmarshalling operations. *)
 

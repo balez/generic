@@ -36,9 +36,12 @@ let desc = Desc_fun.view
 let print_obj = Obj_inspect.print_obj
 
 (**************************************************)
+let debug = true
 exception Serialize_exception of string
-exception Anti_unify_exception (* TODO better name *)
 
+(* [exn s f] forces the execution of [f], and re-raise all Serialize exceptions,
+any other exception is caught and a new Serialize_exception is thrown with message [s]
+*)
 let exn s f = try Lazy.force f
   with Serialize_exception _ as e -> raise e
      | _ -> raise (Serialize_exception s)
@@ -149,7 +152,7 @@ let restore_abstract_edges () =
 
 let check_if p v = (guard -< p) >>. visit_val
 
-(* TODO what exceptions are raised?  *)
+(* @raise Serialize_exception *)
 let rec convert dir t v =
   H.clear visit_ty_table;
   H.clear visit_val_table;
@@ -157,7 +160,7 @@ let rec convert dir t v =
   Stack.clear abstract_update;
   Stack.clear path;
   direction := dir;
-  let result = exn "Incompatible value" (lazy (check t v)) in
+  let result = if debug then check t v else exn "Incompatible value." (lazy (check t v)) in
   if is_from (!direction) then restore_abstract_edges ();
   H.reset visit_ty_table; (* reclaim space *)
   H.reset visit_val_table; (* reclaim space *)
@@ -433,10 +436,21 @@ let to_bytes : 'a ty -> 'a -> Marshal.extern_flags list -> bytes
 let safe_cast : 'a ty -> obj -> 'a
   = fun t v ->
     if is_block v && size v == 2 then
-      let ty = Desc.Ext.fix (Ty_desc.ext t) (from_obj (field v 0))
+      let ty = Generic_fun.Deepfix.deepfix (Ty t) (from_obj (field v 0))
       and rep = field v 1
       in if ty = t then from_repr t rep
-      else raise (Serialize_exception "The serialized value has a different type than was expected.")
+      else
+        begin
+          if debug then
+            begin
+              print_endline "*** safe_cast: the deserialized type witness doesn't match the given type witness.";
+              print_endline "*** argument witness:";
+              Obj_inspect.print_obj t;
+              print_endline "*** deserialized witness:";
+              Obj_inspect.print_obj ty;
+            end;
+          raise (Serialize_exception "The serialized value has a different type than was expected.")
+        end
     else raise (Serialize_exception ("Incorrect serialized value, it was not serialized using module " ^ __MODULE__))
 
 let from_channel : 'a ty -> in_channel -> 'a
