@@ -9,7 +9,7 @@ open Product.Build
 
 module M = Generic_fun_marshal
 
-let () = Printexc.record_backtrace true
+(* let () = Printexc.record_backtrace true *)
 
 let print_exn e =
   print_endline (Printexc.to_string e);
@@ -70,8 +70,9 @@ let cast msg x t =
             x
 
 let test_cast m x t = let _ = cast m x t in ()
-let expect_fail () = print_endline
- "Expecting failure:"
+let expect_fail () =
+  print_newline();
+  print_endline "*** EXPECTING FAILURE:"
 let test_cast_fail m x t =
   expect_fail ();
   let _ = cast m x t in ()
@@ -311,9 +312,7 @@ class point init =
     method get_x = x
     method move d = x <- x + d
     method len : 'a . 'a list -> int = List.length
-  end
-
-type _ ty += Point : point ty [@@dont_reify]
+  end [@@no_desc]
 
 let () =
   begin
@@ -352,15 +351,13 @@ class a init =
   object
     val mutable b = (init : b)
     method get_b = b
-  end
+  end [@@no_desc]
 and b init =
   object
     val mutable a = (init : a option)
     method set_a a' = a <- Some a'
     method get_a = a
-  end
-
-type _ ty += A : a ty | B : b ty [@@dont_reify]
+  end [@@no_desc]
 
 let a_b_cycle = new a (new b None)
 let () = a_b_cycle # get_b # set_a a_b_cycle
@@ -436,7 +433,7 @@ let () =
     test_from "let y = Some [] in (y,y) : (int list ref, string list ref)" zr zt';
     print_obj "zr" zr;
     try let z' =  M.from_repr zt' zr in
-        print_endline "*** assigning values of different types";
+        print_endline "*** assigning values of different types";  (* this shouldn't be possible *)
         match z' with
         | (r1,r2) ->
            print_obj "z'" z';

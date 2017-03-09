@@ -4,6 +4,18 @@
     definition in the current file, unless they are annotated
     with [@@dont_reify].
 
+    [@@no_desc]] means that the desc view is not derived, but
+    [ty] and [ty_desc] as well as [equal] are all derived.
+
+    [@@abstract]] means that the desc view is set to Abstract, and
+    [ty] and [ty_desc] as well as [equal] are all derived as usual.
+
+    Class declarations are reified as abstract types by default.
+
+
+    Objects (anonymous classes) and polymorphic variants are
+    not reified yet.
+
     A [Generic_core.Ty.t] constructor (type witness) is added
     directly after each annotated type definition. The name
     of the constructor is the same as the type name but with
@@ -15,6 +27,9 @@
     imported from [Generic_core.Ty.T].
 
     Be careful with name shadowing!
+
+    The PPX may be run on ML files and MLI files. In the MLI
+    files, only the [ty] extensions are derived.
 
     TODO: better error locations.
 *)
@@ -417,11 +432,10 @@ let desc_ext module_path t =
    ]}
 *)
 
-let str_witness t =
-  let ty_name = t.ptype_name.txt in
-  let lid_name = {txt = Lident ty_name; loc = t.ptype_name.loc} in
-  let constr = witness_name ty_name in
-  let num_params = List.length t.ptype_params in
+
+let str_witness' ty_name num_params =
+  let lid_name = to_lid ty_name in
+  let constr = witness_name ty_name.txt in
   let vars = ty_vars num_params in
    (* extend Generic_core.Ty.ty *)
     Str.type_extension
@@ -433,19 +447,19 @@ let str_witness t =
             )
          ])
 
+let str_witness t =
+  str_witness' t.ptype_name (List.length t.ptype_params)
+
 (* [sig_witness] Build the signature item
    {[
        _ ty += X : x ty
    ]}
 *)
-
-let sig_witness t =
-  let ty_name = t.ptype_name.txt in
-  let lid_name = {txt = Lident ty_name; loc = t.ptype_name.loc} in
-  let constr = witness_name ty_name in
-  let num_params = List.length t.ptype_params in
+let sig_witness' ty_name num_params =
+  let lid_name = to_lid ty_name in
+  let constr = witness_name ty_name.txt in
   let vars = ty_vars num_params in
-   (* extend Generic_core.Ty.ty *)
+  (* extend Generic_core.Ty.ty *)
     Sig.type_extension
       (Te.mk ~params:[(Typ.any (), Invariant)] (loc ty_lid)
          [Te.constructor (loc constr)
@@ -454,6 +468,9 @@ let sig_witness t =
                , Some (ty (Typ.constr lid_name vars)))
             )
          ])
+
+let sig_witness t =
+  sig_witness' t.ptype_name (List.length t.ptype_params)
 
 let make_ext_con is_tuple vars exp_ty pat_ty args constr =
   [%stri let () = Generic_core.Desc_fun.ext_add_con
@@ -518,7 +535,7 @@ let new_desc module_path t =
     ]
   in
   let open_type =
-    t.ptype_manifest = None
+    t.ptype_manifest == None
     && t.ptype_kind == Ptype_open
   in
   [ty_desc_ext]
@@ -554,6 +571,13 @@ let ext_equal t =
                 | (_, _) -> None }
     ]
 
+let class_type_witness witness ctd =
+  match ctd with
+  | Pcty_constr ({txt=Lident txt;loc=loc}, params) -> (* we expect an unqualified name  *)
+    [witness {txt;loc} (List.length params)]
+  | _ -> []
+
+
 (** Structure and signature items have commonalities that we
     capture with the `item` type. This allows us to share the
     code of `new_item' for structures and signatures. *)
@@ -563,6 +587,8 @@ type item =
   | Attr of attribute
   | Exn of extension_constructor (* reify only in structures *)
   | TypExt of type_extension (* reify only in structures *)
+  | ClassType of class_description list
+  | ClassExpr of class_declaration list
   | Other
 
 (** checks if there is a global [@@@reify_all] attribute, and
@@ -620,7 +646,16 @@ let rm_reify_tydecl sub tydecl =
 
 (** Computes the new items if the structure item is a group
     of type declarations. *)
-let new_items new_repr ext_exn typ_ext reify_all inside_module module_name = function
+let new_items new_class new_repr ext_exn typ_ext reify_all inside_module module_name =
+  let class_info cis =
+    let cis' =
+      if reify_all
+      then List.filter (fun ci -> not (has_dont_reify ci.pci_attributes)) cis
+      else List.filter (fun ci -> has_reify ci.pci_attributes) cis
+    in
+    new_class (List.map (fun ci -> {ci with pci_expr = ()}) cis')
+  in
+  function
   | Type (_, tydecls) ->
     let types =
       if reify_all
@@ -643,10 +678,13 @@ let new_items new_repr ext_exn typ_ext reify_all inside_module module_name = fun
     then ext_exn e else []
 
   | TypExt e ->
-    let attrs = e.ptyext_attributes
-    in if reify_all && not (has_dont_reify attrs)
-       || has_reify attrs
-       then typ_ext e else []
+    let attrs = e.ptyext_attributes in
+    if (reify_all && not (has_dont_reify attrs)
+        || has_reify attrs)
+    then typ_ext e else []
+
+  | ClassType cds -> class_info cds
+  | ClassExpr ces -> class_info ces
   | _ -> []
 
 let str_proj = function
@@ -654,11 +692,26 @@ let str_proj = function
   | Pstr_attribute (a, p) -> Attr (a, p)
   | Pstr_exception e -> Exn e
   | Pstr_typext e -> TypExt e
+  | Pstr_class cds -> ClassExpr cds
+  | Pstr_class_type ctds -> ClassType ctds
   | _ -> Other
 let sig_proj = function
   | Psig_type (r, td) -> Type (r, td)
   | Psig_attribute (a, p) -> Attr (a, p)
+  | Psig_class cds -> ClassType cds
+  | Psig_class_type ctds -> ClassType ctds
   | _ -> Other
+
+let tydecl_of_classinfo ci =
+  { ptype_name = ci.pci_name
+  ; ptype_params = ci.pci_params
+  ; ptype_loc = ci.pci_loc
+  ; ptype_attributes = ci.pci_attributes
+  ; ptype_cstrs = []
+  ; ptype_kind = Ptype_abstract (* we view classes as abstract types *)
+  ; ptype_private = Public
+  ; ptype_manifest = None
+  }
 
 (** main is the mapper that is used on the whole file after
     the initial parameters have been computed.
@@ -699,12 +752,14 @@ let rec main super reify_all module_lid =
     and ty = witness_lid e.ptyext_path.txt in
     List.map (ext_constructor ty params) e.ptyext_constructors
   and sig_typ_ext e = []
+  in let str_class cis = str_desc (List.map tydecl_of_classinfo cis)
+  and sig_class cis = sig_desc (List.map tydecl_of_classinfo cis)
   in
   let new_str_items =
-    new_items str_desc str_exn str_typ_ext reify_all
+    new_items str_class str_desc str_exn str_typ_ext reify_all
       inside_module module_name -< str_proj in
   let new_sig_items =
-    new_items sig_desc sig_exn sig_typ_ext reify_all
+    new_items sig_class sig_desc sig_exn sig_typ_ext reify_all
       inside_module module_name -< sig_proj in
 
   let rec self =
