@@ -289,7 +289,7 @@ let len0 =
   }
 
 
-let p_ty = Desc.Object.T
+let p_ty = Desc.Object.Object
   [ Method get_x
   ; Method move
   ; Method len

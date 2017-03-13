@@ -405,9 +405,6 @@ let desc_record module_path t lds =
       }
   ]
 
-let no_desc = [%expr Generic_core.Desc.NoDesc]
-let desc_open t = no_desc
-
 let desc_synonym module_path t t' =
   let wt' = witness (params t) t' in
   [%expr Generic_core.Desc.Synonym ([%e wt'], Generic_core.Equal.Refl)]

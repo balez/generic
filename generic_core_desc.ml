@@ -468,7 +468,7 @@ end
 
 module Object = struct
   type 'c t = 'c Method.t list
-  type _ ty += T : 'a t -> 'a ty
+  type _ ty += Object : 'a t -> 'a ty
 end
 
 module Class = struct

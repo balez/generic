@@ -111,7 +111,7 @@ let is_custom s v =
 
 let ty_not_comparable : type a . a ty -> bool = function
   | (Desc.Poly.Poly_variant _) -> true
-  | (Desc.Object.T _) -> true
+  | (Desc.Object.Object _) -> true
   | _ -> false
 
 let is_char v =
