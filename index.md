@@ -35,4 +35,5 @@ Resources
 
 -   [Technical Report](./generic.pdf)
 -   [Library Reference](./doc/index.html)
+-   [Github Repository](https://github.com/balez/generic/)
 
