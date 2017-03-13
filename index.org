@@ -1,5 +1,6 @@
 * A Generic Programming Library for OCaml
-** Requires OCaml v.4.04.0
+For OCaml v.4.04.0
+
 ** Strong points
 - Separate notions of type witnesses and type representation
   allows to use many flavours of generic programming, and adapt other
