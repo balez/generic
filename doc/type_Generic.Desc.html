@@ -1,0 +1,96 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic.Desc</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Field</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Field</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Fields</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Fields</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Record</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Record</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Con</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Con</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Variant</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Variant</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Ext</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Ext</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Poly</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Poly</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Method</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Method</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Object</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Object</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Class</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Class</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Array</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Array</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Custom</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">Custom</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">T</span>&nbsp;=&nbsp;<span class="constructor">Generic_core_desc</span>.<span class="constructor">T</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;desc&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">T</span>.desc&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>e&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">module</span>&nbsp;<span class="constructor">Array</span>.intf&nbsp;<span class="keyword">with</span>&nbsp;<span class="keyword">type</span>&nbsp;elt&nbsp;=&nbsp;<span class="keywordsign">'</span>e&nbsp;<span class="keyword">and</span>&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;desc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Product</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>ts&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Product</span>.t&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>ts,&nbsp;<span class="keywordsign">'</span>p)&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Fun</span>.iso&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>p&nbsp;desc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Record</span>&nbsp;:&nbsp;(<span class="keywordsign">'</span>p,&nbsp;<span class="keywordsign">'</span>r)&nbsp;<span class="constructor">Record</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>r&nbsp;desc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Variant</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>v&nbsp;<span class="constructor">Variant</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>v&nbsp;desc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Extensible</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Ext</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;desc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Custom</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Custom</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;desc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Class</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>c&nbsp;<span class="constructor">Class</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>c&nbsp;desc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Synonym</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Equal</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;desc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Abstract</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;desc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NoDesc</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;desc<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;t&nbsp;=&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">T</span>.desc<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;desc_fun&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Generic_core_desc_fun</span>.desc_fun&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;:&nbsp;<span class="keywordsign">'</span>a.&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Desc</span>.t;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;view&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Desc</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ext&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.pat&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;desc_fun&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ext_register&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ext_add_con&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Desc</span>.<span class="constructor">Ext</span>.con&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ext_conap&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Desc</span>.<span class="constructor">Con</span>.conap<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ext_iter&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Desc</span>.<span class="constructor">Con</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ext_fold&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.ty&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Desc</span>.<span class="constructor">Con</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b<br>
+<span class="keyword">end</span></code></body></html>

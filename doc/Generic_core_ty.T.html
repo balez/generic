@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="next" href="Generic_core_ty.Typed.html">
+<link rel="Up" href="Generic_core_ty.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_core_ty.T</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Generic_core_ty.html" title="Generic_core_ty">Up</a>
+&nbsp;<a class="post" href="Generic_core_ty.Typed.html" title="Generic_core_ty.Typed">Next</a>
+</div>
+<h1>Module <a href="type_Generic_core_ty.T.html">Generic_core_ty.T</a></h1>
+
+<pre><span class="keyword">module</span> T: <code class="code">sig</code> <a href="Generic_core_ty.T.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<h3 id="3_PrimitiveandStandardTypes">Primitive and Standard Types</h3>
+The core generic library comes with the type reflection and introspection for all types in the standard library. Other types need to be added by the user, either manually or through dedicated PPX.
+<p>
+Synonym for convenience.<br>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEty"><span class="keyword">type</span> <code class="type">'_</code> ty</span> = ..</pre>
+
+<pre><code><span class="keyword">type</span> <code class="type">'_</code> <a href="Generic_core_ty.T.html#TYPEty">ty</a> += </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONAny">Any</span> <span class="keyword">:</span> <code class="type">'a <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONInt32">Int32</span> <span class="keyword">:</span> <code class="type">int32 <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONInt64">Int64</span> <span class="keyword">:</span> <code class="type">int64 <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONNativeint">Nativeint</span> <span class="keyword">:</span> <code class="type">nativeint <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONExn">Exn</span> <span class="keyword">:</span> <code class="type">exn <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONBool">Bool</span> <span class="keyword">:</span> <code class="type">bool <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONInt">Int</span> <span class="keyword">:</span> <code class="type">int <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONFloat">Float</span> <span class="keyword">:</span> <code class="type">float <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONChar">Char</span> <span class="keyword">:</span> <code class="type">char <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONBytes">Bytes</span> <span class="keyword">:</span> <code class="type">bytes <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONString">String</span> <span class="keyword">:</span> <code class="type">string <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONUnit">Unit</span> <span class="keyword">:</span> <code class="type">unit <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONLazy">Lazy</span> <span class="keyword">:</span> <code class="type">'a0 <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">'a0 Lazy.t <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONOption">Option</span> <span class="keyword">:</span> <code class="type">'a1 <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">'a1 option <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONList">List</span> <span class="keyword">:</span> <code class="type">'a2 <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">'a2 list <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONArray">Array</span> <span class="keyword">:</span> <code class="type">'a3 <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">'a3 array <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONRef">Ref</span> <span class="keyword">:</span> <code class="type">'a4 <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">'a4 Pervasives.ref <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONTy">Ty</span> <span class="keyword">:</span> <code class="type">'a5 <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">'a5 <a href="Generic_core_ty.T.html#TYPEty">ty</a> <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONPair">Pair</span> <span class="keyword">:</span> <code class="type">'a6 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'b <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">('a6 * 'b) <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONTriple">Triple</span> <span class="keyword">:</span> <code class="type">'a7 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'b0 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'c <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">('a7 * 'b0 * 'c) <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONQuadruple">Quadruple</span> <span class="keyword">:</span> <code class="type">'a8 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'b1 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'c0 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'd <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">('a8 * 'b1 * 'c0 * 'd) <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONQuintuple">Quintuple</span> <span class="keyword">:</span> <code class="type">'a9 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'b2 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'c1 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'd0 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'e <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">('a9 * 'b2 * 'c1 * 'd0 * 'e) <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONSextuple">Sextuple</span> <span class="keyword">:</span> <code class="type">'a10 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'b3 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'c2 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'd1 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'e0 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'f <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">('a10 * 'b3 * 'c2 * 'd1 * 'e0 * 'f) <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONSeptuple">Septuple</span> <span class="keyword">:</span> <code class="type">'a11 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'b4 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'c3 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'd2 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'e1 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'f0 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'g <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">('a11 * 'b4 * 'c3 * 'd2 * 'e1 * 'f0 * 'g) <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONOctuple">Octuple</span> <span class="keyword">:</span> <code class="type">'a12 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'b5 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'c4 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'd3 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'e2 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'f1 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'g0 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'h <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">('a12 * 'b5 * 'c4 * 'd3 * 'e2 * 'f1 * 'g0 * 'h) <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONNonuple">Nonuple</span> <span class="keyword">:</span> <code class="type">'a13 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'b6 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'c5 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'd4 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'e3 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'f2 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'g1 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'h0 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'i <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">('a13 * 'b6 * 'c5 * 'd4 * 'e3 * 'f2 * 'g1 * 'h0 * 'i) <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONDecuple">Decuple</span> <span class="keyword">:</span> <code class="type">'a14 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'b7 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'c6 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'd5 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'e4 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'f3 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'g2 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'h1 <a href="Generic_core_ty.T.html#TYPEty">ty</a><br>        * 'i0 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'j <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">('a14 * 'b7 * 'c6 * 'd5 * 'e4 * 'f3 * 'g2 * 'h1 * 'i0 * 'j)<br>       <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONFun">Fun</span> <span class="keyword">:</span> <code class="type">'a15 <a href="Generic_core_ty.T.html#TYPEty">ty</a> * 'b8 <a href="Generic_core_ty.T.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">('a15 -> 'b8) <a href="Generic_core_ty.T.html#TYPEty">ty</a></code></code></td>
+
+</tr></table>
+
+
+</body></html>

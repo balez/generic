@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_core_repr.html">
+<link rel="next" href="Generic_view_spine.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_core_equal</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_core_repr.html" title="Generic_core_repr">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Generic_view_spine.html" title="Generic_view_spine">Next</a>
+</div>
+<h1>Module <a href="type_Generic_core_equal.html">Generic_core_equal</a></h1>
+
+<pre><span class="keyword">module</span> Generic_core_equal: <code class="code">sig</code> <a href="Generic_core_equal.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Type equality predicate.<br>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEequal"><span class="keyword">type</span> <code class="type">('_, '_)</code> equal</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTequal.Refl"><span class="constructor">Refl</span></span> <span class="keyword">:</span> <code class="type">('a, 'a) <a href="Generic_core_equal.html#TYPEequal">equal</a></code></code></td>
+
+</tr></table>
+
+<div class="info ">
+<code class="code">x : ('a,'b) equal</code> is a witness that 'a and 'b are intensionally equal.
+<p>
+
+    Pattern matching <code class="code">x</code> with <code class="code">Refl</code> will force the type checker to unify <code class="code">'a</code> and <code class="code">'b</code>.<br>
+</div>
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">('a, 'b)</code> t</span> = <code class="type">('a, 'b) <a href="Generic_core_equal.html#TYPEequal">equal</a></code> </pre>
+
+
+<pre><code><span id="TYPEequal_fun"><span class="keyword">type</span> <code class="type"></code>equal_fun</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTequal_fun.f">f</span>&nbsp;: <code class="type">'a 'b.<br>         'a Ty.t -><br>         'b Ty.t -> ('a, 'b) <a href="Generic_core_equal.html#TYPEequal">equal</a> option</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="VALext"><span class="keyword">val</span> ext</span> : <code class="type">'a Ty.pat -> <a href="Generic_core_equal.html#TYPEequal_fun">equal_fun</a> -> unit</code></pre><div class="info ">
+extends <code class="code">equal</code> with a new case.<br>
+</div>
+
+<pre><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type">'a Ty.t -><br>       'b Ty.t -> ('a, 'b) <a href="Generic_core_equal.html#TYPEequal">equal</a> option</code></pre>
+<pre><span id="VALcoerce"><span class="keyword">val</span> coerce</span> : <code class="type">'a Ty.t -> 'b Ty.t -> 'a -> 'b option</code></pre><div class="info ">
+Coerces a value between two intensionally equal types.
+    In other words, <code class="code">('a, 'b) equal</code> must be inhabited for a
+    value of type <code class="code">'a</code> to be coerced into the type <code class="code">'b</code>.<br>
+</div>
+</body></html>

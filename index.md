@@ -31,4 +31,9 @@ Strong points
 -   Examples include a type-safe deserialization function that respects
     type abstraction.
 
+Resources
+---------
+
+-   [Technical Report](./generic.pdf)
+-   [Library Reference](./doc/index.html)
 

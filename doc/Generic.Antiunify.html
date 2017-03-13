@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic.Patterns.html">
+<link rel="next" href="Generic.Repr.html">
+<link rel="Up" href="Generic.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic.Antiunify</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic.Patterns.html" title="Generic.Patterns">Previous</a>
+&nbsp;<a class="up" href="Generic.html" title="Generic">Up</a>
+&nbsp;<a class="post" href="Generic.Repr.html" title="Generic.Repr">Next</a>
+</div>
+<h1>Module <a href="type_Generic.Antiunify.html">Generic.Antiunify</a></h1>
+
+<pre><span class="keyword">module</span> Antiunify: <code class="type"><a href="Generic_core_antiunify.html">Generic_core_antiunify</a></code></pre><div class="info module top">
+Anti-unification for type patterns.<br>
+</div>
+<hr width="100%">
+
+<pre><span id="VALresolve_synonym"><span class="keyword">val</span> resolve_synonym</span> : <code class="type">'a Ty.ty -> 'a Ty.ty</code></pre><div class="info ">
+Recursively replace every occurence of type synonyms with their base type<br>
+</div>
+
+<pre><span id="VALanti_unify"><span class="keyword">val</span> anti_unify</span> : <code class="type">'a Ty.ty -> 'b Ty.ty -> 'a Ty.ty</code></pre><div class="info ">
+Anti-unification for type patterns.
+<p>
+
+The anti-unifier of two types is the most specific type that is more general than both types.
+For instance, the anti-unifier of <code class="code">int list * string</code>, <code class="code">char list * string option</code> is <code class="code">'a list * 'b</code>
+where <code class="code">'a</code> and <code class="code">'b</code> are fresh type variables.
+<p>
+
+The function <a href="Generic_core_antiunify.html#VALanti_unify"><code class="code">Generic_core_antiunify.anti_unify</code></a> works on type
+codes. Correspondingly, the anti-unifier of the previous
+example <code class="code">Pair (List Int, String)</code> and <code class="code">Pair (List Char,
+Option String)</code> is <code class="code">Pair (List Any, Any)</code>.
+<p>
+
+More formally, the anti-unifier of two type codes is inductively defined by:
+<p>
+
+anti_unify (C (x0,..,xn), D (y0,..,ym)) =
+  if C == D and n == m then C (anti_unify x0 y0, ..., anti_unify xn ym)
+  else Any<br>
+</div>
+</body></html>

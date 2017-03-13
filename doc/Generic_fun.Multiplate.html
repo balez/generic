@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_fun.Uniplate.html">
+<link rel="Up" href="Generic_fun.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_fun.Multiplate</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_fun.Uniplate.html" title="Generic_fun.Uniplate">Previous</a>
+&nbsp;<a class="up" href="Generic_fun.html" title="Generic_fun">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Generic_fun.Multiplate.html">Generic_fun.Multiplate</a></h1>
+
+<pre><span class="keyword">module</span> Multiplate: <code class="type"><a href="Generic_fun_multiplate.html">Generic_fun_multiplate</a></code></pre><hr width="100%">
+
+<pre><code><span id="TYPEplate"><span class="keyword">type</span> <code class="type">'f</code> plate</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplate.plate">plate</span>&nbsp;: <code class="type">'a. 'a Ty.T.ty -> 'a -> ('a, 'f) App.T.app</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+A plate is a type-indexed function that may transform values of any type
+while carrying some effect in an applicative functor or a monad.<br>
+</div>
+
+
+<pre><code><span id="TYPEid_plate"><span class="keyword">type</span> <code class="type"></code>id_plate</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTid_plate.id_plate">id_plate</span>&nbsp;: <code class="type">'a. 'a Ty.T.ty -> 'a -> 'a</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+Specialisation of <code class="code">plate</code> to the identity functor.<br>
+</div>
+
+
+<pre><code><span id="TYPEconst_plate"><span class="keyword">type</span> <code class="type">'b</code> const_plate</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconst_plate.const_plate">const_plate</span>&nbsp;: <code class="type">'a. 'a Ty.T.ty -> 'a -> 'b</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+Specialisation of <code class="code">plate</code> to a constant functor.<br>
+</div>
+
+
+<pre><span id="VALpure_plate"><span class="keyword">val</span> pure_plate</span> : <code class="type">'f App.T.applicative -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre><div class="info ">
+A plate that lift all values into the applicative functor.
+For all <code class="code">f</code>, <code class="code">t</code> and <code class="code">x</code>, <code class="code">(pure_plate f).plate t x == f.pure x</code><br>
+</div>
+
+<pre><span id="VALpure_id_plate"><span class="keyword">val</span> pure_id_plate</span> : <code class="type"><a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a></code></pre><div class="info ">
+Specialisation of <code class="code">pure_plate</code> to the identity functor.
+For all <code class="code">t</code> and <code class="code">x</code>, <code class="code">pure_id_plate.plate t x == x</code><br>
+</div>
+
+<pre><span id="VALpure_const_plate"><span class="keyword">val</span> pure_const_plate</span> : <code class="type">'t App.T.monoid -> 't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre><div class="info ">
+Specialisation of <code class="code">pure_plate</code> to the constant functor.
+For all <code class="code">m</code>, <code class="code">t</code> and <code class="code">x</code>, <code class="code">pure_const_plate.plate t x == m.mempty</code><br>
+</div>
+
+<pre><span id="VALcompose"><span class="keyword">val</span> compose</span> : <code class="type">'f App.T.functorial -><br>       'g <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       ('g, 'f) App.comp <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
+<pre><span id="VALcompose_monad"><span class="keyword">val</span> compose_monad</span> : <code class="type">'f App.T.monad -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
+<pre><span id="VALcompose_right_id"><span class="keyword">val</span> compose_right_id</span> : <code class="type">'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       <a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
+<pre><span id="VALcompose_left_id"><span class="keyword">val</span> compose_left_id</span> : <code class="type">'f App.T.functorial -><br>       <a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a> -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
+<pre><span id="VALappend_plate"><span class="keyword">val</span> append_plate</span> : <code class="type">'r App.T.monoid -><br>       'r <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       'r <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       'r <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
+<pre><span id="VALtraverse"><span class="keyword">val</span> traverse</span> : <code class="type">'f App.T.applicative -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'a Product.T.product -> 'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+Traversing a product type with effects<br>
+</div>
+
+<pre><span id="VALmap"><span class="keyword">val</span> map</span> : <code class="type"><a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a> -><br>       'a Product.T.product -> 'a -> 'a</code></pre><div class="info ">
+Mapping a function on each component of a product. <code class="code">map</code> is
+    the specialisation of <code class="code">traverse</code> with the identity
+    functor.<br>
+</div>
+
+<pre><code><span id="TYPEscrapped"><span class="keyword">type</span> <code class="type">'a</code> scrapped</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTscrapped.Scrapped"><span class="constructor">Scrapped</span></span> <span class="keyword">:</span> <code class="type">'b Product.t * 'b * ('b -> 'a0)</code> <span class="keyword">-></span> <code class="type">'a0 <a href="Generic_fun_multiplate.html#TYPEscrapped">scrapped</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code">'a scrapped</code> is meant to deconstruct the root of a tree into a tuple of subtrees (the children)
+and a function that replace those children.<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+
+
+<pre><span id="VALscrap"><span class="keyword">val</span> scrap</span> : <code class="type">'a Ty.T.ty -> 'a -> 'a <a href="Generic_fun_multiplate.html#TYPEscrapped">scrapped</a></code></pre><div class="info ">
+<code class="code">scrap</code> is a generic function that deconstruct a value in
+    a tuple children with a function to rebuild the value given
+    the children.<br>
+</div>
+
+<pre><span id="VALchildren"><span class="keyword">val</span> children</span> : <code class="type">'a Ty.T.ty -> 'a -> Ty.Dyn.dyn list</code></pre>
+<pre><span id="VALchildren_d"><span class="keyword">val</span> children_d</span> : <code class="type">Ty.Dyn.dyn -> Ty.Dyn.dyn list</code></pre><div class="info ">
+<code class="code">children</code> is a generic function that computes a list of
+    dynamic values which are the immediate children of the given
+    value.<br>
+</div>
+
+<pre><span id="VALfamily"><span class="keyword">val</span> family</span> : <code class="type">'a Ty.T.ty -> 'a -> Ty.Dyn.dyn list</code></pre>
+<pre><span id="VALfamily_d"><span class="keyword">val</span> family_d</span> : <code class="type">Ty.Dyn.dyn -> Ty.Dyn.dyn list</code></pre><div class="info ">
+<code class="code">family</code> is a generic function that computes a list of
+    dynamic values which are the descendent of a given value, that is:
+    the value itself and the descendents of its immediate children<br>
+</div>
+
+<pre><span id="VALtraverse_children_p"><span class="keyword">val</span> traverse_children_p</span> : <code class="type">'f App.T.applicative -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
+<pre><span id="VALtraverse_children"><span class="keyword">val</span> traverse_children</span> : <code class="type">'f App.T.applicative -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'a Ty.T.ty -> 'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+Replace each child using the plate.
+    (left to right traversal of children).
+Note that <code class="code">fmap_children</code> corresponds to <code class="code">multiplate</code> and <code class="code">mapChildrenM</code> in the Haskell library.<br>
+</div>
+
+<pre><span id="VALmap_children_p"><span class="keyword">val</span> map_children_p</span> : <code class="type"><a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a> -> <a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a></code></pre>
+<pre><span id="VALmap_children"><span class="keyword">val</span> map_children</span> : <code class="type"><a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a> -> 'a Ty.T.ty -> 'a -> 'a</code></pre><div class="info ">
+Specialisation of <code class="code">fmap_children</code> with the identity functor.
+Replace each child using the pure plate.<br>
+</div>
+
+<pre><span id="VALtraverse_family_p"><span class="keyword">val</span> traverse_family_p</span> : <code class="type">'f App.T.monad -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
+<pre><span id="VALtraverse_family"><span class="keyword">val</span> traverse_family</span> : <code class="type">'f App.T.monad -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'a Ty.T.ty -> 'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+Bottom up (Depth-first, post-order) traversal of a value of a recursive type.
+<p>
+
+    Given a plate whose fields transform each type, <code class="code">fmap_family_p</code>
+    returns a plate whose fields transform the family of the
+    input. The traversal proceeds bottom up, first transforming
+    the families of the children, before finally transforming the
+    value itself.<br>
+</div>
+
+<pre><span id="VALmap_family_p"><span class="keyword">val</span> map_family_p</span> : <code class="type"><a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a> -> <a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a></code></pre>
+<pre><span id="VALmap_family"><span class="keyword">val</span> map_family</span> : <code class="type"><a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a> -> 'a Ty.T.ty -> 'a -> 'a</code></pre><div class="info ">
+Specialisation of <code class="code">fmap_family</code> with the identity monad.<br>
+</div>
+
+<pre><span id="VALpara_p"><span class="keyword">val</span> para_p</span> : <code class="type">('r list -> 'r) <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       'r <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
+<pre><span id="VALpara_d"><span class="keyword">val</span> para_d</span> : <code class="type">(Ty.Dyn.dyn -> 'r list -> 'r) -> Ty.Dyn.dyn -> 'r</code></pre>
+<pre><span id="VALpara"><span class="keyword">val</span> para</span> : <code class="type">(Ty.Dyn.dyn -> 'r list -> 'r) -><br>       'a Ty.T.ty -> 'a -> 'r</code></pre>
+<pre><span id="VALfold_children_p"><span class="keyword">val</span> fold_children_p</span> : <code class="type">'t App.T.monoid -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
+<pre><span id="VALfold_children_d"><span class="keyword">val</span> fold_children_d</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> Ty.Dyn.dyn -> 't</code></pre>
+<pre><span id="VALfold_children"><span class="keyword">val</span> fold_children</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> 'a Ty.T.ty -> 'a -> 't</code></pre><div class="info ">
+Use the plate on each child to get an element of the
+    monoid, and use the monoid to reduce them to a single
+    value. (left to right traversal of children).
+    Corresponds to <code class="code">mChildren</code> in the Haskell library.<br>
+</div>
+
+<pre><span id="VALpre_fold_p"><span class="keyword">val</span> pre_fold_p</span> : <code class="type">'t App.T.monoid -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
+<pre><span id="VALpre_fold_d"><span class="keyword">val</span> pre_fold_d</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> Ty.Dyn.dyn -> 't</code></pre>
+<pre><span id="VALpre_fold"><span class="keyword">val</span> pre_fold</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> 'a Ty.T.ty -> 'a -> 't</code></pre><div class="info ">
+Folds a family in pre-order.
+<p>
+
+    Given a plate whose fields all return a Monoid o,
+    preorderFold produces a plate that returns the mconcat of the
+    family of the input.
+<p>
+
+    The input itself produces the leftmost element of the
+    concatenation, then this is followed by the family of the
+    first child, then it is followed by the family of the second
+    child, and so forth.<br>
+</div>
+
+<pre><span id="VALpost_fold_p"><span class="keyword">val</span> post_fold_p</span> : <code class="type">'t App.T.monoid -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
+<pre><span id="VALpost_fold_d"><span class="keyword">val</span> post_fold_d</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> Ty.Dyn.dyn -> 't</code></pre>
+<pre><span id="VALpost_fold"><span class="keyword">val</span> post_fold</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> 'a Ty.T.ty -> 'a -> 't</code></pre><div class="info ">
+folds a family in post-order
+<p>
+
+   Given a plate whose fields all return a Monoid o,
+   preorderFold produces a plate that returns the mconcat of
+   the family of the input.
+<p>
+
+   The concatenation sequence begins with the family of the
+   first child, then it is followed by the family of the second
+   child, and so forth until finally the input itself produces
+   the rightmost element of the concatenation.<br>
+</div>
+</body></html>

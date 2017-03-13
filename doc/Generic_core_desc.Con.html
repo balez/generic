@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_core_desc.Record.html">
+<link rel="next" href="Generic_core_desc.Variant.html">
+<link rel="Up" href="Generic_core_desc.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_core_desc.Con</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_core_desc.Record.html" title="Generic_core_desc.Record">Previous</a>
+&nbsp;<a class="up" href="Generic_core_desc.html" title="Generic_core_desc">Up</a>
+&nbsp;<a class="post" href="Generic_core_desc.Variant.html" title="Generic_core_desc.Variant">Next</a>
+</div>
+<h1>Module <a href="type_Generic_core_desc.Con.html">Generic_core_desc.Con</a></h1>
+
+<pre><span class="keyword">module</span> Con: <code class="code">sig</code> <a href="Generic_core_desc.Con.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Generic representation of variant constructors.<br>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEdesc"><span class="keyword">type</span> <code class="type">('t, 'v)</code> desc</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.name">name</span>&nbsp;: <code class="type">string</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+name of the constructor<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.args">args</span>&nbsp;: <code class="type">('t, 'v) <a href="Generic_core_desc.Fields.html#TYPEt">Generic_core_desc.Fields.t</a></code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+arguments of the constructor<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.embed">embed</span>&nbsp;: <code class="type">'t -> 'v</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+applies the constructor to the arguments.<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.proj">proj</span>&nbsp;: <code class="type">'v -> 't option</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+tries to deconstruct that constructor<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+}
+
+<div class="info ">
+<b>Constructor description.</b>
+<p>
+
+      <code class="code">('t, 'v) desc</code> describes one of the constructors of variant <code class="code">'v</code> of type <code class="code">'t</code>.
+<p>
+<ul>
+<li><code class="code">'t</code> is a product type witnessed by the field <code class="code">args</code>.</li>
+<li>The field <code class="code">embed</code> is used to build a value of the
+        variant type corresponding to the constructor.</li>
+<li>The field <code class="code">proj</code> tries to deconstruct the variant
+        value using that constructor, if it succeeds, the
+        arguments are returned.</li>
+</ul>
+
+      <b>Caveat.</b>
+<p>
+
+      A constructor <code class="code">C of (a * b)</code> is treated differently as
+      constructor <code class="code">C of a * b</code>.
+      We must therefore represent them differently:
+      the first one with : <code class="code">{ args = Product.p1 (Pair a b) ; ...}</code>
+      and the second one with: <code class="code">{ args = Product.p2 a b ; ...}</code>
+<p>
+
+      <b>Caution!</b>
+<p>
+
+      <code class="code">embed</code> must not inspect its arguments either by
+      pattern matching on them or by applying a function on
+      them.  <code class="code">embed</code> should only apply the data constructor
+      to its argument, for instance the <code class="code">embed</code> function for
+      the data-constructor <code class="code">Some : 'a -&gt; 'a option</code> is <code class="code">embed
+      = fun x -&gt; Some x</code>.<br>
+</div>
+
+
+<pre><span id="VALproduct"><span class="keyword">val</span> product</span> : <code class="type">('t, 'v) <a href="Generic_core_desc.Con.html#TYPEdesc">desc</a> -> 't Product.t</code></pre>
+<pre><code><span id="TYPEcon"><span class="keyword">type</span> <code class="type">'v</code> con</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcon.Con"><span class="constructor">Con</span></span> <span class="keyword">:</span> <code class="type">('t, 'v0) <a href="Generic_core_desc.Con.html#TYPEdesc">desc</a></code> <span class="keyword">-></span> <code class="type">'v0 <a href="Generic_core_desc.Con.html#TYPEcon">con</a></code></code></td>
+
+</tr></table>
+
+<div class="info ">
+<b>Constructor.</b>
+      The type <code class="code">'t</code> of the constructor arguments is hidden by existential quantification.<br>
+</div>
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">'v</code> t</span> = <code class="type">'v <a href="Generic_core_desc.Con.html#TYPEcon">con</a></code> </pre>
+<div class="info ">
+Synonym for convenience.<br>
+</div>
+
+
+<pre><span id="VALname"><span class="keyword">val</span> name</span> : <code class="type">'v <a href="Generic_core_desc.Con.html#TYPEcon">con</a> -> string</code></pre>
+<pre><span id="VALmake"><span class="keyword">val</span> make</span> : <code class="type">string -><br>       ('a, 'b) <a href="Generic_core_desc.Fields.html#TYPEt">Generic_core_desc.Fields.t</a> -><br>       ('a -> 'b) -> ('b -> 'a option) -> 'b <a href="Generic_core_desc.Con.html#TYPEcon">con</a></code></pre><div class="info ">
+Builds a <code class="code">con</code> using the corresponding field values<br>
+</div>
+
+<pre><span id="VALc0"><span class="keyword">val</span> c0</span> : <code class="type">string -> 'a -> 'a <a href="Generic_core_desc.Con.html#TYPEcon">con</a></code></pre><div class="info ">
+Builds a constant constructor. <b>Example:</b> <code class="code">c0 "None" None</code><br>
+</div>
+
+<pre><span id="VALarity"><span class="keyword">val</span> arity</span> : <code class="type">'a <a href="Generic_core_desc.Con.html#TYPEcon">con</a> -> int</code></pre><div class="info ">
+The arity of a constructor is the number of its arguments.
+      <b>Caveat</b>: <code class="code">C of int * bool</code> has arity 2 whereas
+      <code class="code">C of (int * bool)</code> has arity 1: a single argument which is a pair.<br>
+</div>
+
+<pre><code><span id="TYPEconap"><span class="keyword">type</span> <code class="type">'v</code> conap</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconap.Conap"><span class="constructor">Conap</span></span> <span class="keyword">:</span> <code class="type">('a, 'v0) <a href="Generic_core_desc.Con.html#TYPEdesc">desc</a> * 'a</code> <span class="keyword">-></span> <code class="type">'v0 <a href="Generic_core_desc.Con.html#TYPEconap">conap</a></code></code></td>
+
+</tr></table>
+
+<div class="info ">
+<b>Constructor Application.</b>
+      A pair of a constructor and its arguments.<br>
+</div>
+
+
+<pre><span id="VALconap"><span class="keyword">val</span> conap</span> : <code class="type">'v <a href="Generic_core_desc.Con.html#TYPEcon">con</a> -> 'v -> 'v <a href="Generic_core_desc.Con.html#TYPEconap">conap</a> option</code></pre>
+<pre><span id="VALcon"><span class="keyword">val</span> con</span> : <code class="type">'v <a href="Generic_core_desc.Con.html#TYPEconap">conap</a> -> 'v <a href="Generic_core_desc.Con.html#TYPEcon">con</a></code></pre><div class="info ">
+<b>Returns</b> the constructor of a constructor application O(1).<br>
+</div>
+
+<pre><span id="VALsubterms_prod"><span class="keyword">val</span> subterms_prod</span> : <code class="type">'v <a href="Generic_core_desc.Con.html#TYPEconap">conap</a> -> Product.dynprod</code></pre><div class="info ">
+<b>Returns</b> the arguments of a constructor application as a dynamic product. O(1).<br>
+</div>
+
+<pre><span id="VALsubterms"><span class="keyword">val</span> subterms</span> : <code class="type">'v <a href="Generic_core_desc.Con.html#TYPEconap">conap</a> -> Ty.dyn list</code></pre><div class="info ">
+<b>Returns</b> the arguments of a constructor application as a list of dynamic values. O(1).<br>
+</div>
+</body></html>

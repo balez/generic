@@ -1,0 +1,206 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_util_app</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">T</span>&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">sig</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(_,&nbsp;_)&nbsp;app&nbsp;=&nbsp;..<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;<span class="keywordsign">'</span>f&nbsp;functorial&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fmap&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">'</span>b.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;<span class="keywordsign">'</span>f&nbsp;applicative&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pure&nbsp;:&nbsp;<span class="keywordsign">'</span>a.&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;apply&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">'</span>b.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;<span class="keywordsign">'</span>f&nbsp;monad&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;:&nbsp;<span class="keywordsign">'</span>a.&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bind&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">'</span>b.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;<span class="keywordsign">'</span>t&nbsp;monoid&nbsp;=&nbsp;{&nbsp;mempty&nbsp;:&nbsp;<span class="keywordsign">'</span>t;&nbsp;mappend&nbsp;:&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b)&nbsp;t&nbsp;=&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;option'&nbsp;=&nbsp;<span class="constructor">OPTION</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(_,&nbsp;_)&nbsp;t&nbsp;+=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Option</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;option&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Generic_util_app</span>.option')&nbsp;<span class="constructor">Generic_util_app</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_option&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Generic_util_app</span>.option')&nbsp;<span class="constructor">Generic_util_app</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;array'&nbsp;=&nbsp;<span class="constructor">ARRAY</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(_,&nbsp;_)&nbsp;t&nbsp;+=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Generic_util_app</span>.array')&nbsp;<span class="constructor">Generic_util_app</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_array&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Generic_util_app</span>.array')&nbsp;<span class="constructor">Generic_util_app</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;id&nbsp;=&nbsp;<span class="constructor">ID</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(_,&nbsp;_)&nbsp;t&nbsp;+=&nbsp;<span class="constructor">Id</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Generic_util_app</span>.id)&nbsp;<span class="constructor">Generic_util_app</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_id&nbsp;:&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Generic_util_app</span>.id)&nbsp;<span class="constructor">Generic_util_app</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;<span class="keywordsign">'</span>t&nbsp;const&nbsp;=&nbsp;<span class="constructor">CONST</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(_,&nbsp;_)&nbsp;t&nbsp;+=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Const</span>&nbsp;:&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="constructor">Generic_util_app</span>.const)&nbsp;<span class="constructor">Generic_util_app</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_const&nbsp;:&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="constructor">Generic_util_app</span>.const)&nbsp;<span class="constructor">Generic_util_app</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;exponential&nbsp;=&nbsp;<span class="constructor">EXPONENTIAL</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(_,&nbsp;_)&nbsp;t&nbsp;+=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Exponential</span>&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="constructor">Generic_util_app</span>.exponential)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Generic_util_app</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_exponential&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="constructor">Generic_util_app</span>.exponential)&nbsp;<span class="constructor">Generic_util_app</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(<span class="keywordsign">'</span>f,&nbsp;<span class="keywordsign">'</span>g)&nbsp;comp&nbsp;=&nbsp;<span class="constructor">COMP</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(_,&nbsp;_)&nbsp;t&nbsp;+=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Comp</span>&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.t,&nbsp;<span class="keywordsign">'</span>g)&nbsp;<span class="constructor">Generic_util_app</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>f,&nbsp;<span class="keywordsign">'</span>g)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Generic_util_app</span>.comp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Generic_util_app</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_comp&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;(<span class="keywordsign">'</span>f,&nbsp;<span class="keywordsign">'</span>g)&nbsp;<span class="constructor">Generic_util_app</span>.comp)&nbsp;<span class="constructor">Generic_util_app</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;((<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.t,&nbsp;<span class="keywordsign">'</span>g)&nbsp;<span class="constructor">Generic_util_app</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;fun_of_app&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.functorial<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;fun_of_mon&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.functorial<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;app_of_mon&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.applicative<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;liftA&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;liftA2&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>c,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;liftA3&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>c&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>d)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>c,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>d,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;liftA4&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>c&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>d&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>e)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>c,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>d,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>e,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;liftM&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;liftM2&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>c,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;liftM3&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>c&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>d)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>c,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>d,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;liftM4&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>c&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>d&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>e)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>c,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>d,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>e,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;join&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;((<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;id_applicative&nbsp;:&nbsp;<span class="constructor">Generic_util_app</span>.id&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.applicative<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;id_monad&nbsp;:&nbsp;<span class="constructor">Generic_util_app</span>.id&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monad<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;const_applicative&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.const&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.applicative<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;state&nbsp;=&nbsp;<span class="constructor">STATE</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(_,&nbsp;_)&nbsp;<span class="constructor">T</span>.app&nbsp;+=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">State</span>&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;*&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="constructor">Generic_util_app</span>.state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;run_state&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="constructor">Generic_util_app</span>.state)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;*&nbsp;<span class="keywordsign">'</span>b<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;state&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.state&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monad<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get&nbsp;:&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.state)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;put&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(unit,&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.state)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;reader&nbsp;=&nbsp;<span class="constructor">READER</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(_,&nbsp;_)&nbsp;<span class="constructor">T</span>.app&nbsp;+=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Reader</span>&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="constructor">Generic_util_app</span>.reader)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;run_reader&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="constructor">Generic_util_app</span>.reader)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;reader&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.reader&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monad<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ask&nbsp;:&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.reader)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;local&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>c,&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="constructor">Generic_util_app</span>.reader)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>c,&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_util_app</span>.reader)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;io&nbsp;=&nbsp;<span class="constructor">IO_</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(_,&nbsp;_)&nbsp;<span class="constructor">T</span>.app&nbsp;+=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>&nbsp;:&nbsp;(unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Generic_util_app</span>.io)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;run_io&nbsp;:&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Generic_util_app</span>.io)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;io&nbsp;:&nbsp;<span class="constructor">Generic_util_app</span>.io&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monad<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lift_io&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Generic_util_app</span>.io)&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.app<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_sum&nbsp;:&nbsp;int&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monoid<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_prod&nbsp;:&nbsp;int&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monoid<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;float_sum&nbsp;:&nbsp;float&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monoid<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;float_prod&nbsp;:&nbsp;float&nbsp;<span class="constructor">Generic_util_app</span>.<span class="constructor">T</span>.monoid<br>
+<span class="keyword">end</span></code></body></html>

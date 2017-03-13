@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_core_desc.Variant.html">
+<link rel="next" href="Generic_core_desc.Poly.html">
+<link rel="Up" href="Generic_core_desc.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_core_desc.Ext</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_core_desc.Variant.html" title="Generic_core_desc.Variant">Previous</a>
+&nbsp;<a class="up" href="Generic_core_desc.html" title="Generic_core_desc">Up</a>
+&nbsp;<a class="post" href="Generic_core_desc.Poly.html" title="Generic_core_desc.Poly">Next</a>
+</div>
+<h1>Module <a href="type_Generic_core_desc.Ext.html">Generic_core_desc.Ext</a></h1>
+
+<pre><span class="keyword">module</span> Ext: <code class="code">sig</code> <a href="Generic_core_desc.Ext.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Generic representation of extensible variants.<br>
+</div>
+<hr width="100%">
+<br>
+Extensible variants allow new constructors to be added to
+      a type after it has been defined. The generic view for
+      extensible variants must also be extensible so that the
+      description of the new constructors may be added to the
+      description of the extensible variant.
+<p>
+
+      We define an abstract type <code class="code">'a extensible</code> to describe
+      the type <code class="code">'a</code> with the following operations:<ul>
+<li>adding a new constructor description</li>
+<li>iterating through the list of existing constructors</li>
+<li>find the constructor of a given value</li>
+<li>deconstruct a value into its constructor and its arguments</li>
+</ul>
+<br>
+
+<pre><code><span id="TYPEcon"><span class="keyword">type</span> <code class="type"></code>con</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcon.con">con</span>&nbsp;: <code class="type">'a. 'a Ty.T.ty -> 'a <a href="Generic_core_desc.Con.html#TYPEt">Generic_core_desc.Con.t</a></code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+A constructor of an extensible type <code class="code">('a0,...'an) t</code> is
+      described by a value of type <code class="code">con</code> which is a partial
+      polymorphic function that computes the constructor
+      representation for any closed type expression
+      <code class="code">(s0,...,sn) t</code> (without any type variable).
+      Thus the <code class="code">con</code> function may only be called on the witnesses
+      of type <code class="code">(s0,...sn) t ty</code>.
+<p>
+
+      This design supports GADTs by default.<br>
+</div>
+
+
+<pre><span id="TYPEcons"><span class="keyword">type</span> <code class="type"></code>cons</span> </pre>
+
+
+<pre><code><span id="TYPEextensible"><span class="keyword">type</span> <code class="type">'a</code> extensible</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTextensible.name">name</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTextensible.ty">ty</span>&nbsp;: <code class="type">'a Ty.T.ty</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTextensible.cons">cons</span>&nbsp;: <code class="type"><a href="Generic_core_desc.Ext.html#TYPEcons">cons</a></code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">'a</code> t</span> = <code class="type">'a <a href="Generic_core_desc.Ext.html#TYPEextensible">extensible</a></code> </pre>
+<div class="info ">
+Synonym for convenience.<br>
+</div>
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">unit -> <a href="Generic_core_desc.Ext.html#TYPEcons">cons</a></code></pre><div class="info ">
+Initialises the collection of constructors for an extensible type<br>
+</div>
+
+<pre><span id="VALadd_con"><span class="keyword">val</span> add_con</span> : <code class="type">'a <a href="Generic_core_desc.Ext.html#TYPEextensible">extensible</a> -> <a href="Generic_core_desc.Ext.html#TYPEcon">con</a> -> unit</code></pre><div class="info ">
+<code class="code">add_con ext c</code> adds <code class="code">c</code> to the constructors of
+      extensible type described by <code class="code">ext</code><br>
+</div>
+
+<pre><span id="VALfold"><span class="keyword">val</span> fold</span> : <code class="type">'a <a href="Generic_core_desc.Ext.html#TYPEextensible">extensible</a> -><br>       ('a <a href="Generic_core_desc.Con.html#TYPEt">Generic_core_desc.Con.t</a> -> 'b -> 'b) -> 'b -> 'b</code></pre><div class="info ">
+<code class="code">fold ext</code> computes <code class="code">List.foldr</code> on the constructor list.<br>
+</div>
+
+<pre><span id="VALiter"><span class="keyword">val</span> iter</span> : <code class="type">'a <a href="Generic_core_desc.Ext.html#TYPEextensible">extensible</a> -><br>       ('a <a href="Generic_core_desc.Con.html#TYPEt">Generic_core_desc.Con.t</a> -> unit) -> unit</code></pre><div class="info ">
+Executes an effectful function on each of the (known)
+      constructors of an extensible datatype.<br>
+</div>
+
+<pre><span id="VALcon_list"><span class="keyword">val</span> con_list</span> : <code class="type">'a <a href="Generic_core_desc.Ext.html#TYPEextensible">extensible</a> -> 'a <a href="Generic_core_desc.Con.html#TYPEt">Generic_core_desc.Con.t</a> list</code></pre><div class="info ">
+returns the current list of constructors<br>
+</div>
+
+<pre><span id="VALcon"><span class="keyword">val</span> con</span> : <code class="type">'a <a href="Generic_core_desc.Ext.html#TYPEextensible">extensible</a> -> 'a -> 'a <a href="Generic_core_desc.Con.html#TYPEt">Generic_core_desc.Con.t</a></code></pre><div class="info ">
+<code class="code">con ext x</code><br>
+<b>Raises</b><ul><li><code>Invalid_argument</code> if the type is not extensible.</li>
+<li><code>Not_found</code> if the constructor hasn't been added previously.</li>
+</ul>
+<b>Returns</b> the constructor description corresponding to the constructor of
+      <code class="code">x</code><br>
+</div>
+
+<pre><span id="VALconap"><span class="keyword">val</span> conap</span> : <code class="type">'a <a href="Generic_core_desc.Ext.html#TYPEextensible">extensible</a> -> 'a -> 'a <a href="Generic_core_desc.Con.html#TYPEconap">Generic_core_desc.Con.conap</a></code></pre><div class="info ">
+Deconstructs a value into a pair of a constructor and its arguments.<br>
+<b>Raises</b><ul><li><code>Invalid_argument</code> if the type is not extensible.</li>
+<li><code>Not_found</code> if the constructor hasn't been added previously.</li>
+</ul>
+</div>
+
+<pre><span id="VALfix"><span class="keyword">val</span> fix</span> : <code class="type">'a <a href="Generic_core_desc.Ext.html#TYPEextensible">extensible</a> -> 'a -> 'a</code></pre><div class="info ">
+Serialising/Deserializing an extensible value (including
+      exceptions) doesn't preserve structural equality:
+<p>
+
+      <pre class="codepre"><code class="code">        umarshall (marshall x) &lt;&gt; x
+      </code></pre>
+      In particular pattern matching the deserialized value
+      doesn't work as expected. <code class="code">fix</code> fixes that: when
+      given a deserialized value, it returns a value
+      structurally equal to the one that was serialized:
+<p>
+
+      <pre class="codepre"><code class="code">        fix (unmarshall (marshall x)) = x
+      </code></pre>
+<p>
+
+      In details, when an extensible value has been
+      deserialized, it's memory representation will be
+      different from that of the value before it was
+      serialized.  This is because constructors of extensible
+      variants are implemented as object blocks (same as OCaml
+      objects), and they get assigned a unique identifier when
+      created. <code class="code">fix ext x</code> will replace the constructor
+      of <code class="code">x</code> with the original constructor object that is
+      stored in the <code class="code">'a extensible</code> datastructure <code class="code">ext</code>.<br>
+<b>Raises</b><ul><li><code>Invalid_argument</code> if the type is not extensible.</li>
+<li><code>Not_found</code> if the constructor hasn't been added
+      previously.</li>
+</ul>
+</div>
+</body></html>

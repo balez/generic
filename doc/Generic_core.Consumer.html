@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_core.Extensible.html">
+<link rel="Up" href="Generic_core.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_core.Consumer</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_core.Extensible.html" title="Generic_core.Extensible">Previous</a>
+&nbsp;<a class="up" href="Generic_core.html" title="Generic_core">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Generic_core.Consumer.html">Generic_core.Consumer</a></h1>
+
+<pre><span class="keyword">module</span> Consumer: <code class="type"><a href="Generic_core_consumer.html">Generic_core_consumer</a></code></pre><div class="info module top">
+Extensible type-indexed consumers.<br>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEty_fun"><span class="keyword">type</span> <code class="type">'b</code> ty_fun</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTty_fun.f">f</span>&nbsp;: <code class="type">'a. 'a Ty.ty -> 'a -> 'b</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+Type-indexed consumer function<br>
+</div>
+
+
+<pre><code><span id="TYPEclosure"><span class="keyword">type</span> <code class="type">'b</code> closure</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTclosure.f">f</span>&nbsp;: <code class="type">'a. 'a Ty.ty -> 'a -> 'b</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code">f</code>: applies the extensible function.<br>
+<b>Raises</b> <code>Generic_core_extensible.Type_pattern_match_failure</code> when the type index doesn't
+       match any of the patterns in the collection.<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTclosure.ext">ext</span>&nbsp;: <code class="type">'a. 'a Ty.ty -> 'b <a href="Generic_core_consumer.html#TYPEty_fun">ty_fun</a> -> unit</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code">ext</code>: extends the function with a new case. We must
+        provide a type pattern, (example: <code class="code">List Any</code>). The
+        <code class="code">ty_fun</code> provided is only expected to handle types
+        matching with the pattern. <b>Effectful</b>.<br>
+<b>Raises</b> <code>Generic_core_extensible.Pattern_overwrite</code> when called with a type pattern that
+        was already registered.<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+}
+
+<div class="info ">
+A closure allows us to call a type-indexed consumer and
+    to extend it to new type cases.<br>
+</div>
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">string -> 'a <a href="Generic_core_consumer.html#TYPEclosure">closure</a></code></pre><div class="info ">
+<code class="code">create name</code>, creates a new closure initially empty:
+    calling <code class="code">f</code> will raise
+    <code class="code">Type_pattern_match_failure</code>. The name is used in the exception messages. <b>Effectful</b>.<br>
+</div>
+</body></html>

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_util.Monad.html">
+<link rel="next" href="Generic_util.Exn.html">
+<link rel="Up" href="Generic_util.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_util.Option</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_util.Monad.html" title="Generic_util.Monad">Previous</a>
+&nbsp;<a class="up" href="Generic_util.html" title="Generic_util">Up</a>
+&nbsp;<a class="post" href="Generic_util.Exn.html" title="Generic_util.Exn">Next</a>
+</div>
+<h1>Module <a href="type_Generic_util.Option.html">Generic_util.Option</a></h1>
+
+<pre><span class="keyword">module</span> Option: <code class="type"><a href="Generic_util_option.html">Generic_util_option</a></code></pre><div class="info module top">
+Operations on option types.<br>
+</div>
+<hr width="100%">
+
+<pre><span id="VALoption"><span class="keyword">val</span> option</span> : <code class="type">('a -> 'b) -> 'a option -> 'b option</code></pre><div class="info ">
+<code class="code">option f</code> is the functorial action of the functor <code class="code">'a option</code>:
+<pre class="codepre"><code class="code">Some x -&gt; Some (f x)</code></pre>
+<pre class="codepre"><code class="code">None -&gt; None</code></pre><br>
+</div>
+
+<pre><span id="VALmap"><span class="keyword">val</span> map</span> : <code class="type">('a -> 'b) -> 'a option -> 'b option</code></pre>
+<pre><span id="VALunopt"><span class="keyword">val</span> unopt</span> : <code class="type">'a -> ('b -> 'a) -> 'b option -> 'a</code></pre><div class="info ">
+<code class="code">unopt s n</code> eliminates an option value by replacing the constructor <code class="code">Some</code> by <code class="code">s</code> and <code class="code">None</code> by <code class="code">n</code>.<br>
+</div>
+
+<pre><span id="VALget_some"><span class="keyword">val</span> get_some</span> : <code class="type">'a option -> 'a</code></pre><div class="info ">
+Partial function <pre class="codepre"><code class="code">get_some (Some x) = x</code></pre><br>
+<b>Raises</b> <code>Failed</code> on None<br>
+</div>
+
+<pre><span id="VALopt_try"><span class="keyword">val</span> opt_try</span> : <code class="type">'a Lazy.t -> 'a option</code></pre><div class="info ">
+<code class="code">opt_try x</code> forces the lazy value <code class="code">x</code>. If any exception is raised,
+<code class="code">None</code> is returned, otherwise <code class="code">Some x</code> is returned.<br>
+</div>
+
+<pre><span id="VALsome_if"><span class="keyword">val</span> some_if</span> : <code class="type">('a -> bool) -> 'a -> 'a option</code></pre><div class="info ">
+<code class="code">some_if f x = Some x</code> if <code class="code">f x</code> is true, <code class="code">None</code> otherwise<br>
+</div>
+
+<pre><span id="VALunopt_try"><span class="keyword">val</span> unopt_try</span> : <code class="type">'a -> ('b -> 'a) -> 'b Lazy.t -> 'a</code></pre><div class="info ">
+<code class="code">unopt_try s n x = unopt s n (opt_try x)</code><br>
+</div>
+
+<pre><span id="VALleftist_plus"><span class="keyword">val</span> leftist_plus</span> : <code class="type">'a option -> 'a option -> 'a option</code></pre><div class="info ">
+Monadic plus, the left argument has priority on the right
+    in case both options have a value.<br>
+</div>
+
+<pre><span id="VALto_list"><span class="keyword">val</span> to_list</span> : <code class="type">'a option -> 'a list</code></pre></body></html>

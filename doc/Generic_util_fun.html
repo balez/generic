@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic.html">
+<link rel="next" href="Generic_util_app.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><link title="Function composition" rel="Section" href="#2_Functioncomposition">
+<link title="Isomorphisms" rel="Section" href="#2_Isomorphisms">
+<link title="Functions on ordered types" rel="Section" href="#2_Functionsonorderedtypes">
+<link title="Composition and Point-Free Operators" rel="Subsection" href="#3_CompositionandPointFreeOperators">
+<title>Generic Programming Library : Generic_util_fun</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic.html" title="Generic">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Generic_util_app.html" title="Generic_util_app">Next</a>
+</div>
+<h1>Module <a href="type_Generic_util_fun.html">Generic_util_fun</a></h1>
+
+<pre><span class="keyword">module</span> Generic_util_fun: <code class="code">sig</code> <a href="Generic_util_fun.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Function combinators.<br>
+</div>
+<hr width="100%">
+
+<pre><span id="VALconst"><span class="keyword">val</span> const</span> : <code class="type">'a -> 'b -> 'a</code></pre><div class="info ">
+Constant function, ignore the second argument.<br>
+</div>
+
+<pre><span id="VALid"><span class="keyword">val</span> id</span> : <code class="type">'a -> 'a</code></pre><div class="info ">
+Identity function<br>
+</div>
+
+<pre><span id="VALflip"><span class="keyword">val</span> flip</span> : <code class="type">('a -> 'b -> 'c) -> 'b -> 'a -> 'c</code></pre><div class="info ">
+flip the arguments of a function<br>
+</div>
+
+<pre><span id="VALcurry"><span class="keyword">val</span> curry</span> : <code class="type">('a * 'b -> 'c) -> 'a -> 'b -> 'c</code></pre>
+<pre><span id="VALuncurry"><span class="keyword">val</span> uncurry</span> : <code class="type">('a -> 'b -> 'c) -> 'a * 'b -> 'c</code></pre><br>
+<h2 id="2_Functioncomposition">Function composition</h2>
+<p>
+
+    The functions <code class="code">res_n</code> compose a unary function to
+    the result of a <code class="code">n</code>-ary function, so that:
+<pre class="codepre"><code class="code">res_n g f x_0 .. x_{n-1} == g (f x_0 ... x_{n-1})
+</code></pre><br>
+
+<pre><span id="VALres1"><span class="keyword">val</span> res1</span> : <code class="type">('a -> 'b) -> ('c -> 'a) -> 'c -> 'b</code></pre>
+<pre><span id="VALres2"><span class="keyword">val</span> res2</span> : <code class="type">('a -> 'b) -> ('c -> 'd -> 'a) -> 'c -> 'd -> 'b</code></pre>
+<pre><span id="VALres3"><span class="keyword">val</span> res3</span> : <code class="type">('a -> 'b) -> ('c -> 'd -> 'e -> 'a) -> 'c -> 'd -> 'e -> 'b</code></pre>
+<pre><span id="VALres4"><span class="keyword">val</span> res4</span> : <code class="type">('a -> 'b) -> ('c -> 'd -> 'e -> 'f -> 'a) -> 'c -> 'd -> 'e -> 'f -> 'b</code></pre>
+<pre><span id="VALres5"><span class="keyword">val</span> res5</span> : <code class="type">('a -> 'b) -><br>       ('c -> 'd -> 'e -> 'f -> 'g -> 'a) -> 'c -> 'd -> 'e -> 'f -> 'g -> 'b</code></pre>
+<pre><span id="VALres6"><span class="keyword">val</span> res6</span> : <code class="type">('a -> 'b) -><br>       ('c -> 'd -> 'e -> 'f -> 'g -> 'h -> 'a) -><br>       'c -> 'd -> 'e -> 'f -> 'g -> 'h -> 'b</code></pre>
+<pre><span id="VALres7"><span class="keyword">val</span> res7</span> : <code class="type">('a -> 'b) -><br>       ('c -> 'd -> 'e -> 'f -> 'g -> 'h -> 'i -> 'a) -><br>       'c -> 'd -> 'e -> 'f -> 'g -> 'h -> 'i -> 'b</code></pre>
+<pre><span id="VALres8"><span class="keyword">val</span> res8</span> : <code class="type">('a -> 'b) -><br>       ('c -> 'd -> 'e -> 'f -> 'g -> 'h -> 'i -> 'j -> 'a) -><br>       'c -> 'd -> 'e -> 'f -> 'g -> 'h -> 'i -> 'j -> 'b</code></pre>
+<pre><span id="VALres9"><span class="keyword">val</span> res9</span> : <code class="type">('a -> 'b) -><br>       ('c -> 'd -> 'e -> 'f -> 'g -> 'h -> 'i -> 'j -> 'k -> 'a) -><br>       'c -> 'd -> 'e -> 'f -> 'g -> 'h -> 'i -> 'j -> 'k -> 'b</code></pre>
+<pre><span id="VALopres"><span class="keyword">val</span> opres</span> : <code class="type">('a -> 'b -> 'c) -> ('d -> 'a) -> ('d -> 'b) -> 'd -> 'c</code></pre><div class="info ">
+<code class="code">opres (^) f g x = f x ^ g x</code><br>
+</div>
+
+<pre><span id="VALopon"><span class="keyword">val</span> opon</span> : <code class="type">('a -> 'a -> 'b) -> ('c -> 'a) -> 'c -> 'c -> 'b</code></pre><div class="info ">
+<code class="code">opon (^) f x y = f x ^ f y</code><br>
+</div>
+<br>
+<h3 id="3_CompositionandPointFreeOperators">Composition and Point-Free Operators</h3><br>
+
+<pre><span id="VAL(-<)"><span class="keyword">val</span> (-&lt;)</span> : <code class="type">('a -> 'b) -> ('c -> 'a) -> 'c -> 'b</code></pre><div class="info ">
+<code class="code">(g -&lt; f) x = g (f x)</code><br>
+</div>
+
+<pre><span id="VAL(>-)"><span class="keyword">val</span> (&gt;-)</span> : <code class="type">('a -> 'b) -> ('b -> 'c) -> 'a -> 'c</code></pre><div class="info ">
+<code class="code">(f &gt;- g) x = g (f x)</code><br>
+</div>
+
+<pre><span id="VAL(>>.)"><span class="keyword">val</span> (&gt;&gt;.)</span> : <code class="type">('a -> 'b) -> ('a -> 'c) -> 'a -> 'c</code></pre><div class="info ">
+<code class="code">(f &gt;&gt;. g) x = f x ; g x</code><br>
+</div>
+
+<pre><span id="VAL(&&.)"><span class="keyword">val</span> (&amp;&amp;.)</span> : <code class="type">('a -> bool) -> ('a -> bool) -> 'a -> bool</code></pre><div class="info ">
+<code class="code">(f &amp;&amp;. g) x = f x &amp;&amp; g x</code><br>
+</div>
+<br>
+<h2 id="2_Isomorphisms">Isomorphisms</h2><br>
+
+<pre><code><span id="TYPEiso"><span class="keyword">type</span> <code class="type">('a, 'b)</code> iso</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTiso.fwd">fwd</span>&nbsp;: <code class="type">'a -> 'b</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTiso.bck">bck</span>&nbsp;: <code class="type">'b -> 'a</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+An isomorphism is given by a bijection and its inverse,
+it must be true that: <pre class="codepre"><code class="code">fwd (bck x) = bck (fwd x) = x</code></pre><br>
+</div>
+
+
+<pre><span id="VALiso_id"><span class="keyword">val</span> iso_id</span> : <code class="type">('a, 'a) <a href="Generic_util_fun.html#TYPEiso">iso</a></code></pre><div class="info ">
+The identity isomorphism<br>
+</div>
+<br>
+<h2 id="2_Functionsonorderedtypes">Functions on ordered types</h2><br>
+
+<pre><span id="VALin_range"><span class="keyword">val</span> in_range</span> : <code class="type">'a -> 'a * 'a -> bool</code></pre><div class="info ">
+<pre class="codepre"><code class="code">in_range x (a, b)  =  x &gt;= a &amp;&amp; x &lt;= b</code></pre><br>
+</div>
+</body></html>

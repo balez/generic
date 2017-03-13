@@ -1,0 +1,406 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Index of types</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Index of types</h1>
+<table>
+<tr><td align="left"><br>A</td></tr>
+<tr><td><a href="Generic_util_app.T.html#TYPEapp">app</a> [<a href="Generic_util_app.T.html">Generic_util_app.T</a>]</td>
+<td><div class="info">
+Extensible GADT interpreting type application.
+</div>
+</td></tr>
+<tr><td><a href="Generic_util_app.T.html#TYPEapplicative">applicative</a> [<a href="Generic_util_app.T.html">Generic_util_app.T</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_app.html#TYPEarray'">array'</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>C</td></tr>
+<tr><td><a href="Generic_core_consumer.html#TYPEclosure">closure</a> [<a href="Generic_core_consumer.html">Generic_core_consumer</a>]</td>
+<td><div class="info">
+A closure allows us to call a type-indexed consumer and
+    to extend it to new type cases.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_extensible.html#TYPEclosure">closure</a> [<a href="Generic_core_extensible.html">Generic_core_extensible</a>]</td>
+<td><div class="info">
+A closure allows us to call a type-indexed function and
+    to extend it to new type cases.
+</div>
+</td></tr>
+<tr><td><a href="Generic_util_app.html#TYPEcomp">comp</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
+<td><div class="info">
+Functor Composition
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Ext.html#TYPEcon">con</a> [<a href="Generic_core_desc.Ext.html">Generic_core_desc.Ext</a>]</td>
+<td><div class="info">
+A constructor of an extensible type <code class="code">('a0,...'an) t</code> is
+      described by a value of type <code class="code">con</code> which is a partial
+      polymorphic function that computes the constructor
+      representation for any closed type expression
+      <code class="code">(s0,...,sn) t</code> (without any type variable).
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Con.html#TYPEcon">con</a> [<a href="Generic_core_desc.Con.html">Generic_core_desc.Con</a>]</td>
+<td><div class="info">
+<b>Constructor.</b>
+</div>
+</td></tr>
+<tr><td><a href="Generic_util_obj.html#TYPEcon_id">con_id</a> [<a href="Generic_util_obj.html">Generic_util_obj</a>]</td>
+<td><div class="info">
+Type of constructor identifiers, the result type of function <a href="Generic_util_obj.html#VALcon_id"><code class="code">Generic_util_obj.con_id</code></a>
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Con.html#TYPEconap">conap</a> [<a href="Generic_core_desc.Con.html">Generic_core_desc.Con</a>]</td>
+<td><div class="info">
+<b>Constructor Application.</b>
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Ext.html#TYPEcons">cons</a> [<a href="Generic_core_desc.Ext.html">Generic_core_desc.Ext</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Variant.html#TYPEcons">cons</a> [<a href="Generic_core_desc.Variant.html">Generic_core_desc.Variant</a>]</td>
+<td><div class="info">
+<b>Set of constructors</b>.
+</div>
+</td></tr>
+<tr><td><a href="Generic_util_app.html#TYPEconst">const</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
+<td><div class="info">
+The type <code class="code">'t const</code> doesn't build useful values, we use
+    it as a "code" to be interpreted by <code class="code">app</code> so that <code class="code">('a, 't
+    const) app</code> is isomorphic to <code class="code">'t</code>.
+</div>
+</td></tr>
+<tr><td><a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> [<a href="Generic_fun_multiplate.html">Generic_fun_multiplate</a>]</td>
+<td><div class="info">
+Specialisation of <code class="code">plate</code> to a constant functor.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Custom.T.html#TYPEcustom">custom</a> [<a href="Generic_core_desc.Custom.T.html">Generic_core_desc.Custom.T</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>D</td></tr>
+<tr><td><a href="Generic_core_desc.T.html#TYPEdesc">desc</a> [<a href="Generic_core_desc.T.html">Generic_core_desc.T</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Method.html#TYPEdesc">desc</a> [<a href="Generic_core_desc.Method.html">Generic_core_desc.Method</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Con.html#TYPEdesc">desc</a> [<a href="Generic_core_desc.Con.html">Generic_core_desc.Con</a>]</td>
+<td><div class="info">
+<b>Constructor description.</b>
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.html#TYPEdesc">desc</a> [<a href="Generic_core_desc.html">Generic_core_desc</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc_fun.html#TYPEdesc_fun">desc_fun</a> [<a href="Generic_core_desc_fun.html">Generic_core_desc_fun</a>]</td>
+<td><div class="info">
+Type of the generic view: a <code class="code">desc_fun</code> takes a type witness <code class="code">'a ty</code> and
+    computes the description <code class="code">'a desc</code>
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_ty.Dyn.html#TYPEdyn">dyn</a> [<a href="Generic_core_ty.Dyn.html">Generic_core_ty.Dyn</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_ty.html#TYPEdyn">dyn</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_product.html#TYPEdynprod">dynprod</a> [<a href="Generic_core_product.html">Generic_core_product</a>]</td>
+<td><div class="info">
+Union of all product types
+</div>
+</td></tr>
+<tr><td align="left"><br>E</td></tr>
+<tr><td><a href="Generic_core_desc.Array.intf-c.html#TYPEelt">elt</a> [<a href="Generic_core_desc.Array.intf-c.html">Generic_core_desc.Array.intf</a>]</td>
+<td><div class="info">
+<code class="code">elt</code> is the element type
+</div>
+</td></tr>
+<tr><td><a href="Generic_util_sum.html#TYPEempty">empty</a> [<a href="Generic_util_sum.html">Generic_util_sum</a>]</td>
+<td><div class="info">
+Type with zero element.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_equal.html#TYPEequal">equal</a> [<a href="Generic_core_equal.html">Generic_core_equal</a>]</td>
+<td><div class="info">
+<code class="code">x : ('a,'b) equal</code> is a witness that 'a and 'b are intensionally equal.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_equal.html#TYPEequal_fun">equal_fun</a> [<a href="Generic_core_equal.html">Generic_core_equal</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_app.html#TYPEexponential">exponential</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
+<td><div class="info">
+The type <code class="code">'b exponential</code> doesn't build useful values,
+    consider it abstract.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Ext.html#TYPEextensible">extensible</a> [<a href="Generic_core_desc.Ext.html">Generic_core_desc.Ext</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>F</td></tr>
+<tr><td><a href="Generic_core_desc.Field.T.html#TYPEfield">field</a> [<a href="Generic_core_desc.Field.T.html">Generic_core_desc.Field.T</a>]</td>
+<td><div class="info">
+<b>Field.</b>
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Fields.T.html#TYPEfields">fields</a> [<a href="Generic_core_desc.Fields.T.html">Generic_core_desc.Fields.T</a>]</td>
+<td><div class="info">
+<b>List of fields.</b>
+</div>
+</td></tr>
+<tr><td><a href="Generic_util_app.T.html#TYPEfunctorial">functorial</a> [<a href="Generic_util_app.T.html">Generic_util_app.T</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>I</td></tr>
+<tr><td><a href="Generic_util_app.html#TYPEid">id</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a> [<a href="Generic_fun_multiplate.html">Generic_fun_multiplate</a>]</td>
+<td><div class="info">
+Specialisation of <code class="code">plate</code> to the identity functor.
+</div>
+</td></tr>
+<tr><td><a href="Generic_util_app.html#TYPEio">io</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
+<td><div class="info">
+
+</div>
+</td></tr>
+<tr><td><a href="Generic_util_fun.html#TYPEiso">iso</a> [<a href="Generic_util_fun.html">Generic_util_fun</a>]</td>
+<td><div class="info">
+An isomorphism is given by a bijection and its inverse,
+it must be true that: <pre class="codepre"><code class="code">fwd (bck x) = bck (fwd x) = x</code></pre>
+</div>
+</td></tr>
+<tr><td align="left"><br>L</td></tr>
+<tr><td><a href="Generic_util_list.html#TYPElist'">list'</a> [<a href="Generic_util_list.html">Generic_util_list</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>M</td></tr>
+<tr><td><a href="Generic_util_app.T.html#TYPEmonad">monad</a> [<a href="Generic_util_app.T.html">Generic_util_app.T</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_app.T.html#TYPEmonoid">monoid</a> [<a href="Generic_util_app.T.html">Generic_util_app.T</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>O</td></tr>
+<tr><td><a href="Generic_util_obj.html#TYPEobj">obj</a> [<a href="Generic_util_obj.html">Generic_util_obj</a>]</td>
+<td><div class="info">
+Variant type reflecting the implementation of ocaml
+    values, they are either an immediate (integer) value or a
+    block with a tag and a number of fields.
+</div>
+</td></tr>
+<tr><td><a href="Generic_util_app.html#TYPEoption'">option'</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
+<td><div class="info">
+Core parametric  types
+</div>
+</td></tr>
+<tr><td align="left"><br>P</td></tr>
+<tr><td><a href="Generic_core_ty.html#TYPEpat">pat</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_fun_multiplate.html#TYPEplate">plate</a> [<a href="Generic_fun_multiplate.html">Generic_fun_multiplate</a>]</td>
+<td><div class="info">
+A plate is a type-indexed function that may transform values of any type
+while carrying some effect in an applicative functor or a monad.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_product.T.html#TYPEproduct">product</a> [<a href="Generic_core_product.T.html">Generic_core_product.T</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>R</td></tr>
+<tr><td><a href="Generic_util_app.html#TYPEreader">reader</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
+<td><div class="info">
+reader monad
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Record.T.html#TYPErecord">record</a> [<a href="Generic_core_desc.Record.T.html">Generic_core_desc.Record.T</a>]</td>
+<td><div class="info">
+<b>Record.</b>
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_repr.html#TYPErepr">repr</a> [<a href="Generic_core_repr.html">Generic_core_repr</a>]</td>
+<td><div class="info">
+The concrete representation type is existentially
+    quantified.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_repr.html#TYPErepr_by">repr_by</a> [<a href="Generic_core_repr.html">Generic_core_repr</a>]</td>
+<td><div class="info">
+<code class="code">(a,b) repr_by</code> explains how <code class="code">a</code> is <i>represented</i> by <code class="code">b</code>.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_repr.html#TYPErepr_fun">repr_fun</a> [<a href="Generic_core_repr.html">Generic_core_repr</a>]</td>
+<td><div class="info">
+Type-indexed function that associates a representation to an abstract type.
+</div>
+</td></tr>
+<tr><td align="left"><br>S</td></tr>
+<tr><td><a href="Generic_fun_multiplate.html#TYPEscrapped">scrapped</a> [<a href="Generic_fun_multiplate.html">Generic_fun_multiplate</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_view_sumprod.html#TYPEsp">sp</a> [<a href="Generic_view_sumprod.html">Generic_view_sumprod</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_view_spine.T.html#TYPEspine">spine</a> [<a href="Generic_view_spine.T.html">Generic_view_spine.T</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_app.html#TYPEstate">state</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
+<td><div class="info">
+state monad
+</div>
+</td></tr>
+<tr><td><a href="Generic_util_sum.html#TYPEsum">sum</a> [<a href="Generic_util_sum.html">Generic_util_sum</a>]</td>
+<td><div class="info">
+Sum type.
+</div>
+</td></tr>
+<tr><td align="left"><br>T</td></tr>
+<tr><td><a href="Generic_view_conlist.html#TYPEt">t</a> [<a href="Generic_view_conlist.html">Generic_view_conlist</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_view_spine.html#TYPEt">t</a> [<a href="Generic_view_spine.html">Generic_view_spine</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_product.html#TYPEt">t</a> [<a href="Generic_core_product.html">Generic_core_product</a>]</td>
+<td><div class="info">
+Synonym, so that <code class="code">Product.T.product</code> might be refered to as <code class="code">Product.t</code>
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_equal.html#TYPEt">t</a> [<a href="Generic_core_equal.html">Generic_core_equal</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_repr.html#TYPEt">t</a> [<a href="Generic_core_repr.html">Generic_core_repr</a>]</td>
+<td><div class="info">
+A synonym, so that <code class="code">repr</code> might be referred to as <code class="code">Repr.t</code>
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Custom.html#TYPEt">t</a> [<a href="Generic_core_desc.Custom.html">Generic_core_desc.Custom</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Array.intf-c.html#TYPEt">t</a> [<a href="Generic_core_desc.Array.intf-c.html">Generic_core_desc.Array.intf</a>]</td>
+<td><div class="info">
+<code class="code">t</code> is the array type
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Class.html#TYPEt">t</a> [<a href="Generic_core_desc.Class.html">Generic_core_desc.Class</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Object.html#TYPEt">t</a> [<a href="Generic_core_desc.Object.html">Generic_core_desc.Object</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Method.html#TYPEt">t</a> [<a href="Generic_core_desc.Method.html">Generic_core_desc.Method</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Poly.html#TYPEt">t</a> [<a href="Generic_core_desc.Poly.html">Generic_core_desc.Poly</a>]</td>
+<td><div class="info">
+Abstract type representing the set of constructors in a
+      polymorphic variant type
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Ext.html#TYPEt">t</a> [<a href="Generic_core_desc.Ext.html">Generic_core_desc.Ext</a>]</td>
+<td><div class="info">
+Synonym for convenience.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Variant.html#TYPEt">t</a> [<a href="Generic_core_desc.Variant.html">Generic_core_desc.Variant</a>]</td>
+<td><div class="info">
+Synonym for convenience.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Con.html#TYPEt">t</a> [<a href="Generic_core_desc.Con.html">Generic_core_desc.Con</a>]</td>
+<td><div class="info">
+Synonym for convenience.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Record.html#TYPEt">t</a> [<a href="Generic_core_desc.Record.html">Generic_core_desc.Record</a>]</td>
+<td><div class="info">
+<b>Record.</b>
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Fields.html#TYPEt">t</a> [<a href="Generic_core_desc.Fields.html">Generic_core_desc.Fields</a>]</td>
+<td><div class="info">
+<b>List of fields.</b>
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_desc.Field.html#TYPEt">t</a> [<a href="Generic_core_desc.Field.html">Generic_core_desc.Field</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.html#TYPEt">t</a> [<a href="Generic_core_desc.html">Generic_core_desc</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_ty.html#TYPEt">t</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_monad.S.html#TYPEt">t</a> [<a href="Generic_util_monad.S.html">Generic_util_monad.S</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_app.html#TYPEt">t</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
+<td><div class="info">
+Synonym for convenience, when namespace <code class="code">Generic_util</code> is
+    opened, and one doesn't want to open <code class="code">App.T</code>, one can
+    refer to <code class="code">App.T.app</code> as <code class="code">App.t</code>.
+</div>
+</td></tr>
+<tr><td><a href="Generic_util_obj.html#TYPEtag">tag</a> [<a href="Generic_util_obj.html">Generic_util_obj</a>]</td>
+<td><div class="info">
+Each ocaml values is associated to a tag, an integer.
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_product.html#TYPEtuple">tuple</a> [<a href="Generic_core_product.html">Generic_core_product</a>]</td>
+<td><div class="info">
+A value tagged by the witness of its product type
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_ty.T.html#TYPEty">ty</a> [<a href="Generic_core_ty.T.html">Generic_core_ty.T</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_ty.html#TYPEty">ty</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_ty.html#TYPEty'">ty'</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_consumer.html#TYPEty_fun">ty_fun</a> [<a href="Generic_core_consumer.html">Generic_core_consumer</a>]</td>
+<td><div class="info">
+Type-indexed consumer function
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_extensible.html#TYPEty_fun">ty_fun</a> [<a href="Generic_core_extensible.html">Generic_core_extensible</a>]</td>
+<td><div class="info">
+Type-indexed function, <code class="code">'b</code> is the code for a parametric type <code class="code">'a f</code>
+such that <code class="code">'b ty_fun</code> is equivalent to <code class="code">for all 'a . 'a f</code>
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_ty.Typed.html#TYPEtyped">typed</a> [<a href="Generic_core_ty.Typed.html">Generic_core_ty.Typed</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_ty.html#TYPEtyped">typed</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>V</td></tr>
+<tr><td><a href="Generic_core_desc.Variant.html#TYPEvariant">variant</a> [<a href="Generic_core_desc.Variant.html">Generic_core_desc.Variant</a>]</td>
+<td><div class="info">
+<b>Variant.</b>
+</div>
+</td></tr>
+<tr><td><a href="Generic_view_conlist.html#TYPEview">view</a> [<a href="Generic_view_conlist.html">Generic_view_conlist</a>]</td>
+<td></td></tr>
+</table>
+</body>
+</html>

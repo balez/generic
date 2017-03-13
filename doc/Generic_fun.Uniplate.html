@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_fun.Equal.html">
+<link rel="next" href="Generic_fun.Multiplate.html">
+<link rel="Up" href="Generic_fun.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_fun.Uniplate</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_fun.Equal.html" title="Generic_fun.Equal">Previous</a>
+&nbsp;<a class="up" href="Generic_fun.html" title="Generic_fun">Up</a>
+&nbsp;<a class="post" href="Generic_fun.Multiplate.html" title="Generic_fun.Multiplate">Next</a>
+</div>
+<h1>Module <a href="type_Generic_fun.Uniplate.html">Generic_fun.Uniplate</a></h1>
+
+<pre><span class="keyword">module</span> Uniplate: <code class="type"><a href="Generic_fun_uniplate.html">Generic_fun_uniplate</a></code></pre><hr width="100%">
+
+<pre><span id="VALscrap"><span class="keyword">val</span> scrap</span> : <code class="type">'a Ty.T.ty -> 'a -> 'a list * ('a list -> 'a)</code></pre><div class="info ">
+<code class="code">Scrap a</code> returns the list of children of type <code class="code">a</code> of a value of type <code class="code">a</code>
+and a function to replace the children. That function should be given a list of the same size
+as the children list.
+<p>
+
+<pre class="codepre"><code class="code">x == let (children, replace) = scrap a b x in replace children
+</code></pre><br>
+</div>
+
+<pre><span id="VALchildren"><span class="keyword">val</span> children</span> : <code class="type">'a Ty.T.ty -> 'a -> 'a list</code></pre><div class="info ">
+The list of children of type <code class="code">a</code> of a value of type <code class="code">a</code><br>
+</div>
+
+<pre><span id="VALreplace_children"><span class="keyword">val</span> replace_children</span> : <code class="type">'a Ty.T.ty -> 'a -> 'a list -> 'a</code></pre><div class="info ">
+Replacing the children of a value with new children. The
+    list should contain exactly the number of required children.
+<p>
+
+    (Alternative specification: additional children are ignored,
+    and if not enough are given, only the first ones are changed)<br>
+</div>
+
+<pre><span id="VALmap_children"><span class="keyword">val</span> map_children</span> : <code class="type">'a Ty.T.ty -> ('a -> 'a) -> 'a -> 'a</code></pre><div class="info ">
+Replace the children of a value using the given function.<br>
+</div>
+
+<pre><span id="VALfamily"><span class="keyword">val</span> family</span> : <code class="type">'a Ty.T.ty -> 'a -> 'a list</code></pre><div class="info ">
+A family is a list of descendents.
+A descendent of a value is either the value itself or a descendent of one of its children.
+<code class="code">family</code> builds a pre-order family where the value is listed before its descendents<br>
+</div>
+
+<pre><span id="VALmap_family"><span class="keyword">val</span> map_family</span> : <code class="type">'a Ty.T.ty -> ('a -> 'a) -> 'a -> 'a</code></pre><div class="info ">
+Bottom up (Depth-first, post-order) traversal of a value of a recursive type. The
+    given function is applied to each member of the family.<br>
+</div>
+
+<pre><span id="VALreduce_family"><span class="keyword">val</span> reduce_family</span> : <code class="type">'a Ty.T.ty -> ('a -> 'a option) -> 'a -> 'a</code></pre><div class="info ">
+given a function that may optionally transform a value,
+    <code class="code">reduce_family</code> returns a function that exhaustively
+    transforms the family of the input. The traversal proceeds
+    bottom-up, first transforming the families of the
+    children. If a transformation succeeds then the result is
+    re-reduce_family-ed.
+<p>
+
+    A post-condition is that the input function returns
+    <code class="code">None</code> on all family members of the output.<br>
+</div>
+
+<pre><span id="VALpara"><span class="keyword">val</span> para</span> : <code class="type">'a Ty.T.ty -> ('a -> 'r list -> 'r) -> 'a -> 'r</code></pre><div class="info ">
+Paramorphism. this is a bottom-up<br>
+</div>
+<br>
+applicative and monadic variants<br>
+
+<pre><span id="VALtraverse_children"><span class="keyword">val</span> traverse_children</span> : <code class="type">'f App.T.applicative -><br>       'a Ty.T.ty -><br>       ('a -> ('a, 'f) App.T.app) -><br>       'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+applicative variant of <a href="Generic_fun_uniplate.html#VALmap_children"><code class="code">Generic_fun_uniplate.map_children</code></a><br>
+</div>
+
+<pre><span id="VALtraverse_family"><span class="keyword">val</span> traverse_family</span> : <code class="type">'f App.T.monad -><br>       'a Ty.T.ty -><br>       ('a -> ('a, 'f) App.T.app) -><br>       'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+monadic variant of <a href="Generic_fun_uniplate.html#VALmap_family"><code class="code">Generic_fun_uniplate.map_family</code></a><br>
+</div>
+
+<pre><span id="VALmreduce_family"><span class="keyword">val</span> mreduce_family</span> : <code class="type">'f App.T.monad -><br>       'a Ty.T.ty -><br>       ('a -> ('a option, 'f) App.T.app) -><br>       'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+monadic variant of <a href="Generic_fun_uniplate.html#VALreduce_family"><code class="code">Generic_fun_uniplate.reduce_family</code></a><br>
+</div>
+</body></html>

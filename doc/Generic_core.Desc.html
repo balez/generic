@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_core.Antiunify.html">
+<link rel="next" href="Generic_core.Desc_fun.html">
+<link rel="Up" href="Generic_core.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><link title="Records" rel="Section" href="#2_Records">
+<link title="Variants" rel="Section" href="#2_Variants">
+<link title="Rest" rel="Section" href="#2_Rest">
+<link title="Type description" rel="Section" href="#2_Typedescription">
+<title>Generic Programming Library : Generic_core.Desc</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_core.Antiunify.html" title="Generic_core.Antiunify">Previous</a>
+&nbsp;<a class="up" href="Generic_core.html" title="Generic_core">Up</a>
+&nbsp;<a class="post" href="Generic_core.Desc_fun.html" title="Generic_core.Desc_fun">Next</a>
+</div>
+<h1>Module <a href="type_Generic_core.Desc.html">Generic_core.Desc</a></h1>
+
+<pre><span class="keyword">module</span> Desc: <code class="type"><a href="Generic_core_desc.html">Generic_core_desc</a></code></pre><div class="info module top">
+A low level generic view of OCaml types.<br>
+</div>
+<hr width="100%">
+<br>
+<h2 id="2_Records">Records</h2>
+<p>
+
+    A record type is described as a set of fields, each field is described by its name, type
+    and a procedure to update its value if it is mutable.
+<p>
+
+    To complete the description of a record type, it is
+    associated to a product type and an isomorphism to
+    convert between the record and the product.<br>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Field.html">Field</a>: <code class="code">sig</code> <a href="Generic_core_desc.Field.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of a record field.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Fields.html">Fields</a>: <code class="code">sig</code> <a href="Generic_core_desc.Fields.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of a record's collection of fields.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Record.html">Record</a>: <code class="code">sig</code> <a href="Generic_core_desc.Record.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of record datatypes.
+</div>
+<br>
+<h2 id="2_Variants">Variants</h2><br>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Con.html">Con</a>: <code class="code">sig</code> <a href="Generic_core_desc.Con.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of variant constructors.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Variant.html">Variant</a>: <code class="code">sig</code> <a href="Generic_core_desc.Variant.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of variant datatypes.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Ext.html">Ext</a>: <code class="code">sig</code> <a href="Generic_core_desc.Ext.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of extensible variants.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Poly.html">Poly</a>: <code class="code">sig</code> <a href="Generic_core_desc.Poly.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of polymorphic variants.
+</div>
+<br>
+<h2 id="2_Rest">Rest</h2><br>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Method.html">Method</a>: <code class="code">sig</code> <a href="Generic_core_desc.Method.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of an object's or a classe's method.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Object.html">Object</a>: <code class="code">sig</code> <a href="Generic_core_desc.Object.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of a collection of methods.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Class.html">Class</a>: <code class="code">sig</code> <a href="Generic_core_desc.Class.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of a class.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Array.html">Array</a>: <code class="code">sig</code> <a href="Generic_core_desc.Array.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of array-like datatypes.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Custom.html">Custom</a>: <code class="code">sig</code> <a href="Generic_core_desc.Custom.html">..</a> <code class="code">end</code></pre><div class="info">
+Generic representation of custom datatypes.
+</div>
+<br>
+<h2 id="2_Typedescription">Type description</h2>
+<p>
+
+    A low level generic view of ocaml types. Types fall in nine
+    categories each with its specific description.<br>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.T.html">T</a>: <code class="code">sig</code> <a href="Generic_core_desc.T.html">..</a> <code class="code">end</code></pre><div class="info">
+One may open <code class="code">T</code> to bring constructor names in scope, typically for pattern-matching.
+</div>
+
+<pre><span id="TYPEdesc"><span class="keyword">type</span> <code class="type">'a</code> desc</span> = <code class="type">'a <a href="Generic_core_desc.T.html#TYPEdesc">T.desc</a></code> = </pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.Array"><span class="constructor">Array</span></span> <span class="keyword">:</span> <code class="type">'e Ty.T.ty<br>        * (module Array.intf with type elt = 'e and type t = 'a0)</code> <span class="keyword">-></span> <code class="type">'a0 <a href="Generic_core_desc.html#TYPEdesc">desc</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.Product"><span class="constructor">Product</span></span> <span class="keyword">:</span> <code class="type">'ts Product.t * ('ts, 'p) Fun.iso</code> <span class="keyword">-></span> <code class="type">'p <a href="Generic_core_desc.html#TYPEdesc">desc</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.Record"><span class="constructor">Record</span></span> <span class="keyword">:</span> <code class="type">('p0, 'r) <a href="Generic_core_desc.Record.html#TYPEt">Record.t</a></code> <span class="keyword">-></span> <code class="type">'r <a href="Generic_core_desc.html#TYPEdesc">desc</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.Variant"><span class="constructor">Variant</span></span> <span class="keyword">:</span> <code class="type">'v <a href="Generic_core_desc.Variant.html#TYPEt">Variant.t</a></code> <span class="keyword">-></span> <code class="type">'v <a href="Generic_core_desc.html#TYPEdesc">desc</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.Extensible"><span class="constructor">Extensible</span></span> <span class="keyword">:</span> <code class="type">'a1 <a href="Generic_core_desc.Ext.html#TYPEt">Ext.t</a></code> <span class="keyword">-></span> <code class="type">'a1 <a href="Generic_core_desc.html#TYPEdesc">desc</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.Custom"><span class="constructor">Custom</span></span> <span class="keyword">:</span> <code class="type">'a2 <a href="Generic_core_desc.Custom.html#TYPEt">Custom.t</a></code> <span class="keyword">-></span> <code class="type">'a2 <a href="Generic_core_desc.html#TYPEdesc">desc</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.Class"><span class="constructor">Class</span></span> <span class="keyword">:</span> <code class="type">'c <a href="Generic_core_desc.Class.html#TYPEt">Class.t</a></code> <span class="keyword">-></span> <code class="type">'c <a href="Generic_core_desc.html#TYPEdesc">desc</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.Synonym"><span class="constructor">Synonym</span></span> <span class="keyword">:</span> <code class="type">'a3 Ty.T.ty * ('a3, 'b) Equal.t</code> <span class="keyword">-></span> <code class="type">'b <a href="Generic_core_desc.html#TYPEdesc">desc</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.Abstract"><span class="constructor">Abstract</span></span> <span class="keyword">:</span> <code class="type">'a4 <a href="Generic_core_desc.html#TYPEdesc">desc</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdesc.NoDesc"><span class="constructor">NoDesc</span></span> <span class="keyword">:</span> <code class="type">'a5 <a href="Generic_core_desc.html#TYPEdesc">desc</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">'a</code> t</span> = <code class="type">'a <a href="Generic_core_desc.T.html#TYPEdesc">T.desc</a></code> </pre>
+
+</body></html>

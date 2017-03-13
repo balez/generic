@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_util_obj_inspect.html">
+<link rel="next" href="Generic_util_option.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><link title="Types" rel="Section" href="#2_Types">
+<link title="Operations" rel="Section" href="#2_Operations">
+<title>Generic Programming Library : Generic_util_sum</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_util_obj_inspect.html" title="Generic_util_obj_inspect">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Generic_util_option.html" title="Generic_util_option">Next</a>
+</div>
+<h1>Module <a href="type_Generic_util_sum.html">Generic_util_sum</a></h1>
+
+<pre><span class="keyword">module</span> Generic_util_sum: <code class="code">sig</code> <a href="Generic_util_sum.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Empty and Sum datatypes.<br>
+</div>
+<hr width="100%">
+<br>
+<h2 id="2_Types">Types</h2><br>
+
+<pre><span id="TYPEempty"><span class="keyword">type</span> <code class="type"></code>empty</span> </pre>
+<div class="info ">
+Type with zero element.<br>
+</div>
+
+
+<pre><code><span id="TYPEsum"><span class="keyword">type</span> <code class="type">('a, 'b)</code> sum</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsum.Left"><span class="constructor">Left</span></span> <span class="keyword">of</span> <code class="type">'a</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsum.Right"><span class="constructor">Right</span></span> <span class="keyword">of</span> <code class="type">'b</code></code></td>
+
+</tr></table>
+
+<div class="info ">
+Sum type.<br>
+</div>
+
+<pre><code><span class="keyword">type</span> <code class="type">'_</code> Ty.t += </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONEmpty">Empty</span> <span class="keyword">:</span> <code class="type"><a href="Generic_util_sum.html#TYPEempty">empty</a> Ty.t</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONSum">Sum</span> <span class="keyword">:</span> <code class="type">'a Ty.t * 'b Ty.t</code> <span class="keyword">-></span> <code class="type">('a, 'b) <a href="Generic_util_sum.html#TYPEsum">sum</a> Ty.t</code></code></td>
+
+</tr></table>
+
+<div class="info ">
+Type witnesses for <code class="code">empty</code> and <code class="code">sum</code>.<br>
+</div>
+
+
+<pre><span id="VALleft"><span class="keyword">val</span> left</span> : <code class="type">'a -> ('a, 'b) <a href="Generic_util_sum.html#TYPEsum">sum</a></code></pre>
+<pre><span id="VALright"><span class="keyword">val</span> right</span> : <code class="type">'b -> ('a, 'b) <a href="Generic_util_sum.html#TYPEsum">sum</a></code></pre><br>
+<h2 id="2_Operations">Operations</h2><br>
+
+<pre><span id="VALempty_elim"><span class="keyword">val</span> empty_elim</span> : <code class="type"><a href="Generic_util_sum.html#TYPEempty">empty</a> -> 'a</code></pre><div class="info ">
+Empty elimination: anything can be proved from a
+    falsehood.  It shouldn't be possible to execute that function
+    since we cannot give it any actual argument, however, the
+    function is useful when pattern matching requires some
+    impossible cases to be given anyway.<br>
+</div>
+
+<pre><span id="VALeither"><span class="keyword">val</span> either</span> : <code class="type">('a -> 'c) -> ('b -> 'c) -> ('a, 'b) <a href="Generic_util_sum.html#TYPEsum">sum</a> -> 'c</code></pre>
+<pre><span id="VALsum"><span class="keyword">val</span> sum</span> : <code class="type">('a -> 'c) -><br>       ('b -> 'd) -> ('a, 'b) <a href="Generic_util_sum.html#TYPEsum">sum</a> -> ('c, 'd) <a href="Generic_util_sum.html#TYPEsum">sum</a></code></pre></body></html>

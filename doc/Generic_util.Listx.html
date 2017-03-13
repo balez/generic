@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_util.Iter.html">
+<link rel="next" href="Generic_util.Misc.html">
+<link rel="Up" href="Generic_util.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_util.Listx</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_util.Iter.html" title="Generic_util.Iter">Previous</a>
+&nbsp;<a class="up" href="Generic_util.html" title="Generic_util">Up</a>
+&nbsp;<a class="post" href="Generic_util.Misc.html" title="Generic_util.Misc">Next</a>
+</div>
+<h1>Module <a href="type_Generic_util.Listx.html">Generic_util.Listx</a></h1>
+
+<pre><span class="keyword">module</span> Listx: <code class="type"><a href="Generic_util_list.html">Generic_util_list</a></code></pre><div class="info module top">
+Useful functions on lists.<br>
+</div>
+<hr width="100%">
+
+<pre><span id="VAL(-<)"><span class="keyword">val</span> (-&lt;)</span> : <code class="type">('a -> 'b) -> ('c -> 'a) -> 'c -> 'b</code></pre>
+<pre><span id="VALfoldr"><span class="keyword">val</span> foldr</span> : <code class="type">('a -> 'b -> 'b) -> 'b -> 'a list -> 'b</code></pre><div class="info ">
+<code class="code">foldr c n l = List.fold_right c l n</code><br>
+</div>
+
+<pre><span id="VALcons"><span class="keyword">val</span> cons</span> : <code class="type">'a -> 'a list -> 'a list</code></pre><div class="info ">
+<code class="code">cons</code> is useful when we want partial application of the list constructor.<br>
+</div>
+
+<pre><span id="VALfrom_to"><span class="keyword">val</span> from_to</span> : <code class="type">int -> int -> int list</code></pre><div class="info ">
+<code class="code">from_to a b = [a; a+1; ... ; b]</code><br>
+</div>
+
+<pre><span id="VALreplicate"><span class="keyword">val</span> replicate</span> : <code class="type">int -> 'a -> 'a list</code></pre><div class="info ">
+<code class="code">replicate n x = [x; x; ...; x]</code> with <code class="code">x</code> repeated <code class="code">n</code> times.<br>
+</div>
+
+<pre><span id="VALwith_indices"><span class="keyword">val</span> with_indices</span> : <code class="type">'a list -> (int * 'a) list</code></pre><div class="info ">
+<code class="code">with_indices [x0; x1; ...; xn] = [(0,x0); (1,x1); ... ; (n, xn)]</code><br>
+</div>
+
+<pre><span id="VALfind_index"><span class="keyword">val</span> find_index</span> : <code class="type">('a -> bool) -> 'a list -> int</code></pre><div class="info ">
+<code class="code">find_index p xs</code> is the index of the first element of <code class="code">xs</code> for which the predicate <code class="code">p</code> is true:
+<code class="code">p (List.nth xs (find_index p xs)) == true</code>
+and <code class="code">(n &lt; find_index p xs ==&gt; p (List.nth xs n) == false</code><br>
+<b>Raises</b> <code>Not_found</code> if no element verifies the predicate<br>
+</div>
+
+<pre><span id="VALindex"><span class="keyword">val</span> index</span> : <code class="type">'a -> 'a list -> int</code></pre><div class="info ">
+<code class="code">index x xs</code> is the index of the first element of <code class="code">xs</code> equal to <code class="code">x</code>.
+<code class="code">index x = find_index (fun y -&gt; x = y)</code>
+<code class="code">List.nth xs (index x xs) = x</code>
+<p>
+
+Uses Pervasives.(=)<br>
+<b>Raises</b> <code>Not_found</code> if <code class="code">x</code> is not an element of the list<br>
+</div>
+
+<pre><span id="VALfind_opt"><span class="keyword">val</span> find_opt</span> : <code class="type">('a -> bool) -> 'a list -> 'a option</code></pre><div class="info ">
+<code class="code">findOpt p xs</code> returns <code class="code">Some x</code> if <code class="code">x</code> is the first
+    element of the list <code class="code">xs</code> verifying the predicate <code class="code">p</code>. or
+    <code class="code">None</code> if no element verifies the predicate. This
+    function is total.<br>
+</div>
+<br>
+<code class="code">take_while p l</code> returns the longest prefix of <code class="code">l</code> whose
+    elements make <code class="code">p</code> true.<br>
+
+<pre><span id="VALtake_while"><span class="keyword">val</span> take_while</span> : <code class="type">('a -> bool) -> 'a list -> 'a list</code></pre><br>
+<code class="code">drop_while p l</code> returns the suffix of <code class="code">l</code> after removing
+    the longest prefix of <code class="code">l</code> whose elements make <code class="code">p</code> true.
+<pre class="codepre"><code class="code">take_while p l @ drop_while p l = l
+</code></pre><br>
+
+<pre><span id="VALdrop_while"><span class="keyword">val</span> drop_while</span> : <code class="type">('a -> bool) -> 'a list -> 'a list</code></pre><br>
+<code class="code">find_some f l</code> applies an option-valued function <code class="code">f</code> to
+    the elements of a list <code class="code">l</code> and returns the first element that is not <code class="code">None</code>
+    or <code class="code">None</code> if no such element exists.<br>
+
+<pre><span id="VALfind_some"><span class="keyword">val</span> find_some</span> : <code class="type">('a -> 'b option) -> 'a list -> 'b option</code></pre><br>
+<code class="code">filter_some f l</code> applies <code class="code">f</code> to every element <code class="code">x</code> of the
+    list <code class="code">l</code> yielding either <code class="code">None</code> which is thrown away, or
+    <code class="code">Some y</code> in which case <code class="code">y</code> is kept.
+<p>
+
+<pre class="codepre"><code class="code">filter p = filter_some (fun x -&gt; if p x then Some x else None)
+</code></pre><br>
+
+<pre><span id="VALfilter_some"><span class="keyword">val</span> filter_some</span> : <code class="type">('a -> 'b option) -> 'a list -> 'b list</code></pre>
+<pre><span id="VALset"><span class="keyword">val</span> set</span> : <code class="type">int -> 'a -> 'a list -> 'a list</code></pre><div class="info ">
+<code class="code">set i x xs</code> computes a new list where the <code class="code">i</code>-th element
+    of <code class="code">xs</code> is <code class="code">x</code>, the rest of the list is unchanged. Counting
+    from <code class="code">0</code>.
+<p>
+
+    If <code class="code">i</code> is greater than the length of the list or if <code class="code">i</code>
+    is negative, then the original list is returned.<br>
+</div>
+
+<pre><span id="VALconcatmap"><span class="keyword">val</span> concatmap</span> : <code class="type">('a -> 'b list) -> 'a list -> 'b list</code></pre><div class="info ">
+<pre class="codepre"><code class="code">concatmap f x = concat -&lt; map f</code></pre>
+    <code class="code">concatmap</code> is the flipped bind operator of the list monad<br>
+</div>
+
+<pre><code><span id="TYPElist'"><span class="keyword">type</span> <code class="type"></code>list'</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTlist'.LIST"><span class="constructor">LIST</span></span></code></td>
+
+</tr></table>
+
+
+<pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> App.T.app += </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONList">List</span> <span class="keyword">:</span> <code class="type">'a list</code> <span class="keyword">-></span> <code class="type">('a, <a href="Generic_util_list.html#TYPElist'">list'</a>) App.T.app</code></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALget_list"><span class="keyword">val</span> get_list</span> : <code class="type">('a, <a href="Generic_util_list.html#TYPElist'">list'</a>) App.T.app -> 'a list</code></pre>
+<pre><span id="VALmonoid"><span class="keyword">val</span> monoid</span> : <code class="type">'a list App.T.monoid</code></pre>
+<pre><span id="VALmonad"><span class="keyword">val</span> monad</span> : <code class="type"><a href="Generic_util_list.html#TYPElist'">list'</a> App.T.monad</code></pre>
+<pre><span id="EXCEPTIONInsert_duplicate"><span class="keyword">exception</span> Insert_duplicate</span></pre>
+<div class="info ">
+Raised by <a href="Generic_util_list.html#VALsl_insert"><code class="code">Generic_util_list.sl_insert</code></a> when trying to insert an element that is already in the list.<br>
+</div>
+
+<pre><span id="VALsl_insert"><span class="keyword">val</span> sl_insert</span> : <code class="type">('a -> 'a -> bool) -> 'a -> 'a list -> 'a list</code></pre><div class="info ">
+<code class="code">sl_insert leq x xs</code> inserts the new element <code class="code">x</code> in the sorted list <code class="code">xs</code> using the pre-order <code class="code">&lt;=</code>.<br>
+<b>Raises</b> <code>Insert_duplicate</code> when <code class="code">x</code> is already in <code class="code">xs</code>.<br>
+</div>
+
+<pre><span id="EXCEPTIONMatch_list_failure"><span class="keyword">exception</span> Match_list_failure</span></pre>
+<div class="info ">
+Raised by <a href="Generic_util_list.html#VALmatch_list"><code class="code">Generic_util_list.match_list</code></a>.<br>
+</div>
+
+<pre><span id="VALmatch_list"><span class="keyword">val</span> match_list</span> : <code class="type">('a -> 'b) -> 'a list -> 'b</code></pre><div class="info ">
+<code class="code">match_list</code> tries to apply a function to the first
+   element of a list. If a <code class="code">Match_failure</code> is caught, we
+   proceed with the rest of the list. If no more element is available (empty list),
+   the exception <code class="code">Match_list_failure</code> is raised.<br>
+<b>Raises</b> <code>Match_list_failure</code> if the list is empty or if all the elements of the list
+caused a <code class="code">Match_failure</code>.<br>
+</div>
+
+<pre><span id="VALtraverse"><span class="keyword">val</span> traverse</span> : <code class="type">'a App.T.applicative -><br>       ('b -> ('c, 'a) App.T.app) -><br>       'b list -> ('c list, 'a) App.T.app</code></pre>
+<pre><span id="VALsequence"><span class="keyword">val</span> sequence</span> : <code class="type">'a App.T.applicative -><br>       ('b, 'a) App.T.app list -> ('b list, 'a) App.T.app</code></pre></body></html>
