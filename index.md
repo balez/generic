@@ -1,8 +1,7 @@
 A Generic Programming Library for OCaml
 =======================================
 
-Requires OCaml v.4.04.0
------------------------
+For OCaml v.4.04.0
 
 Strong points
 -------------
