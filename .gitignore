@@ -10,6 +10,8 @@
 a.out
 *.bck
 doc/**
+org-pages/**
+gh-pages/**
 
 # executables
 test_marshal

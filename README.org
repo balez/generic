@@ -1,4 +1,7 @@
 * A Generic Programming Library for OCaml
+** Documentation
+[[https://balez.github.io/generic/]]
+
 ** Requires OCaml v.4.04.0
 ** Strong points
 - Separate notions of type witnesses and type representation
