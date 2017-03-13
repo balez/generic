@@ -30,9 +30,10 @@ Strong points
 -   Examples include a type-safe deserialization function that respects
     type abstraction.
 
--   Resources
+Resources
+=========
+
 -   [Technical Report](./generic.pdf)
 -   [Library Reference](./doc/index.html)
 -   [Github Repository](https://github.com/balez/generic/)
-
 
