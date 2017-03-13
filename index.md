@@ -1,10 +1,10 @@
-A Generic Programming Library for OCaml
-=======================================
+Compatibility
+=============
 
-For OCaml v.4.04.0
+Works with OCaml v.4.04.0
 
 Strong points
--------------
+=============
 
 -   Separate notions of type witnesses and type representation allows to
     use many flavours of generic programming, and adapt other libraries
@@ -30,10 +30,9 @@ Strong points
 -   Examples include a type-safe deserialization function that respects
     type abstraction.
 
-Resources
----------
-
+-   Resources
 -   [Technical Report](./generic.pdf)
 -   [Library Reference](./doc/index.html)
 -   [Github Repository](https://github.com/balez/generic/)
+
 
