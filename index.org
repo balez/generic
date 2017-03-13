@@ -23,3 +23,7 @@
   recursive functions over complex tree types.
 
 - Examples include a type-safe deserialization function that respects type abstraction.
+
+** Resources
+- [[./generic.pdf][Technical Report]]
+- [[./doc/index.html][Library Reference]]
