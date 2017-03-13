@@ -1,16 +1,3 @@
 *~
 *#
 #*
-*.cmo
-*.cma
-*.cmi
-*.cmx
-*.o
-*.dep
-a.out
-*.bck
-doc/**
-
-# executables
-test_marshal
-reify
