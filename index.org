@@ -28,3 +28,4 @@ For OCaml v.4.04.0
 ** Resources
 - [[./generic.pdf][Technical Report]]
 - [[./doc/index.html][Library Reference]]
+- [[https://github.com/balez/generic/][Github Repository]]
