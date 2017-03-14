@@ -16,6 +16,7 @@ open Generic_view
 open Ty.T
 open Desc.T
 open App.T
+open Monad.T
 
 let local_invalid_arg str = invalid_arg (__MODULE__ ^ str)
 
@@ -60,9 +61,11 @@ let rec para a f x =
 
 let traverse_children t a f x =
   let (cs, rep) = scrap a x
-  in (App.fun_of_app t).fmap rep (Listx.traverse t f cs)
+  in (Applicative.fun_of_app t).fmap rep (Listx.traverse t f cs)
 
-let rec traverse_family m a f x = let open App in
+let rec traverse_family m a f x =
+  let open Applicative in
+  let open Monad in
   join m (liftM m f (traverse_children (app_of_mon m) a (traverse_family m a f) x))
 
 let rec mreduce_family m a f x =

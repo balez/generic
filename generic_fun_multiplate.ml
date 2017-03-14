@@ -3,8 +3,23 @@ open Generic_util
 open Generic_view
 open Ty.T
 open Ty.Dyn
-open Desc
+open Desc (* TODO remove *)
 open App.T
+open Monoid.T
+open Functor.T
+open Applicative.T
+open Monad.T
+
+let get_id = App.get_id
+let get_const = App.get_const
+
+let liftA2 = Applicative.liftA2
+let fun_of_app = Applicative.fun_of_app
+let id_applicative = Applicative.id
+let const_applicative = Applicative.const
+
+let app_of_mon = Monad.app_of_mon
+let id_monad = Monad.id
 
 type 'f plate = {plate : 'a . 'a ty -> 'a -> ('a,'f) App.t}
 type id_plate = {id_plate : 'a . 'a ty -> 'a -> 'a}
@@ -55,10 +70,10 @@ let traverse a {plate} p x
       | Nil , () -> a.pure ()
       | Cons (t, ts) , (x, xs) ->
         let pair a b = (a,b) in
-        App.liftA2 a pair (plate t x) (go (ts, xs))
+        liftA2 a pair (plate t x) (go (ts, xs))
     in go (p,x)
 
-let map f p x = App.get_id (traverse App.id_applicative (id_plate f) p x)
+let map f p x = get_id (traverse id_applicative (id_plate f) p x)
 
 (****************************************************)
 type 'a scrapped =
@@ -81,23 +96,22 @@ let children_d (Dyn (t,x)) = children t x
 
 let traverse_children_p a f = {plate = fun t x ->
   let Scrapped (p, cs, rep) = scrap t x
-  in (App.fun_of_app a).fmap rep (traverse a f p cs)}
+  in (fun_of_app a).fmap rep (traverse a f p cs)}
 let traverse_children a f = (traverse_children_p a f).plate
 
-let map_children_p f = {id_plate = fun t x -> let open App in
+let map_children_p f = {id_plate = fun t x ->
   get_id (traverse_children id_applicative (id_plate f) t x)}
 let map_children f = (map_children_p f).id_plate
 
 let rec traverse_family_p m f =
-  compose_monad m f (traverse_children_p (App.app_of_mon m) (traverse_family_p m f))
+  compose_monad m f (traverse_children_p (app_of_mon m) (traverse_family_p m f))
 let traverse_family m f = (traverse_family_p m f).plate
 
-let rec map_family_p f = {id_plate = fun t x -> let open App in
+let rec map_family_p f = {id_plate = fun t x ->
   get_id (traverse_family id_monad (id_plate f) t x)}
 let map_family f = (map_family_p f).id_plate
 
 let fold_children_p m f = {const_plate = fun t x ->
-  let open App in
   get_const (traverse_children (const_applicative m) (const_plate f) t x)}
 let fold_children_d m f =
   dyn_of_const_plate (fold_children_p m (const_of_dyn_plate f))

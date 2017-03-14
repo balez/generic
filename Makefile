@@ -35,6 +35,10 @@ NSI=
 ML=\
 generic_util_fun.ml\
 generic_util_app.ml\
+generic_util_monoid.ml\
+generic_util_functor.ml\
+generic_util_applicative.ml\
+generic_util_monad.ml\
 generic_util_hash.ml\
 generic_util_iter.ml\
 generic_util_list.ml\
@@ -72,6 +76,7 @@ generic_util_app.mli\
 generic_util_fun.mli\
 generic_util_iter.mli\
 generic_util_sum.mli\
+generic_util_monad.mli\
 generic_core_antiunify.mli\
 generic_core_extensible.mli\
 generic_core_consumer.mli\

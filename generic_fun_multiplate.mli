@@ -14,6 +14,10 @@ open Ty.T
 open Ty.Dyn
 open App.T
 open Product.T
+open Monoid.T
+open Functor.T
+open Applicative.T
+open Monad.T
 
 type 'f plate = {plate : 'a . 'a ty -> 'a -> ('a,'f) app}
 (** A plate is a type-indexed function that may transform values of any type

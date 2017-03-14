@@ -11,6 +11,7 @@ let option f = function
   | None -> None
 
 let map = option
+let functorial = Functor.option
 
 (** [unopt s n] eliminates an option value by replacing the constructor [Some] by [s] and [None] by [n].
  *)

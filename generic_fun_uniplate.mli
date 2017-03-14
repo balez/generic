@@ -16,6 +16,8 @@ open Generic_core
 open Generic_util
 open Ty.T
 open App.T
+open Applicative.T
+open Monad.T
 
 val scrap : 'a ty -> 'a -> 'a list * ('a list -> 'a)
 (** [Scrap a] returns the list of children of type [a] of a value of type [a]

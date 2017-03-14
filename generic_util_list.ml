@@ -2,6 +2,7 @@
 
 open Generic_util
 open App.T
+open Applicative.T
 
 let (-<) = Fun.(-<)
 
@@ -127,23 +128,11 @@ let set n x xs =
  *)
 let concatmap f xs = List.concat (List.map f xs)
 
-type list' = LIST
-type (_,_) app += List : 'a list -> ('a, list') app
-let get_list = function
-  | List x -> x
-  | _ -> assert false
+let monoid = Monoid.list
 
+let monad = Monad.list
 
-let monoid =
-  { mempty = []
-  ; mappend = (fun x y -> x @ y)
-  }
-let monad =
-  { return = (fun x -> List [x])
-  ; bind = (fun xs f -> List (concatmap (get_list -< f) (get_list xs)))
-  }
-
-  (** Raised by {!sl_insert} when trying to insert an element that is already in the list. *)
+(** Raised by {!sl_insert} when trying to insert an element that is already in the list. *)
 exception Insert_duplicate
 
 (** [sl_insert leq x xs] inserts the new element [x] in the sorted list [xs] using the pre-order [<=].
@@ -176,6 +165,6 @@ let match_list f =
 
 let rec traverse a f = let open App.T in function
     | [] -> a.pure []
-    | h :: t -> App.liftA2 a cons (f h) (traverse a f t)
+    | h :: t -> Applicative.liftA2 a cons (f h) (traverse a f t)
 
 let sequence a = traverse a (fun x -> x)

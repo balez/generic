@@ -32,11 +32,20 @@ module Fun = Generic_util_fun
 (** Empty and Sum datatypes. *)
 module Sum = Generic_util_sum
 
-(** Monads. *)
-module Monad = Generic_util_monad
-
 (** Operations on option types. *)
 module Option = Generic_util_option
 
 (** Operations on/with exceptions. *)
 module Exn = Generic_util_exn
+
+(** Monoid and instances for integers, floats, booleans, options, lists. *)
+module Monoid = Generic_util_monoid
+
+(** Functorial map and instances for option, list, identity, constant. *)
+module Functor = Generic_util_functor
+
+(** Applicative Functors and instances for option, list, identity, constant. *)
+module Applicative = Generic_util_applicative
+
+(** Monads and instances for option, list, identity, state, reader, input-output. *)
+module Monad = Generic_util_monad
