@@ -1,4 +1,14 @@
+(** Main Namespace for the library.
+
+{!Generic} contains the {!Util} and {!Fun} namespaces,
+and re-exports the modules of the namespace {!Generic_core},
+with one twist: {!Generic_core.Desc} and {!Generic_core.Desc_fun} are merged.
+*)
+
+(** Namespace of utility modules. *)
 module Util = Generic_util
+
+(** Namespace for modules defining generic functions *)
 module Fun = Generic_fun
 
 (** Type witness. *)
@@ -28,6 +38,7 @@ module Extensible = Generic_core_extensible
 (** Extensible type-indexed consumers. *)
 module Consumer = Generic_core_consumer
 
+(** {!Desc} merges the modules {!Generic_core.Desc} and {!Generic_core.Desc_fun}. *)
 module Desc = struct
   include Generic_core_desc
   include Generic_core_desc_fun

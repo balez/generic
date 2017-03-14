@@ -46,7 +46,7 @@
 (** {2 Type Application}
  *)
 
-(** Module defining {!app}, suitable to be opened. *)
+(** Module defining the types {!app}, {!functorial}, {!applicative}, {!monad}, {!monoid}.  *)
 module T : sig
   (** Extensible GADT interpreting type application.  *)
   type (_,_) app = ..
@@ -70,13 +70,14 @@ module T : sig
     }
 end
 
+type ('a,'b) t = ('a,'b) T.app
 (** Synonym for convenience, when namespace [Generic_util] is
     opened, and one doesn't want to open [App.T], one can
     refer to [App.T.app] as [App.t].
 *)
-type ('a,'b) t = ('a,'b) T.app
 
-(** {2 Core parametric  types} *)
+(** {3 Core parametric  types} *)
+
 type option' = OPTION
 type (_,_) t += Option : 'a option -> ('a, option') t
 val get_option : ('a, option') t -> 'a option
@@ -85,13 +86,14 @@ type array' = ARRAY
 type (_,_) t += Array : 'a array -> ('a, array') t
 val get_array : ('a, array') t -> 'a array
 
-(** {2 Identity Functor} *)
+
+(** {3 Identity Functor} *)
 
 type id = ID
 type (_, _) t += Id : 'a -> ('a, id) t
 val get_id : ('a, id) t -> 'a
 
-(** {2 Constant Functor} *)
+(** {3 Constant Functor} *)
 
 (** The type ['t const] doesn't build useful values, we use
     it as a "code" to be interpreted by [app] so that [('a, 't
@@ -106,10 +108,10 @@ type 't const = CONST
 (** [('a, 'b const) app] is isomorphic to ['t] *)
 type (_, _) t += Const : 'b -> ('a, 'b const) t
 
-(** Get the argument of the [Const] constructor *)
 val get_const : ('a, 'b const) t -> 'b
+(** Get the argument of the [Const] constructor *)
 
-(** {2 Exponential Functor}
+(** {3 Exponential Functor}
 *)
 
 (** The type ['b exponential] doesn't build useful values,
@@ -122,24 +124,26 @@ type 'b exponential = EXPONENTIAL
 (** [('a, 'b exponential) app] is isomorphic to ['a -> 'b]. *)
 type (_, _) t += Exponential : ('a -> 'b) -> ('a, 'b exponential) t
 
-(** Get the argument of the [Exponential] constructor *)
 val get_exponential : ('a, 'b exponential) t -> 'a -> 'b
+(** Get the argument of the [Exponential] constructor *)
 
-(** {2 Functor Composition}
-*)
+(** {3 Functor Composition} *)
+
 type ('f, 'g) comp = COMP
 type (_, _) t += Comp : (('a,'f) t, 'g) t -> ('a, ('f, 'g) comp) t
 val get_comp : ('a, ('f, 'g) comp) t -> (('a,'f) t, 'g) t
 
-(** {1 Operations} *)
+(** {2 Operations} *)
 
-(** {2 Conversion} *)
+(** {3 Conversion} *)
 
 val fun_of_app : 'a T.applicative -> 'a T.functorial
 val fun_of_mon : 'a T.monad -> 'a T.functorial
 val app_of_mon : 'a T.monad -> 'a T.applicative
 
-(** {2 Applicative} *)
+(** {3 Applicative} *)
+
+type 'f applicative = 'f T.applicative
 
 val liftA : 'f T.applicative -> ('a -> 'b) ->
   ('a, 'f) T.app -> ('b, 'f) T.app
@@ -150,7 +154,9 @@ val liftA3 : 'f T.applicative -> ('a -> 'b -> 'c -> 'd) ->
 val liftA4 : 'f T.applicative -> ('a -> 'b -> 'c -> 'd -> 'e) ->
  ('a, 'f) T.app -> ('b, 'f) T.app -> ('c, 'f) T.app -> ('d, 'f) T.app -> ('e, 'f) T.app
 
-(** {2 Monad} *)
+(** {3 Monad} *)
+
+type 'f monad = 'f T.monad
 
 val liftM : 'f T.monad -> ('a -> 'b) ->
   ('a, 'f) T.app -> ('b, 'f) T.app
@@ -163,12 +169,14 @@ val liftM4 : 'f T.monad -> ('a -> 'b -> 'c -> 'd -> 'e) ->
 
 val join : 'a T.monad -> (('b, 'a) T.app, 'a) T.app -> ('b, 'a) T.app
 
-(** {2 instances} *)
+(** {2 Instances} *)
+
 val id_applicative : id T.applicative
 val id_monad : id T.monad
 val const_applicative : 'a T.monoid -> 'a const T.applicative
 
-(** {2 state monad} *)
+(** {3 State Monad} *)
+
 type 'b state = STATE
 type (_, _) T.app += State : ('b -> 'a * 'b) -> ('a, 'b state) T.app
 val run_state : ('a, 'b state) T.app -> 'b -> 'a * 'b
@@ -176,7 +184,8 @@ val state : 'a state T.monad
 val get : ('a, 'a state) T.app
 val put : 'a -> (unit, 'a state) T.app
 
-(** {2 reader monad} *)
+(** {3 Reader Monad} *)
+
 type 'b reader = READER
 type (_, _) T.app += Reader : ('b -> 'a) -> ('a, 'b reader) T.app
 val run_reader : ('a, 'b reader) T.app -> 'b -> 'a
@@ -184,15 +193,34 @@ val reader : 'a reader T.monad
 val ask : ('a, 'a reader) T.app
 val local : ('a -> 'b) -> ('c, 'b reader) T.app -> ('c, 'a reader) T.app
 
-(** {io monad} *)
-type io = IO_
-type (_, _) T.app += IO : (unit -> 'a) -> ('a, io) T.app
-val run_io : ('a, io) T.app -> 'a
-val io : io T.monad
-val lift_io : (unit -> 'a) -> ('a, io) T.app
+(** {3 IO Monad} *)
 
-(** {2 monoids} *)
-val int_sum : int T.monoid
-val int_prod : int T.monoid
-val float_sum : float T.monoid
-val float_prod : float T.monoid
+(** Similar to Haskell's IO Monad.
+The constructor {!IO} and synonym {!embed_io} allow to embed an effectful computation in the monad.
+{!run_io} runs it.
+ *)
+
+(** {!io} is used as a type index for {!T.app} *)
+type io = IO_
+
+(** Embed an effectful computation in the IO monad *)
+type (_, _) T.app += IO : (unit -> 'a) -> ('a, io) T.app
+
+val embed_io : (unit -> 'a) -> ('a, io) T.app
+(** Embed an effectful computation in the IO monad *)
+
+val run_io : ('a, io) T.app -> 'a
+(** Run the computation with side effects to obtain a result *)
+
+val io : io T.monad
+(** The IO monad operations *)
+
+
+(** {3 Monoids} *)
+
+type 'a monoid = 'a T.monoid
+
+val int_sum : int T.monoid (** Additive monoid for integers (int, 0, ( + )) *)
+val int_prod : int T.monoid (** Multiplicative monoid for integers (int, 1, ( * )) *)
+val float_sum : float T.monoid (** Additive monoid for floats (float, 0.0, ( +. )) *)
+val float_prod : float T.monoid (** Multiplicative monoid for floats (float, 1.0, ( *. )) *)

@@ -22,7 +22,7 @@ module T = struct
     }
 end
 
-open T
+include T
 type ('a,'b) t = ('a,'b) app
 
 (** {2 Core parametric  types} *)
@@ -165,7 +165,7 @@ let io =
         let y = run_io x
         in run_io (f y)))
   }
-let lift_io x = IO x
+let embed_io x = IO x
 
 let inc r =
   let get_r = IO (fun _ -> !r)

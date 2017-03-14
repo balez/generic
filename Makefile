@@ -44,7 +44,6 @@ generic_util_obj.ml\
 generic_util_obj_inspect.ml\
 generic_util_sum.ml\
 generic_util_option.ml\
-generic_util_monad.ml\
 generic_core_ty.ml\
 generic_core_product.ml\
 generic_core_desc.ml\
@@ -64,6 +63,7 @@ generic_fun_multiplate.ml\
 generic_fun_deepfix.ml\
 generic_fun_marshal.ml\
 generic_fun_equal.ml\
+generic_fun_show.ml\
 
 MLI=\
 generic_util_obj.mli\
@@ -89,7 +89,8 @@ generic_view_conlist.mli\
 generic_fun_marshal.mli\
 generic_fun_uniplate.mli\
 generic_fun_multiplate.mli\
-generic_fun_equal.mli
+generic_fun_equal.mli\
+generic_fun_show.mli\
 
 # OTHER is the list of independent files from the library (ppx, tests)
 OTHER_ML=\
