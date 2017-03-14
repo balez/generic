@@ -1,8 +1,3 @@
-Compatibility
-=============
-
-Works with OCaml v.4.04.0
-
 Strong points
 =============
 
@@ -35,5 +30,8 @@ Resources
 
 -   [Technical Report](./generic.pdf)
 -   [Library Reference](./doc/index.html)
--   [Github Repository](https://github.com/balez/generic/)
+
+-   Compatibility
+
+Works with OCaml v.4.04.0
 
