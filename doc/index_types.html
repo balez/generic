@@ -17,6 +17,10 @@
 <link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
+<link title="Generic_util_functor" rel="Chapter" href="Generic_util_functor.html">
+<link title="Generic_util_applicative" rel="Chapter" href="Generic_util_applicative.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
 <link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
 <link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
@@ -26,7 +30,6 @@
 <link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
 <link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
 <link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
-<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
 <link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
 <link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
@@ -45,7 +48,8 @@
 <link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
-<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Index of types</title>
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Index of types</title>
 </head>
 <body>
 <div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
@@ -58,7 +62,7 @@
 Extensible GADT interpreting type application.
 </div>
 </td></tr>
-<tr><td><a href="Generic_util_app.T.html#TYPEapplicative">applicative</a> [<a href="Generic_util_app.T.html">Generic_util_app.T</a>]</td>
+<tr><td><a href="Generic_util_applicative.T.html#TYPEapplicative">applicative</a> [<a href="Generic_util_applicative.T.html">Generic_util_applicative.T</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_util_app.html#TYPEarray'">array'</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
 <td></td></tr>
@@ -76,10 +80,7 @@ A closure allows us to call a type-indexed function and
 </div>
 </td></tr>
 <tr><td><a href="Generic_util_app.html#TYPEcomp">comp</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
-<td><div class="info">
-Functor Composition
-</div>
-</td></tr>
+<td></td></tr>
 <tr><td><a href="Generic_core_desc.Ext.html#TYPEcon">con</a> [<a href="Generic_core_desc.Ext.html">Generic_core_desc.Ext</a>]</td>
 <td><div class="info">
 A constructor of an extensible type <code class="code">('a0,...'an) t</code> is
@@ -189,7 +190,7 @@ The type <code class="code">'b exponential</code> doesn't build useful values,
 <b>List of fields.</b>
 </div>
 </td></tr>
-<tr><td><a href="Generic_util_app.T.html#TYPEfunctorial">functorial</a> [<a href="Generic_util_app.T.html">Generic_util_app.T</a>]</td>
+<tr><td><a href="Generic_util_functor.T.html#TYPEfunctorial">functorial</a> [<a href="Generic_util_functor.T.html">Generic_util_functor.T</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>I</td></tr>
 <tr><td><a href="Generic_util_app.html#TYPEid">id</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
@@ -199,9 +200,9 @@ The type <code class="code">'b exponential</code> doesn't build useful values,
 Specialisation of <code class="code">plate</code> to the identity functor.
 </div>
 </td></tr>
-<tr><td><a href="Generic_util_app.html#TYPEio">io</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
+<tr><td><a href="Generic_util_monad.html#TYPEio">io</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
 <td><div class="info">
-
+<a href="Generic_util_monad.html#VALio"><code class="code">Generic_util_monad.io</code></a> is used as a type index for <code class="code">T.app</code>
 </div>
 </td></tr>
 <tr><td><a href="Generic_util_fun.html#TYPEiso">iso</a> [<a href="Generic_util_fun.html">Generic_util_fun</a>]</td>
@@ -211,12 +212,14 @@ it must be true that: <pre class="codepre"><code class="code">fwd (bck x) = bck 
 </div>
 </td></tr>
 <tr><td align="left"><br>L</td></tr>
-<tr><td><a href="Generic_util_list.html#TYPElist'">list'</a> [<a href="Generic_util_list.html">Generic_util_list</a>]</td>
+<tr><td><a href="Generic_util_app.html#TYPElist'">list'</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>M</td></tr>
-<tr><td><a href="Generic_util_app.T.html#TYPEmonad">monad</a> [<a href="Generic_util_app.T.html">Generic_util_app.T</a>]</td>
+<tr><td><a href="Generic_util_monad.T.html#TYPEmonad">monad</a> [<a href="Generic_util_monad.T.html">Generic_util_monad.T</a>]</td>
 <td></td></tr>
-<tr><td><a href="Generic_util_app.T.html#TYPEmonoid">monoid</a> [<a href="Generic_util_app.T.html">Generic_util_app.T</a>]</td>
+<tr><td><a href="Generic_util_monad.html#TYPEmonad">monad</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_monoid.T.html#TYPEmonoid">monoid</a> [<a href="Generic_util_monoid.T.html">Generic_util_monoid.T</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>O</td></tr>
 <tr><td><a href="Generic_util_obj.html#TYPEobj">obj</a> [<a href="Generic_util_obj.html">Generic_util_obj</a>]</td>
@@ -227,10 +230,7 @@ Variant type reflecting the implementation of ocaml
 </div>
 </td></tr>
 <tr><td><a href="Generic_util_app.html#TYPEoption'">option'</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
-<td><div class="info">
-Core parametric  types
-</div>
-</td></tr>
+<td></td></tr>
 <tr><td align="left"><br>P</td></tr>
 <tr><td><a href="Generic_core_ty.html#TYPEpat">pat</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
 <td></td></tr>
@@ -243,11 +243,8 @@ while carrying some effect in an applicative functor or a monad.
 <tr><td><a href="Generic_core_product.T.html#TYPEproduct">product</a> [<a href="Generic_core_product.T.html">Generic_core_product.T</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>R</td></tr>
-<tr><td><a href="Generic_util_app.html#TYPEreader">reader</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
-<td><div class="info">
-reader monad
-</div>
-</td></tr>
+<tr><td><a href="Generic_util_monad.html#TYPEreader">reader</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<td></td></tr>
 <tr><td><a href="Generic_core_desc.Record.T.html#TYPErecord">record</a> [<a href="Generic_core_desc.Record.T.html">Generic_core_desc.Record.T</a>]</td>
 <td><div class="info">
 <b>Record.</b>
@@ -276,11 +273,8 @@ Type-indexed function that associates a representation to an abstract type.
 <td></td></tr>
 <tr><td><a href="Generic_view_spine.T.html#TYPEspine">spine</a> [<a href="Generic_view_spine.T.html">Generic_view_spine.T</a>]</td>
 <td></td></tr>
-<tr><td><a href="Generic_util_app.html#TYPEstate">state</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
-<td><div class="info">
-state monad
-</div>
-</td></tr>
+<tr><td><a href="Generic_util_monad.html#TYPEstate">state</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<td></td></tr>
 <tr><td><a href="Generic_util_sum.html#TYPEsum">sum</a> [<a href="Generic_util_sum.html">Generic_util_sum</a>]</td>
 <td><div class="info">
 Sum type.
@@ -353,7 +347,13 @@ Synonym for convenience.
 <td></td></tr>
 <tr><td><a href="Generic_core_ty.html#TYPEt">t</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
 <td></td></tr>
-<tr><td><a href="Generic_util_monad.S.html#TYPEt">t</a> [<a href="Generic_util_monad.S.html">Generic_util_monad.S</a>]</td>
+<tr><td><a href="Generic_util_monad.html#TYPEt">t</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_applicative.html#TYPEt">t</a> [<a href="Generic_util_applicative.html">Generic_util_applicative</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_functor.html#TYPEt">t</a> [<a href="Generic_util_functor.html">Generic_util_functor</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_monoid.html#TYPEt">t</a> [<a href="Generic_util_monoid.html">Generic_util_monoid</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_util_app.html#TYPEt">t</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
 <td><div class="info">

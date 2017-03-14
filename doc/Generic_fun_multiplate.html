@@ -21,6 +21,10 @@
 <link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
+<link title="Generic_util_functor" rel="Chapter" href="Generic_util_functor.html">
+<link title="Generic_util_applicative" rel="Chapter" href="Generic_util_applicative.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
 <link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
 <link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
@@ -30,7 +34,6 @@
 <link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
 <link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
 <link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
-<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
 <link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
 <link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
@@ -49,7 +52,8 @@
 <link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
-<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_fun_multiplate</title>
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Generic_fun_multiplate</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Generic_fun_uniplate.html" title="Generic_fun_uniplate">Previous</a>
@@ -119,7 +123,7 @@ Specialisation of <code class="code">plate</code> to a constant functor.<br>
 </div>
 
 
-<pre><span id="VALpure_plate"><span class="keyword">val</span> pure_plate</span> : <code class="type">'f App.T.applicative -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre><div class="info ">
+<pre><span id="VALpure_plate"><span class="keyword">val</span> pure_plate</span> : <code class="type">'f Applicative.T.applicative -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre><div class="info ">
 A plate that lift all values into the applicative functor.
 For all <code class="code">f</code>, <code class="code">t</code> and <code class="code">x</code>, <code class="code">(pure_plate f).plate t x == f.pure x</code><br>
 </div>
@@ -129,17 +133,17 @@ Specialisation of <code class="code">pure_plate</code> to the identity functor.
 For all <code class="code">t</code> and <code class="code">x</code>, <code class="code">pure_id_plate.plate t x == x</code><br>
 </div>
 
-<pre><span id="VALpure_const_plate"><span class="keyword">val</span> pure_const_plate</span> : <code class="type">'t App.T.monoid -> 't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre><div class="info ">
+<pre><span id="VALpure_const_plate"><span class="keyword">val</span> pure_const_plate</span> : <code class="type">'t Monoid.T.monoid -> 't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre><div class="info ">
 Specialisation of <code class="code">pure_plate</code> to the constant functor.
 For all <code class="code">m</code>, <code class="code">t</code> and <code class="code">x</code>, <code class="code">pure_const_plate.plate t x == m.mempty</code><br>
 </div>
 
-<pre><span id="VALcompose"><span class="keyword">val</span> compose</span> : <code class="type">'f App.T.functorial -><br>       'g <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       ('g, 'f) App.comp <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
-<pre><span id="VALcompose_monad"><span class="keyword">val</span> compose_monad</span> : <code class="type">'f App.T.monad -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
+<pre><span id="VALcompose"><span class="keyword">val</span> compose</span> : <code class="type">'f Functor.T.functorial -><br>       'g <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       ('g, 'f) App.comp <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
+<pre><span id="VALcompose_monad"><span class="keyword">val</span> compose_monad</span> : <code class="type">'f Monad.T.monad -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
 <pre><span id="VALcompose_right_id"><span class="keyword">val</span> compose_right_id</span> : <code class="type">'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       <a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
-<pre><span id="VALcompose_left_id"><span class="keyword">val</span> compose_left_id</span> : <code class="type">'f App.T.functorial -><br>       <a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a> -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
-<pre><span id="VALappend_plate"><span class="keyword">val</span> append_plate</span> : <code class="type">'r App.T.monoid -><br>       'r <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       'r <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       'r <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
-<pre><span id="VALtraverse"><span class="keyword">val</span> traverse</span> : <code class="type">'f App.T.applicative -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'a Product.T.product -> 'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+<pre><span id="VALcompose_left_id"><span class="keyword">val</span> compose_left_id</span> : <code class="type">'f Functor.T.functorial -><br>       <a href="Generic_fun_multiplate.html#TYPEid_plate">id_plate</a> -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
+<pre><span id="VALappend_plate"><span class="keyword">val</span> append_plate</span> : <code class="type">'r Monoid.T.monoid -><br>       'r <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       'r <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       'r <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
+<pre><span id="VALtraverse"><span class="keyword">val</span> traverse</span> : <code class="type">'f Applicative.T.applicative -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'a Product.T.product -> 'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
 Traversing a product type with effects<br>
 </div>
 
@@ -184,8 +188,8 @@ and a function that replace those children.<br>
     the value itself and the descendents of its immediate children<br>
 </div>
 
-<pre><span id="VALtraverse_children_p"><span class="keyword">val</span> traverse_children_p</span> : <code class="type">'f App.T.applicative -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
-<pre><span id="VALtraverse_children"><span class="keyword">val</span> traverse_children</span> : <code class="type">'f App.T.applicative -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'a Ty.T.ty -> 'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+<pre><span id="VALtraverse_children_p"><span class="keyword">val</span> traverse_children_p</span> : <code class="type">'f Applicative.T.applicative -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
+<pre><span id="VALtraverse_children"><span class="keyword">val</span> traverse_children</span> : <code class="type">'f Applicative.T.applicative -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'a Ty.T.ty -> 'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
 Replace each child using the plate.
     (left to right traversal of children).
 Note that <code class="code">fmap_children</code> corresponds to <code class="code">multiplate</code> and <code class="code">mapChildrenM</code> in the Haskell library.<br>
@@ -197,8 +201,8 @@ Specialisation of <code class="code">fmap_children</code> with the identity func
 Replace each child using the pure plate.<br>
 </div>
 
-<pre><span id="VALtraverse_family_p"><span class="keyword">val</span> traverse_family_p</span> : <code class="type">'f App.T.monad -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
-<pre><span id="VALtraverse_family"><span class="keyword">val</span> traverse_family</span> : <code class="type">'f App.T.monad -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'a Ty.T.ty -> 'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+<pre><span id="VALtraverse_family_p"><span class="keyword">val</span> traverse_family_p</span> : <code class="type">'f Monad.T.monad -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -> 'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a></code></pre>
+<pre><span id="VALtraverse_family"><span class="keyword">val</span> traverse_family</span> : <code class="type">'f Monad.T.monad -><br>       'f <a href="Generic_fun_multiplate.html#TYPEplate">plate</a> -><br>       'a Ty.T.ty -> 'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
 Bottom up (Depth-first, post-order) traversal of a value of a recursive type.
 <p>
 
@@ -217,18 +221,18 @@ Specialisation of <code class="code">fmap_family</code> with the identity monad.
 <pre><span id="VALpara_p"><span class="keyword">val</span> para_p</span> : <code class="type">('r list -> 'r) <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       'r <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
 <pre><span id="VALpara_d"><span class="keyword">val</span> para_d</span> : <code class="type">(Ty.Dyn.dyn -> 'r list -> 'r) -> Ty.Dyn.dyn -> 'r</code></pre>
 <pre><span id="VALpara"><span class="keyword">val</span> para</span> : <code class="type">(Ty.Dyn.dyn -> 'r list -> 'r) -><br>       'a Ty.T.ty -> 'a -> 'r</code></pre>
-<pre><span id="VALfold_children_p"><span class="keyword">val</span> fold_children_p</span> : <code class="type">'t App.T.monoid -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
-<pre><span id="VALfold_children_d"><span class="keyword">val</span> fold_children_d</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> Ty.Dyn.dyn -> 't</code></pre>
-<pre><span id="VALfold_children"><span class="keyword">val</span> fold_children</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> 'a Ty.T.ty -> 'a -> 't</code></pre><div class="info ">
+<pre><span id="VALfold_children_p"><span class="keyword">val</span> fold_children_p</span> : <code class="type">'t Monoid.T.monoid -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
+<pre><span id="VALfold_children_d"><span class="keyword">val</span> fold_children_d</span> : <code class="type">'t Monoid.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> Ty.Dyn.dyn -> 't</code></pre>
+<pre><span id="VALfold_children"><span class="keyword">val</span> fold_children</span> : <code class="type">'t Monoid.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> 'a Ty.T.ty -> 'a -> 't</code></pre><div class="info ">
 Use the plate on each child to get an element of the
     monoid, and use the monoid to reduce them to a single
     value. (left to right traversal of children).
     Corresponds to <code class="code">mChildren</code> in the Haskell library.<br>
 </div>
 
-<pre><span id="VALpre_fold_p"><span class="keyword">val</span> pre_fold_p</span> : <code class="type">'t App.T.monoid -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
-<pre><span id="VALpre_fold_d"><span class="keyword">val</span> pre_fold_d</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> Ty.Dyn.dyn -> 't</code></pre>
-<pre><span id="VALpre_fold"><span class="keyword">val</span> pre_fold</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> 'a Ty.T.ty -> 'a -> 't</code></pre><div class="info ">
+<pre><span id="VALpre_fold_p"><span class="keyword">val</span> pre_fold_p</span> : <code class="type">'t Monoid.T.monoid -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
+<pre><span id="VALpre_fold_d"><span class="keyword">val</span> pre_fold_d</span> : <code class="type">'t Monoid.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> Ty.Dyn.dyn -> 't</code></pre>
+<pre><span id="VALpre_fold"><span class="keyword">val</span> pre_fold</span> : <code class="type">'t Monoid.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> 'a Ty.T.ty -> 'a -> 't</code></pre><div class="info ">
 Folds a family in pre-order.
 <p>
 
@@ -243,9 +247,9 @@ Folds a family in pre-order.
     child, and so forth.<br>
 </div>
 
-<pre><span id="VALpost_fold_p"><span class="keyword">val</span> post_fold_p</span> : <code class="type">'t App.T.monoid -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
-<pre><span id="VALpost_fold_d"><span class="keyword">val</span> post_fold_d</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> Ty.Dyn.dyn -> 't</code></pre>
-<pre><span id="VALpost_fold"><span class="keyword">val</span> post_fold</span> : <code class="type">'t App.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> 'a Ty.T.ty -> 'a -> 't</code></pre><div class="info ">
+<pre><span id="VALpost_fold_p"><span class="keyword">val</span> post_fold_p</span> : <code class="type">'t Monoid.T.monoid -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a> -><br>       't <a href="Generic_fun_multiplate.html#TYPEconst_plate">const_plate</a></code></pre>
+<pre><span id="VALpost_fold_d"><span class="keyword">val</span> post_fold_d</span> : <code class="type">'t Monoid.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> Ty.Dyn.dyn -> 't</code></pre>
+<pre><span id="VALpost_fold"><span class="keyword">val</span> post_fold</span> : <code class="type">'t Monoid.T.monoid -><br>       (Ty.Dyn.dyn -> 't) -> 'a Ty.T.ty -> 'a -> 't</code></pre><div class="info ">
 folds a family in post-order
 <p>
 

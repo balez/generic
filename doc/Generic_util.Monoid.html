@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_util.Exn.html">
+<link rel="next" href="Generic_util.Functor.html">
+<link rel="Up" href="Generic_util.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
+<link title="Generic_util_functor" rel="Chapter" href="Generic_util_functor.html">
+<link title="Generic_util_applicative" rel="Chapter" href="Generic_util_applicative.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Generic_util.Monoid</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_util.Exn.html" title="Generic_util.Exn">Previous</a>
+&nbsp;<a class="up" href="Generic_util.html" title="Generic_util">Up</a>
+&nbsp;<a class="post" href="Generic_util.Functor.html" title="Generic_util.Functor">Next</a>
+</div>
+<h1>Module <a href="type_Generic_util.Monoid.html">Generic_util.Monoid</a></h1>
+
+<pre><span class="keyword">module</span> Monoid: <code class="type"><a href="Generic_util_monoid.html">Generic_util_monoid</a></code></pre><div class="info module top">
+Monoid and instances for integers, floats, booleans, options, lists.<br>
+</div>
+<hr width="100%">
+
+<pre><span class="keyword">module</span> <a href="Generic_util_monoid.T.html">T</a>: <code class="code">sig</code> <a href="Generic_util_monoid.T.html">..</a> <code class="code">end</code></pre><div class="info">
+A monoid is given by a neutral element and a binary
+    operation that should satisfy the laws:
+</div>
+
+<pre><span class="keyword">include</span> T</pre>
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">'t</code> t</span> = <code class="type">'t monoid</code> </pre>
+
+
+<pre><span id="VALint_sum"><span class="keyword">val</span> int_sum</span> : <code class="type">int monoid</code></pre><div class="info ">
+Additive monoid.<br>
+</div>
+
+<pre><span id="VALint_prod"><span class="keyword">val</span> int_prod</span> : <code class="type">int monoid</code></pre><div class="info ">
+Multiplicative monoid.<br>
+</div>
+
+<pre><span id="VALfloat_sum"><span class="keyword">val</span> float_sum</span> : <code class="type">float monoid</code></pre><div class="info ">
+Additive monoid.<br>
+</div>
+
+<pre><span id="VALfloat_prod"><span class="keyword">val</span> float_prod</span> : <code class="type">float monoid</code></pre><div class="info ">
+Multiplicative monoid.<br>
+</div>
+
+<pre><span id="VALall"><span class="keyword">val</span> all</span> : <code class="type">bool monoid</code></pre><div class="info ">
+Boolean monoid under conjunction.<br>
+</div>
+
+<pre><span id="VALany"><span class="keyword">val</span> any</span> : <code class="type">bool monoid</code></pre><div class="info ">
+Boolean monoid under disjunction.<br>
+</div>
+
+<pre><span id="VALfirst"><span class="keyword">val</span> first</span> : <code class="type">'a option monoid</code></pre><div class="info ">
+Option monoid returning the leftmost non-Nothing value.<br>
+</div>
+
+<pre><span id="VALlast"><span class="keyword">val</span> last</span> : <code class="type">'a option monoid</code></pre><div class="info ">
+Option monoid returning the rightmost non-Nothing value.<br>
+</div>
+
+<pre><span id="VALlist"><span class="keyword">val</span> list</span> : <code class="type">'a list monoid</code></pre><div class="info ">
+List monoid<br>
+</div>
+</body></html>

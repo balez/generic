@@ -20,6 +20,10 @@
 <link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
+<link title="Generic_util_functor" rel="Chapter" href="Generic_util_functor.html">
+<link title="Generic_util_applicative" rel="Chapter" href="Generic_util_applicative.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
 <link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
 <link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
@@ -29,7 +33,6 @@
 <link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
 <link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
 <link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
-<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
 <link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
 <link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
@@ -48,7 +51,8 @@
 <link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
-<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic.Util</title>
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Generic.Util</title>
 </head>
 <body>
 <div class="navbar">&nbsp;<a class="up" href="Generic.html" title="Generic">Up</a>
@@ -56,7 +60,10 @@
 </div>
 <h1>Module <a href="type_Generic.Util.html">Generic.Util</a></h1>
 
-<pre><span class="keyword">module</span> Util: <code class="type"><a href="Generic_util.html">Generic_util</a></code></pre><hr width="100%">
+<pre><span class="keyword">module</span> Util: <code class="type"><a href="Generic_util.html">Generic_util</a></code></pre><div class="info module top">
+Namespace of utility modules.<br>
+</div>
+<hr width="100%">
 
 <pre><span class="keyword">module</span> <a href="Generic_util.App.html">App</a>: <code class="type"><a href="Generic_util_app.html">Generic_util_app</a></code></pre><div class="info">
 Type application and defunctionalisation.
@@ -94,15 +101,27 @@ Function combinators.
 Empty and Sum datatypes.
 </div>
 
-<pre><span class="keyword">module</span> <a href="Generic_util.Monad.html">Monad</a>: <code class="type"><a href="Generic_util_monad.html">Generic_util_monad</a></code></pre><div class="info">
-Monads.
-</div>
-
 <pre><span class="keyword">module</span> <a href="Generic_util.Option.html">Option</a>: <code class="type"><a href="Generic_util_option.html">Generic_util_option</a></code></pre><div class="info">
 Operations on option types.
 </div>
 
 <pre><span class="keyword">module</span> <a href="Generic_util.Exn.html">Exn</a>: <code class="type"><a href="Generic_util_exn.html">Generic_util_exn</a></code></pre><div class="info">
 Operations on/with exceptions.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_util.Monoid.html">Monoid</a>: <code class="type"><a href="Generic_util_monoid.html">Generic_util_monoid</a></code></pre><div class="info">
+Monoid and instances for integers, floats, booleans, options, lists.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_util.Functor.html">Functor</a>: <code class="type"><a href="Generic_util_functor.html">Generic_util_functor</a></code></pre><div class="info">
+Functorial map and instances for option, list, identity, constant.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_util.Applicative.html">Applicative</a>: <code class="type"><a href="Generic_util_applicative.html">Generic_util_applicative</a></code></pre><div class="info">
+Applicative Functors and instances for option, list, identity, constant.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_util.Monad.html">Monad</a>: <code class="type"><a href="Generic_util_monad.html">Generic_util_monad</a></code></pre><div class="info">
+Monads and instances for option, list, identity, state, reader, input-output.
 </div>
 </body></html>

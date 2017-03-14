@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="Start" href="index.html">
 <link rel="previous" href="Generic_util_fun.html">
-<link rel="next" href="Generic_util_hash.html">
+<link rel="next" href="Generic_util_monoid.html">
 <link rel="Up" href="index.html">
 <link title="Index of types" rel=Appendix href="index_types.html">
 <link title="Index of extensions" rel=Appendix href="index_extensions.html">
@@ -21,6 +21,10 @@
 <link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
+<link title="Generic_util_functor" rel="Chapter" href="Generic_util_functor.html">
+<link title="Generic_util_applicative" rel="Chapter" href="Generic_util_applicative.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
 <link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
 <link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
@@ -30,7 +34,6 @@
 <link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
 <link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
 <link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
-<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
 <link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
 <link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
@@ -49,20 +52,19 @@
 <link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
-<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><link title="Operations" rel="Section" href="#1_Operations">
-<link title="Type Application" rel="Subsection" href="#2_TypeApplication">
-<link title="Identity Functor" rel="Subsection" href="#2_IdentityFunctor">
-<link title="Constant Functor" rel="Subsection" href="#2_ConstantFunctor">
-<link title="Exponential Functor" rel="Subsection" href="#2_ExponentialFunctor">
-<link title="Conversion" rel="Subsection" href="#2_Conversion">
-<link title="Applicative" rel="Subsection" href="#2_Applicative">
-<link title="Monad" rel="Subsection" href="#2_Monad">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><link title="Type Application" rel="Section" href="#2_TypeApplication">
+<link title="Core parametric  types" rel="Subsection" href="#3_Coreparametrictypes">
+<link title="Identity Functor" rel="Subsection" href="#3_IdentityFunctor">
+<link title="Constant Functor" rel="Subsection" href="#3_ConstantFunctor">
+<link title="Exponential Functor" rel="Subsection" href="#3_ExponentialFunctor">
+<link title="Functor Composition" rel="Subsection" href="#3_FunctorComposition">
 <title>Generic Programming Library : Generic_util_app</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Generic_util_fun.html" title="Generic_util_fun">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
-&nbsp;<a class="post" href="Generic_util_hash.html" title="Generic_util_hash">Next</a>
+&nbsp;<a class="post" href="Generic_util_monoid.html" title="Generic_util_monoid">Next</a>
 </div>
 <h1>Module <a href="type_Generic_util_app.html">Generic_util_app</a></h1>
 
@@ -95,21 +97,21 @@ Type application and defunctionalisation.
     The type <code class="code">'a 'f</code> is not valid, but we may write <code class="code">('a,'f) app</code>,
     where the type <code class="code">app</code> is an extensible gadt.
     To each polymorphic type <code class="code">'a p</code>, we will associate an abstract type
-    <code class="code">pcode</code> which is interpreted by the gadt <code class="code">app</code> such that:
-    <code class="code">('a,p_code) app</code> is isomorphic to <code class="code">'a p</code>.
+    <code class="code">p'</code> which is interpreted by the gadt <code class="code">app</code> such that:
+    <code class="code">('a, p') app</code> is isomorphic to <code class="code">'a p</code>.
 <p>
 
     For instance, to represent the <code class="code">list</code> type constructor,
-    we define the abstract type <code class="code">list_code</code>:
+    we define the abstract type <code class="code">list'</code>:
 <p>
 
-    <pre class="codepre"><code class="code">type list_code</code></pre>
+    <pre class="codepre"><code class="code">type list'</code></pre>
 <p>
 
     and we add a <code class="code">List</code> constructor to <code class="code">app</code>:
 <p>
 
-    <pre class="codepre"><code class="code">type (_,_) app += List : 'a list -&gt; ('a, list_code) app</code></pre>
+    <pre class="codepre"><code class="code">type (_,_) app += List : 'a list -&gt; ('a, list') app</code></pre>
 <p>
 
     The generalised <code class="code">map</code> may then be typed:
@@ -129,7 +131,7 @@ Type application and defunctionalisation.
 <h2 id="2_TypeApplication">Type Application</h2><br>
 
 <pre><span class="keyword">module</span> <a href="Generic_util_app.T.html">T</a>: <code class="code">sig</code> <a href="Generic_util_app.T.html">..</a> <code class="code">end</code></pre><div class="info">
-Module defining <a href="Generic_util_app.T.html#TYPEapp"><code class="code">Generic_util_app.T.app</code></a>, suitable to be opened.
+Module defining the types <a href="Generic_util_app.T.html#TYPEapp"><code class="code">Generic_util_app.T.app</code></a>.
 </div>
 
 <pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">('a, 'b)</code> t</span> = <code class="type">('a, 'b) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code> </pre>
@@ -139,19 +141,10 @@ Synonym for convenience, when namespace <code class="code">Generic_util</code> i
     refer to <code class="code">App.T.app</code> as <code class="code">App.t</code>.<br>
 </div>
 
+<br>
+<h3 id="3_Coreparametrictypes">Core parametric  types</h3><br>
 
-<pre><code><span id="TYPEoption'"><span class="keyword">type</span> <code class="type"></code>option'</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELToption'.OPTION"><span class="constructor">OPTION</span></span></code></td>
-
-</tr></table>
-
-<div class="info ">
-<h2 id="2_Coreparametrictypes">Core parametric  types</h2><br>
-</div>
+<pre><span id="TYPEoption'"><span class="keyword">type</span> <code class="type"></code>option'</span> </pre>
 
 <pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> <a href="Generic_util_app.html#TYPEt">t</a> += </code></pre><table class="typetable">
 <tr>
@@ -165,15 +158,21 @@ Synonym for convenience, when namespace <code class="code">Generic_util</code> i
 
 
 <pre><span id="VALget_option"><span class="keyword">val</span> get_option</span> : <code class="type">('a, <a href="Generic_util_app.html#TYPEoption'">option'</a>) <a href="Generic_util_app.html#TYPEt">t</a> -> 'a option</code></pre>
-<pre><code><span id="TYPEarray'"><span class="keyword">type</span> <code class="type"></code>array'</span> = </code></pre><table class="typetable">
+<pre><span id="TYPElist'"><span class="keyword">type</span> <code class="type"></code>list'</span> </pre>
+
+<pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> <a href="Generic_util_app.html#TYPEt">t</a> += </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTarray'.ARRAY"><span class="constructor">ARRAY</span></span></code></td>
+<code><span id="EXTENSIONList">List</span> <span class="keyword">:</span> <code class="type">'a list</code> <span class="keyword">-></span> <code class="type">('a, <a href="Generic_util_app.html#TYPElist'">list'</a>) <a href="Generic_util_app.html#TYPEt">t</a></code></code></td>
 
 </tr></table>
 
+
+
+<pre><span id="VALget_list"><span class="keyword">val</span> get_list</span> : <code class="type">('a, <a href="Generic_util_app.html#TYPElist'">list'</a>) <a href="Generic_util_app.html#TYPEt">t</a> -> 'a list</code></pre>
+<pre><span id="TYPEarray'"><span class="keyword">type</span> <code class="type"></code>array'</span> </pre>
 
 <pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> <a href="Generic_util_app.html#TYPEt">t</a> += </code></pre><table class="typetable">
 <tr>
@@ -187,7 +186,7 @@ Synonym for convenience, when namespace <code class="code">Generic_util</code> i
 
 
 <pre><span id="VALget_array"><span class="keyword">val</span> get_array</span> : <code class="type">('a, <a href="Generic_util_app.html#TYPEarray'">array'</a>) <a href="Generic_util_app.html#TYPEt">t</a> -> 'a array</code></pre><br>
-<h2 id="2_IdentityFunctor">Identity Functor</h2><br>
+<h3 id="3_IdentityFunctor">Identity Functor</h3><br>
 
 <pre><code><span id="TYPEid"><span class="keyword">type</span> <code class="type"></code>id</span> = </code></pre><table class="typetable">
 <tr>
@@ -211,7 +210,7 @@ Synonym for convenience, when namespace <code class="code">Generic_util</code> i
 
 
 <pre><span id="VALget_id"><span class="keyword">val</span> get_id</span> : <code class="type">('a, <a href="Generic_util_app.html#TYPEid">id</a>) <a href="Generic_util_app.html#TYPEt">t</a> -> 'a</code></pre><br>
-<h2 id="2_ConstantFunctor">Constant Functor</h2><br>
+<h3 id="3_ConstantFunctor">Constant Functor</h3><br>
 
 <pre><code><span id="TYPEconst"><span class="keyword">type</span> <code class="type">'t</code> const</span> = </code></pre><table class="typetable">
 <tr>
@@ -251,7 +250,7 @@ The type <code class="code">'t const</code> doesn't build useful values, we use
 Get the argument of the <code class="code">Const</code> constructor<br>
 </div>
 <br>
-<h2 id="2_ExponentialFunctor">Exponential Functor</h2><br>
+<h3 id="3_ExponentialFunctor">Exponential Functor</h3><br>
 
 <pre><code><span id="TYPEexponential"><span class="keyword">type</span> <code class="type">'b</code> exponential</span> = </code></pre><table class="typetable">
 <tr>
@@ -286,6 +285,8 @@ The type <code class="code">'b exponential</code> doesn't build useful values,
 <pre><span id="VALget_exponential"><span class="keyword">val</span> get_exponential</span> : <code class="type">('a, 'b <a href="Generic_util_app.html#TYPEexponential">exponential</a>) <a href="Generic_util_app.html#TYPEt">t</a> -> 'a -> 'b</code></pre><div class="info ">
 Get the argument of the <code class="code">Exponential</code> constructor<br>
 </div>
+<br>
+<h3 id="3_FunctorComposition">Functor Composition</h3><br>
 
 <pre><code><span id="TYPEcomp"><span class="keyword">type</span> <code class="type">('f, 'g)</code> comp</span> = </code></pre><table class="typetable">
 <tr>
@@ -296,9 +297,6 @@ Get the argument of the <code class="code">Exponential</code> constructor<br>
 
 </tr></table>
 
-<div class="info ">
-<h2 id="2_FunctorComposition">Functor Composition</h2><br>
-</div>
 
 <pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> <a href="Generic_util_app.html#TYPEt">t</a> += </code></pre><table class="typetable">
 <tr>
@@ -311,120 +309,4 @@ Get the argument of the <code class="code">Exponential</code> constructor<br>
 
 
 
-<pre><span id="VALget_comp"><span class="keyword">val</span> get_comp</span> : <code class="type">('a, ('f, 'g) <a href="Generic_util_app.html#TYPEcomp">comp</a>) <a href="Generic_util_app.html#TYPEt">t</a> -><br>       (('a, 'f) <a href="Generic_util_app.html#TYPEt">t</a>, 'g) <a href="Generic_util_app.html#TYPEt">t</a></code></pre><br>
-<h1 id="1_Operations">Operations</h1><br>
-<br>
-<h2 id="2_Conversion">Conversion</h2><br>
-
-<pre><span id="VALfun_of_app"><span class="keyword">val</span> fun_of_app</span> : <code class="type">'a <a href="Generic_util_app.T.html#TYPEapplicative">T.applicative</a> -> 'a <a href="Generic_util_app.T.html#TYPEfunctorial">T.functorial</a></code></pre>
-<pre><span id="VALfun_of_mon"><span class="keyword">val</span> fun_of_mon</span> : <code class="type">'a <a href="Generic_util_app.T.html#TYPEmonad">T.monad</a> -> 'a <a href="Generic_util_app.T.html#TYPEfunctorial">T.functorial</a></code></pre>
-<pre><span id="VALapp_of_mon"><span class="keyword">val</span> app_of_mon</span> : <code class="type">'a <a href="Generic_util_app.T.html#TYPEmonad">T.monad</a> -> 'a <a href="Generic_util_app.T.html#TYPEapplicative">T.applicative</a></code></pre><br>
-<h2 id="2_Applicative">Applicative</h2><br>
-
-<pre><span id="VALliftA"><span class="keyword">val</span> liftA</span> : <code class="type">'f <a href="Generic_util_app.T.html#TYPEapplicative">T.applicative</a> -><br>       ('a -> 'b) -><br>       ('a, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -> ('b, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><span id="VALliftA2"><span class="keyword">val</span> liftA2</span> : <code class="type">'f <a href="Generic_util_app.T.html#TYPEapplicative">T.applicative</a> -><br>       ('a -> 'b -> 'c) -><br>       ('a, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('b, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -> ('c, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><span id="VALliftA3"><span class="keyword">val</span> liftA3</span> : <code class="type">'f <a href="Generic_util_app.T.html#TYPEapplicative">T.applicative</a> -><br>       ('a -> 'b -> 'c -> 'd) -><br>       ('a, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('b, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('c, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -> ('d, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><span id="VALliftA4"><span class="keyword">val</span> liftA4</span> : <code class="type">'f <a href="Generic_util_app.T.html#TYPEapplicative">T.applicative</a> -><br>       ('a -> 'b -> 'c -> 'd -> 'e) -><br>       ('a, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('b, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('c, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('d, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -> ('e, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre><br>
-<h2 id="2_Monad">Monad</h2><br>
-
-<pre><span id="VALliftM"><span class="keyword">val</span> liftM</span> : <code class="type">'f <a href="Generic_util_app.T.html#TYPEmonad">T.monad</a> -><br>       ('a -> 'b) -><br>       ('a, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -> ('b, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><span id="VALliftM2"><span class="keyword">val</span> liftM2</span> : <code class="type">'f <a href="Generic_util_app.T.html#TYPEmonad">T.monad</a> -><br>       ('a -> 'b -> 'c) -><br>       ('a, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('b, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -> ('c, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><span id="VALliftM3"><span class="keyword">val</span> liftM3</span> : <code class="type">'f <a href="Generic_util_app.T.html#TYPEmonad">T.monad</a> -><br>       ('a -> 'b -> 'c -> 'd) -><br>       ('a, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('b, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('c, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -> ('d, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><span id="VALliftM4"><span class="keyword">val</span> liftM4</span> : <code class="type">'f <a href="Generic_util_app.T.html#TYPEmonad">T.monad</a> -><br>       ('a -> 'b -> 'c -> 'd -> 'e) -><br>       ('a, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('b, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('c, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('d, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -> ('e, 'f) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><span id="VALjoin"><span class="keyword">val</span> join</span> : <code class="type">'a <a href="Generic_util_app.T.html#TYPEmonad">T.monad</a> -><br>       (('b, 'a) <a href="Generic_util_app.T.html#TYPEapp">T.app</a>, 'a) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('b, 'a) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><span id="VALid_applicative"><span class="keyword">val</span> id_applicative</span> : <code class="type"><a href="Generic_util_app.html#TYPEid">id</a> <a href="Generic_util_app.T.html#TYPEapplicative">T.applicative</a></code></pre><div class="info ">
-<h2 id="2_instances">instances</h2><br>
-</div>
-
-<pre><span id="VALid_monad"><span class="keyword">val</span> id_monad</span> : <code class="type"><a href="Generic_util_app.html#TYPEid">id</a> <a href="Generic_util_app.T.html#TYPEmonad">T.monad</a></code></pre>
-<pre><span id="VALconst_applicative"><span class="keyword">val</span> const_applicative</span> : <code class="type">'a <a href="Generic_util_app.T.html#TYPEmonoid">T.monoid</a> -><br>       'a <a href="Generic_util_app.html#TYPEconst">const</a> <a href="Generic_util_app.T.html#TYPEapplicative">T.applicative</a></code></pre>
-<pre><code><span id="TYPEstate"><span class="keyword">type</span> <code class="type">'b</code> state</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTstate.STATE"><span class="constructor">STATE</span></span></code></td>
-
-</tr></table>
-
-<div class="info ">
-<h2 id="2_statemonad">state monad</h2><br>
-</div>
-
-<pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> <a href="Generic_util_app.T.html#TYPEapp">T.app</a> += </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="EXTENSIONState">State</span> <span class="keyword">:</span> <code class="type">('b -> 'a * 'b)</code> <span class="keyword">-></span> <code class="type">('a, 'b <a href="Generic_util_app.html#TYPEstate">state</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></code></td>
-
-</tr></table>
-
-
-
-<pre><span id="VALrun_state"><span class="keyword">val</span> run_state</span> : <code class="type">('a, 'b <a href="Generic_util_app.html#TYPEstate">state</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -> 'b -> 'a * 'b</code></pre>
-<pre><span id="VALstate"><span class="keyword">val</span> state</span> : <code class="type">'a <a href="Generic_util_app.html#TYPEstate">state</a> <a href="Generic_util_app.T.html#TYPEmonad">T.monad</a></code></pre>
-<pre><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type">('a, 'a <a href="Generic_util_app.html#TYPEstate">state</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><span id="VALput"><span class="keyword">val</span> put</span> : <code class="type">'a -> (unit, 'a <a href="Generic_util_app.html#TYPEstate">state</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><code><span id="TYPEreader"><span class="keyword">type</span> <code class="type">'b</code> reader</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTreader.READER"><span class="constructor">READER</span></span></code></td>
-
-</tr></table>
-
-<div class="info ">
-<h2 id="2_readermonad">reader monad</h2><br>
-</div>
-
-<pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> <a href="Generic_util_app.T.html#TYPEapp">T.app</a> += </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="EXTENSIONReader">Reader</span> <span class="keyword">:</span> <code class="type">('b -> 'a)</code> <span class="keyword">-></span> <code class="type">('a, 'b <a href="Generic_util_app.html#TYPEreader">reader</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></code></td>
-
-</tr></table>
-
-
-
-<pre><span id="VALrun_reader"><span class="keyword">val</span> run_reader</span> : <code class="type">('a, 'b <a href="Generic_util_app.html#TYPEreader">reader</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -> 'b -> 'a</code></pre>
-<pre><span id="VALreader"><span class="keyword">val</span> reader</span> : <code class="type">'a <a href="Generic_util_app.html#TYPEreader">reader</a> <a href="Generic_util_app.T.html#TYPEmonad">T.monad</a></code></pre>
-<pre><span id="VALask"><span class="keyword">val</span> ask</span> : <code class="type">('a, 'a <a href="Generic_util_app.html#TYPEreader">reader</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><span id="VALlocal"><span class="keyword">val</span> local</span> : <code class="type">('a -> 'b) -><br>       ('c, 'b <a href="Generic_util_app.html#TYPEreader">reader</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -><br>       ('c, 'a <a href="Generic_util_app.html#TYPEreader">reader</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><code><span id="TYPEio"><span class="keyword">type</span> <code class="type"></code>io</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTio.IO_"><span class="constructor">IO_</span></span></code></td>
-
-</tr></table>
-
-<div class="info ">
-<br>
-</div>
-
-<pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> <a href="Generic_util_app.T.html#TYPEapp">T.app</a> += </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="EXTENSIONIO">IO</span> <span class="keyword">:</span> <code class="type">(unit -> 'a)</code> <span class="keyword">-></span> <code class="type">('a, <a href="Generic_util_app.html#TYPEio">io</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></code></td>
-
-</tr></table>
-
-
-
-<pre><span id="VALrun_io"><span class="keyword">val</span> run_io</span> : <code class="type">('a, <a href="Generic_util_app.html#TYPEio">io</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a> -> 'a</code></pre>
-<pre><span id="VALio"><span class="keyword">val</span> io</span> : <code class="type"><a href="Generic_util_app.html#TYPEio">io</a> <a href="Generic_util_app.T.html#TYPEmonad">T.monad</a></code></pre>
-<pre><span id="VALlift_io"><span class="keyword">val</span> lift_io</span> : <code class="type">(unit -> 'a) -> ('a, <a href="Generic_util_app.html#TYPEio">io</a>) <a href="Generic_util_app.T.html#TYPEapp">T.app</a></code></pre>
-<pre><span id="VALint_sum"><span class="keyword">val</span> int_sum</span> : <code class="type">int <a href="Generic_util_app.T.html#TYPEmonoid">T.monoid</a></code></pre><div class="info ">
-<h2 id="2_monoids">monoids</h2><br>
-</div>
-
-<pre><span id="VALint_prod"><span class="keyword">val</span> int_prod</span> : <code class="type">int <a href="Generic_util_app.T.html#TYPEmonoid">T.monoid</a></code></pre>
-<pre><span id="VALfloat_sum"><span class="keyword">val</span> float_sum</span> : <code class="type">float <a href="Generic_util_app.T.html#TYPEmonoid">T.monoid</a></code></pre>
-<pre><span id="VALfloat_prod"><span class="keyword">val</span> float_prod</span> : <code class="type">float <a href="Generic_util_app.T.html#TYPEmonoid">T.monoid</a></code></pre></body></html>
+<pre><span id="VALget_comp"><span class="keyword">val</span> get_comp</span> : <code class="type">('a, ('f, 'g) <a href="Generic_util_app.html#TYPEcomp">comp</a>) <a href="Generic_util_app.html#TYPEt">t</a> -><br>       (('a, 'f) <a href="Generic_util_app.html#TYPEt">t</a>, 'g) <a href="Generic_util_app.html#TYPEt">t</a></code></pre></body></html>

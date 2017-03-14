@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Generic_util.Functor.html">
+<link rel="next" href="Generic_util.Monad.html">
+<link rel="Up" href="Generic_util.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of extensions" rel=Appendix href="index_extensions.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Generic_util" rel="Chapter" href="Generic_util.html">
+<link title="Generic_core" rel="Chapter" href="Generic_core.html">
+<link title="Generic_view" rel="Chapter" href="Generic_view.html">
+<link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
+<link title="Generic" rel="Chapter" href="Generic.html">
+<link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
+<link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
+<link title="Generic_util_functor" rel="Chapter" href="Generic_util_functor.html">
+<link title="Generic_util_applicative" rel="Chapter" href="Generic_util_applicative.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
+<link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
+<link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
+<link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
+<link title="Generic_util_misc" rel="Chapter" href="Generic_util_misc.html">
+<link title="Generic_util_exn" rel="Chapter" href="Generic_util_exn.html">
+<link title="Generic_util_obj" rel="Chapter" href="Generic_util_obj.html">
+<link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
+<link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
+<link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
+<link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
+<link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
+<link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
+<link title="Generic_core_ty_desc" rel="Chapter" href="Generic_core_ty_desc.html">
+<link title="Generic_core_patterns" rel="Chapter" href="Generic_core_patterns.html">
+<link title="Generic_core_extensible" rel="Chapter" href="Generic_core_extensible.html">
+<link title="Generic_core_consumer" rel="Chapter" href="Generic_core_consumer.html">
+<link title="Generic_core_desc_fun" rel="Chapter" href="Generic_core_desc_fun.html">
+<link title="Generic_core_antiunify" rel="Chapter" href="Generic_core_antiunify.html">
+<link title="Generic_core_repr" rel="Chapter" href="Generic_core_repr.html">
+<link title="Generic_core_equal" rel="Chapter" href="Generic_core_equal.html">
+<link title="Generic_view_spine" rel="Chapter" href="Generic_view_spine.html">
+<link title="Generic_view_sumprod" rel="Chapter" href="Generic_view_sumprod.html">
+<link title="Generic_view_conlist" rel="Chapter" href="Generic_view_conlist.html">
+<link title="Generic_fun_uniplate" rel="Chapter" href="Generic_fun_uniplate.html">
+<link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
+<link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
+<link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><link title="Operations" rel="Section" href="#2_Operations">
+<link title="Instances" rel="Section" href="#2_Instances">
+<title>Generic Programming Library : Generic_util.Applicative</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Generic_util.Functor.html" title="Generic_util.Functor">Previous</a>
+&nbsp;<a class="up" href="Generic_util.html" title="Generic_util">Up</a>
+&nbsp;<a class="post" href="Generic_util.Monad.html" title="Generic_util.Monad">Next</a>
+</div>
+<h1>Module <a href="type_Generic_util.Applicative.html">Generic_util.Applicative</a></h1>
+
+<pre><span class="keyword">module</span> Applicative: <code class="type"><a href="Generic_util_applicative.html">Generic_util_applicative</a></code></pre><div class="info module top">
+Applicative Functors and instances for option, list, identity, constant.<br>
+</div>
+<hr width="100%">
+
+<pre><span class="keyword">module</span> <a href="Generic_util_applicative.T.html">T</a>: <code class="code">sig</code> <a href="Generic_util_applicative.T.html">..</a> <code class="code">end</code></pre>
+<pre><span class="keyword">include</span> T</pre>
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">'f</code> t</span> = <code class="type">'f applicative</code> </pre>
+
+<br>
+<h2 id="2_Operations">Operations</h2><br>
+
+<pre><span id="VALfun_of_app"><span class="keyword">val</span> fun_of_app</span> : <code class="type">'a applicative -> 'a Functor.functorial</code></pre>
+<pre><span id="VALliftA"><span class="keyword">val</span> liftA</span> : <code class="type">'a applicative -><br>       ('b -> 'c) -><br>       ('b, 'a) App.T.app -> ('c, 'a) App.T.app</code></pre>
+<pre><span id="VALliftA2"><span class="keyword">val</span> liftA2</span> : <code class="type">'a applicative -><br>       ('b -> 'c -> 'd) -><br>       ('b, 'a) App.T.app -><br>       ('c, 'a) App.T.app -> ('d, 'a) App.T.app</code></pre>
+<pre><span id="VALliftA3"><span class="keyword">val</span> liftA3</span> : <code class="type">'a applicative -><br>       ('b -> 'c -> 'd -> 'e) -><br>       ('b, 'a) App.T.app -><br>       ('c, 'a) App.T.app -><br>       ('d, 'a) App.T.app -> ('e, 'a) App.T.app</code></pre>
+<pre><span id="VALliftA4"><span class="keyword">val</span> liftA4</span> : <code class="type">'a applicative -><br>       ('b -> 'c -> 'd -> 'e -> 'f) -><br>       ('b, 'a) App.T.app -><br>       ('c, 'a) App.T.app -><br>       ('d, 'a) App.T.app -><br>       ('e, 'a) App.T.app -> ('f, 'a) App.T.app</code></pre><br>
+<h2 id="2_Instances">Instances</h2><br>
+
+<pre><span id="VALid"><span class="keyword">val</span> id</span> : <code class="type">App.id applicative</code></pre>
+<pre><span id="VALconst"><span class="keyword">val</span> const</span> : <code class="type">'a Monoid.T.monoid -> 'a App.const applicative</code></pre>
+<pre><span id="VALoption"><span class="keyword">val</span> option</span> : <code class="type">App.option' applicative</code></pre>
+<pre><span id="VALlist"><span class="keyword">val</span> list</span> : <code class="type">App.list' applicative</code></pre></body></html>

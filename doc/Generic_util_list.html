@@ -21,6 +21,10 @@
 <link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
+<link title="Generic_util_functor" rel="Chapter" href="Generic_util_functor.html">
+<link title="Generic_util_applicative" rel="Chapter" href="Generic_util_applicative.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
 <link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
 <link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
@@ -30,7 +34,6 @@
 <link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
 <link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
 <link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
-<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
 <link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
 <link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
@@ -49,7 +52,8 @@
 <link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
-<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_util_list</title>
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Generic_util_list</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Generic_util_iter.html" title="Generic_util_iter">Previous</a>
@@ -147,30 +151,8 @@ Uses Pervasives.(=)<br>
     <code class="code">concatmap</code> is the flipped bind operator of the list monad<br>
 </div>
 
-<pre><code><span id="TYPElist'"><span class="keyword">type</span> <code class="type"></code>list'</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTlist'.LIST"><span class="constructor">LIST</span></span></code></td>
-
-</tr></table>
-
-
-<pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> App.T.app += </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="EXTENSIONList">List</span> <span class="keyword">:</span> <code class="type">'a list</code> <span class="keyword">-></span> <code class="type">('a, <a href="Generic_util_list.html#TYPElist'">list'</a>) App.T.app</code></code></td>
-
-</tr></table>
-
-
-
-<pre><span id="VALget_list"><span class="keyword">val</span> get_list</span> : <code class="type">('a, <a href="Generic_util_list.html#TYPElist'">list'</a>) App.T.app -> 'a list</code></pre>
-<pre><span id="VALmonoid"><span class="keyword">val</span> monoid</span> : <code class="type">'a list App.T.monoid</code></pre>
-<pre><span id="VALmonad"><span class="keyword">val</span> monad</span> : <code class="type"><a href="Generic_util_list.html#TYPElist'">list'</a> App.T.monad</code></pre>
+<pre><span id="VALmonoid"><span class="keyword">val</span> monoid</span> : <code class="type">'a list Monoid.monoid</code></pre>
+<pre><span id="VALmonad"><span class="keyword">val</span> monad</span> : <code class="type">App.list' Monad.monad</code></pre>
 <pre><span id="EXCEPTIONInsert_duplicate"><span class="keyword">exception</span> Insert_duplicate</span></pre>
 <div class="info ">
 Raised by <a href="Generic_util_list.html#VALsl_insert"><code class="code">Generic_util_list.sl_insert</code></a> when trying to insert an element that is already in the list.<br>
@@ -195,5 +177,5 @@ Raised by <a href="Generic_util_list.html#VALmatch_list"><code class="code">Gene
 caused a <code class="code">Match_failure</code>.<br>
 </div>
 
-<pre><span id="VALtraverse"><span class="keyword">val</span> traverse</span> : <code class="type">'a App.T.applicative -><br>       ('b -> ('c, 'a) App.T.app) -><br>       'b list -> ('c list, 'a) App.T.app</code></pre>
-<pre><span id="VALsequence"><span class="keyword">val</span> sequence</span> : <code class="type">'a App.T.applicative -><br>       ('b, 'a) App.T.app list -> ('b list, 'a) App.T.app</code></pre></body></html>
+<pre><span id="VALtraverse"><span class="keyword">val</span> traverse</span> : <code class="type">'a Applicative.T.applicative -><br>       ('b -> ('c, 'a) App.T.app) -><br>       'b list -> ('c list, 'a) App.T.app</code></pre>
+<pre><span id="VALsequence"><span class="keyword">val</span> sequence</span> : <code class="type">'a Applicative.T.applicative -><br>       ('b, 'a) App.T.app list -> ('b list, 'a) App.T.app</code></pre></body></html>

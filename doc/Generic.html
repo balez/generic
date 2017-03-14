@@ -21,6 +21,10 @@
 <link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
+<link title="Generic_util_functor" rel="Chapter" href="Generic_util_functor.html">
+<link title="Generic_util_applicative" rel="Chapter" href="Generic_util_applicative.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
 <link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
 <link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
@@ -30,7 +34,6 @@
 <link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
 <link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
 <link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
-<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
 <link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
 <link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
@@ -49,7 +52,8 @@
 <link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
-<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic</title>
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Generic</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Generic_fun.html" title="Generic_fun">Previous</a>
@@ -59,12 +63,23 @@
 <h1>Module <a href="type_Generic.html">Generic</a></h1>
 
 <pre><span class="keyword">module</span> Generic: <code class="code">sig</code> <a href="Generic.html">..</a> <code class="code">end</code></pre><div class="info module top">
-Type witness.<br>
+Main Namespace for the library.
+<p>
+
+<a href="Generic.html"><code class="code">Generic</code></a> contains the <a href="Generic.Util.html"><code class="code">Generic.Util</code></a> and <a href="Generic.Fun.html"><code class="code">Generic.Fun</code></a> namespaces,
+and re-exports the modules of the namespace <a href="Generic_core.html"><code class="code">Generic_core</code></a>,
+with one twist: <a href="Generic_core.Desc.html"><code class="code">Desc</code></a> and <a href="Generic_core.Desc_fun.html"><code class="code">Desc_fun</code></a> are merged.<br>
 </div>
 <hr width="100%">
 
-<pre><span class="keyword">module</span> <a href="Generic.Util.html">Util</a>: <code class="type"><a href="Generic_util.html">Generic_util</a></code></pre>
-<pre><span class="keyword">module</span> <a href="Generic.Fun.html">Fun</a>: <code class="type"><a href="Generic_fun.html">Generic_fun</a></code></pre>
+<pre><span class="keyword">module</span> <a href="Generic.Util.html">Util</a>: <code class="type"><a href="Generic_util.html">Generic_util</a></code></pre><div class="info">
+Namespace of utility modules.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic.Fun.html">Fun</a>: <code class="type"><a href="Generic_fun.html">Generic_fun</a></code></pre><div class="info">
+Namespace for modules defining generic functions
+</div>
+
 <pre><span class="keyword">module</span> <a href="Generic.Ty.html">Ty</a>: <code class="type"><a href="Generic_core_ty.html">Generic_core_ty</a></code></pre><div class="info">
 Type witness.
 </div>
@@ -101,4 +116,7 @@ Extensible type-indexed functions.
 Extensible type-indexed consumers.
 </div>
 
-<pre><span class="keyword">module</span> <a href="Generic.Desc.html">Desc</a>: <code class="code">sig</code> <a href="Generic.Desc.html">..</a> <code class="code">end</code></pre></body></html>
+<pre><span class="keyword">module</span> <a href="Generic.Desc.html">Desc</a>: <code class="code">sig</code> <a href="Generic.Desc.html">..</a> <code class="code">end</code></pre><div class="info">
+<a href="Generic.Desc.html"><code class="code">Generic.Desc</code></a> merges the modules <a href="Generic_core.Desc.html"><code class="code">Desc</code></a> and <a href="Generic_core.Desc_fun.html"><code class="code">Desc_fun</code></a>.
+</div>
+</body></html>

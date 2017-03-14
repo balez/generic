@@ -16,6 +16,10 @@
 <link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
+<link title="Generic_util_functor" rel="Chapter" href="Generic_util_functor.html">
+<link title="Generic_util_applicative" rel="Chapter" href="Generic_util_applicative.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
 <link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
 <link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
@@ -25,7 +29,6 @@
 <link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
 <link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
 <link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
-<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
 <link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
 <link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
@@ -44,7 +47,8 @@
 <link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
-<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_fun_multiplate</title>
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Generic_fun_multiplate</title>
 </head>
 <body>
 <code class="code"><span class="keyword">sig</span><br>
@@ -57,33 +61,34 @@
 &nbsp;&nbsp;&nbsp;&nbsp;const_plate&nbsp;:&nbsp;<span class="keywordsign">'</span>a.&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;pure_plate&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Applicative</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;pure_id_plate&nbsp;:&nbsp;<span class="constructor">Generic_fun_multiplate</span>.id_plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;pure_const_plate&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_fun_multiplate</span>.const_plate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monoid</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_fun_multiplate</span>.const_plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;compose&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.functorial&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Functor</span>.<span class="constructor">T</span>.functorial&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>g&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>g,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.comp&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;compose_monad&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monad</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;compose_right_id&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Generic_fun_multiplate</span>.id_plate&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;compose_left_id&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.functorial&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Functor</span>.<span class="constructor">T</span>.functorial&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Generic_fun_multiplate</span>.id_plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;append_plate&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>r&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>r&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monoid</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>r&nbsp;<span class="constructor">Generic_fun_multiplate</span>.const_plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>r&nbsp;<span class="constructor">Generic_fun_multiplate</span>.const_plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>r&nbsp;<span class="constructor">Generic_fun_multiplate</span>.const_plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;traverse&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Applicative</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Product</span>.<span class="constructor">T</span>.product&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.app<br>
@@ -101,10 +106,10 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;family&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;family_d&nbsp;:&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;traverse_children_p&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Applicative</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;traverse_children&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Applicative</span>.<span class="constructor">T</span>.applicative&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.app<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;map_children_p&nbsp;:<br>
@@ -112,10 +117,10 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;map_children&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Generic_fun_multiplate</span>.id_plate&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;traverse_family_p&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monad</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;traverse_family&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monad</span>.<span class="constructor">T</span>.monad&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>f&nbsp;<span class="constructor">Generic_fun_multiplate</span>.plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>f)&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.app<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;map_family_p&nbsp;:<br>
@@ -132,33 +137,33 @@
 &nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>r&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>r)&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>r<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;fold_children_p&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monoid</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_fun_multiplate</span>.const_plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_fun_multiplate</span>.const_plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;fold_children_d&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monoid</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;fold_children&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monoid</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;pre_fold_p&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monoid</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_fun_multiplate</span>.const_plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_fun_multiplate</span>.const_plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;pre_fold_d&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monoid</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;pre_fold&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monoid</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;post_fold_p&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monoid</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_fun_multiplate</span>.const_plate&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_fun_multiplate</span>.const_plate<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;post_fold_d&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monoid</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;post_fold&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">App</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>t&nbsp;<span class="constructor">Generic_util</span>.<span class="constructor">Monoid</span>.<span class="constructor">T</span>.monoid&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">Dyn</span>.dyn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>t<br>
 <span class="keyword">end</span></code></body></html>

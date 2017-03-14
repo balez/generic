@@ -5,8 +5,8 @@
 <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="Start" href="index.html">
-<link rel="previous" href="Generic_util_option.html">
-<link rel="next" href="Generic_core_ty.html">
+<link rel="previous" href="Generic_util_applicative.html">
+<link rel="next" href="Generic_util_hash.html">
 <link rel="Up" href="index.html">
 <link title="Index of types" rel=Appendix href="index_types.html">
 <link title="Index of extensions" rel=Appendix href="index_extensions.html">
@@ -21,6 +21,10 @@
 <link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
+<link title="Generic_util_functor" rel="Chapter" href="Generic_util_functor.html">
+<link title="Generic_util_applicative" rel="Chapter" href="Generic_util_applicative.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
 <link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
 <link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
@@ -30,7 +34,6 @@
 <link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
 <link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
 <link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
-<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
 <link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
 <link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
@@ -49,19 +52,163 @@
 <link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
-<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_util_monad</title>
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><link title="Operations" rel="Section" href="#2_Operations">
+<link title="Instances" rel="Section" href="#2_Instances">
+<link title="State Monad" rel="Subsection" href="#3_StateMonad">
+<link title="Reader Monad" rel="Subsection" href="#3_ReaderMonad">
+<link title="IO Monad" rel="Subsection" href="#3_IOMonad">
+<title>Generic Programming Library : Generic_util_monad</title>
 </head>
 <body>
-<div class="navbar"><a class="pre" href="Generic_util_option.html" title="Generic_util_option">Previous</a>
+<div class="navbar"><a class="pre" href="Generic_util_applicative.html" title="Generic_util_applicative">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
-&nbsp;<a class="post" href="Generic_core_ty.html" title="Generic_core_ty">Next</a>
+&nbsp;<a class="post" href="Generic_util_hash.html" title="Generic_util_hash">Next</a>
 </div>
 <h1>Module <a href="type_Generic_util_monad.html">Generic_util_monad</a></h1>
 
 <pre><span class="keyword">module</span> Generic_util_monad: <code class="code">sig</code> <a href="Generic_util_monad.html">..</a> <code class="code">end</code></pre><div class="info module top">
-Monads and basic operations.<br>
+Monads.<br>
 </div>
 <hr width="100%">
 
-<pre><span class="keyword">module type</span> <a href="Generic_util_monad.S.html">S</a> = <code class="code">sig</code> <a href="Generic_util_monad.S.html">..</a> <code class="code">end</code></pre>
-<pre><span class="keyword">module</span> <a href="Generic_util_monad.Operations.html">Operations</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">M</code><code class="code"> : </code><code class="type"><a href="Generic_util_monad.S.html">S</a></code><code class="code">) -&gt; </code><code class="code">sig</code> <a href="Generic_util_monad.Operations.html">..</a> <code class="code">end</code></div></pre></body></html>
+<pre><span class="keyword">module</span> <a href="Generic_util_monad.T.html">T</a>: <code class="code">sig</code> <a href="Generic_util_monad.T.html">..</a> <code class="code">end</code></pre>
+<pre><span id="TYPEmonad"><span class="keyword">type</span> <code class="type">'f</code> monad</span> = <code class="type">'f <a href="Generic_util_monad.T.html#TYPEmonad">T.monad</a></code> = {</pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmonad.return">return</span>&nbsp;: <code class="type">'a. 'a -> ('a, 'f) App.T.app</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmonad.bind">bind</span>&nbsp;: <code class="type">'a 'b.<br>         ('a, 'f) App.T.app -><br>         ('a -> ('b, 'f) App.T.app) -> ('b, 'f) App.T.app</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">'f</code> t</span> = <code class="type">'f <a href="Generic_util_monad.html#TYPEmonad">monad</a></code> </pre>
+
+<br>
+<h2 id="2_Operations">Operations</h2><br>
+
+<pre><span id="VALfun_of_mon"><span class="keyword">val</span> fun_of_mon</span> : <code class="type">'a <a href="Generic_util_monad.html#TYPEmonad">monad</a> -> 'a Functor.T.functorial</code></pre>
+<pre><span id="VALapp_of_mon"><span class="keyword">val</span> app_of_mon</span> : <code class="type">'a <a href="Generic_util_monad.html#TYPEmonad">monad</a> -> 'a Applicative.T.applicative</code></pre>
+<pre><span id="VALjoin"><span class="keyword">val</span> join</span> : <code class="type">'a <a href="Generic_util_monad.html#TYPEmonad">monad</a> -><br>       (('b, 'a) App.T.app, 'a) App.T.app -><br>       ('b, 'a) App.T.app</code></pre>
+<pre><span id="VALliftM"><span class="keyword">val</span> liftM</span> : <code class="type">'a <a href="Generic_util_monad.html#TYPEmonad">monad</a> -><br>       ('b -> 'c) -><br>       ('b, 'a) App.T.app -> ('c, 'a) App.T.app</code></pre>
+<pre><span id="VALliftM2"><span class="keyword">val</span> liftM2</span> : <code class="type">'a <a href="Generic_util_monad.html#TYPEmonad">monad</a> -><br>       ('b -> 'c -> 'd) -><br>       ('b, 'a) App.T.app -><br>       ('c, 'a) App.T.app -> ('d, 'a) App.T.app</code></pre>
+<pre><span id="VALliftM3"><span class="keyword">val</span> liftM3</span> : <code class="type">'a <a href="Generic_util_monad.html#TYPEmonad">monad</a> -><br>       ('b -> 'c -> 'd -> 'e) -><br>       ('b, 'a) App.T.app -><br>       ('c, 'a) App.T.app -><br>       ('d, 'a) App.T.app -> ('e, 'a) App.T.app</code></pre>
+<pre><span id="VALliftM4"><span class="keyword">val</span> liftM4</span> : <code class="type">'a <a href="Generic_util_monad.html#TYPEmonad">monad</a> -><br>       ('b -> 'c -> 'd -> 'e -> 'f) -><br>       ('b, 'a) App.T.app -><br>       ('c, 'a) App.T.app -><br>       ('d, 'a) App.T.app -><br>       ('e, 'a) App.T.app -> ('f, 'a) App.T.app</code></pre><br>
+<h2 id="2_Instances">Instances</h2><br>
+
+<pre><span id="VALid"><span class="keyword">val</span> id</span> : <code class="type">App.id <a href="Generic_util_monad.html#TYPEmonad">monad</a></code></pre>
+<pre><span id="VALoption"><span class="keyword">val</span> option</span> : <code class="type">App.option' <a href="Generic_util_monad.html#TYPEmonad">monad</a></code></pre>
+<pre><span id="VALlist"><span class="keyword">val</span> list</span> : <code class="type">App.list' <a href="Generic_util_monad.html#TYPEmonad">monad</a></code></pre><br>
+<h3 id="3_StateMonad">State Monad</h3><br>
+
+<pre><code><span id="TYPEstate"><span class="keyword">type</span> <code class="type">'b</code> state</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.STATE"><span class="constructor">STATE</span></span></code></td>
+
+</tr></table>
+
+
+<pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> App.T.app += </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONState">State</span> <span class="keyword">:</span> <code class="type">('b -> 'a * 'b)</code> <span class="keyword">-></span> <code class="type">('a, 'b <a href="Generic_util_monad.html#TYPEstate">state</a>) App.T.app</code></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALrun_state"><span class="keyword">val</span> run_state</span> : <code class="type">('a, 'b <a href="Generic_util_monad.html#TYPEstate">state</a>) App.T.app -> 'b -> 'a * 'b</code></pre>
+<pre><span id="VALstate"><span class="keyword">val</span> state</span> : <code class="type">'a <a href="Generic_util_monad.html#TYPEstate">state</a> <a href="Generic_util_monad.html#TYPEmonad">monad</a></code></pre>
+<pre><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type">('a, 'a <a href="Generic_util_monad.html#TYPEstate">state</a>) App.T.app</code></pre>
+<pre><span id="VALput"><span class="keyword">val</span> put</span> : <code class="type">'a -> (unit, 'a <a href="Generic_util_monad.html#TYPEstate">state</a>) App.T.app</code></pre><br>
+<h3 id="3_ReaderMonad">Reader Monad</h3><br>
+
+<pre><code><span id="TYPEreader"><span class="keyword">type</span> <code class="type">'b</code> reader</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreader.READER"><span class="constructor">READER</span></span></code></td>
+
+</tr></table>
+
+
+<pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> App.T.app += </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONReader">Reader</span> <span class="keyword">:</span> <code class="type">('b -> 'a)</code> <span class="keyword">-></span> <code class="type">('a, 'b <a href="Generic_util_monad.html#TYPEreader">reader</a>) App.T.app</code></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALrun_reader"><span class="keyword">val</span> run_reader</span> : <code class="type">('a, 'b <a href="Generic_util_monad.html#TYPEreader">reader</a>) App.T.app -> 'b -> 'a</code></pre>
+<pre><span id="VALreader"><span class="keyword">val</span> reader</span> : <code class="type">'a <a href="Generic_util_monad.html#TYPEreader">reader</a> <a href="Generic_util_monad.html#TYPEmonad">monad</a></code></pre>
+<pre><span id="VALask"><span class="keyword">val</span> ask</span> : <code class="type">('a, 'a <a href="Generic_util_monad.html#TYPEreader">reader</a>) App.T.app</code></pre>
+<pre><span id="VALlocal"><span class="keyword">val</span> local</span> : <code class="type">('a -> 'b) -><br>       ('c, 'b <a href="Generic_util_monad.html#TYPEreader">reader</a>) App.T.app -><br>       ('c, 'a <a href="Generic_util_monad.html#TYPEreader">reader</a>) App.T.app</code></pre><br>
+<h3 id="3_IOMonad">IO Monad</h3><br>
+<br>
+Similar to Haskell's IO Monad.
+The values are computations that may carry effects.
+The monadic bind is used to sequence the effects.
+<p>
+
+The constructor <a href="Generic_util_monad.html#EXTENSIONIO"><code class="code">Generic_util_monad.IO</code></a> and synonym <a href="Generic_util_monad.html#VALembed_io"><code class="code">Generic_util_monad.embed_io</code></a> allow to embed an effectful computation in the monad.
+<a href="Generic_util_monad.html#VALrun_io"><code class="code">Generic_util_monad.run_io</code></a> runs it.<br>
+
+<pre><code><span id="TYPEio"><span class="keyword">type</span> <code class="type"></code>io</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTio.IO_"><span class="constructor">IO_</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<a href="Generic_util_monad.html#VALio"><code class="code">Generic_util_monad.io</code></a> is used as a type index for <code class="code">T.app</code><br>
+</div>
+
+<pre><code><span class="keyword">type</span> <code class="type">('_, '_)</code> App.T.app += </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONIO">IO</span> <span class="keyword">:</span> <code class="type">(unit -> 'a)</code> <span class="keyword">-></span> <code class="type">('a, <a href="Generic_util_monad.html#TYPEio">io</a>) App.T.app</code></code></td>
+
+</tr></table>
+
+<div class="info ">
+Embed an effectful computation in the IO monad<br>
+</div>
+
+
+<pre><span id="VALembed_io"><span class="keyword">val</span> embed_io</span> : <code class="type">(unit -> 'a) -> ('a, <a href="Generic_util_monad.html#TYPEio">io</a>) App.T.app</code></pre><div class="info ">
+Embed an effectful computation in the IO monad<br>
+</div>
+
+<pre><span id="VALrun_io"><span class="keyword">val</span> run_io</span> : <code class="type">('a, <a href="Generic_util_monad.html#TYPEio">io</a>) App.T.app -> 'a</code></pre><div class="info ">
+Run the computation with side effects to obtain a result<br>
+</div>
+
+<pre><span id="VALio"><span class="keyword">val</span> io</span> : <code class="type"><a href="Generic_util_monad.html#TYPEio">io</a> <a href="Generic_util_monad.html#TYPEmonad">monad</a></code></pre><div class="info ">
+The IO monad operations<br>
+</div>
+</body></html>

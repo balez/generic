@@ -21,6 +21,10 @@
 <link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
+<link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
+<link title="Generic_util_functor" rel="Chapter" href="Generic_util_functor.html">
+<link title="Generic_util_applicative" rel="Chapter" href="Generic_util_applicative.html">
+<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_util_hash" rel="Chapter" href="Generic_util_hash.html">
 <link title="Generic_util_iter" rel="Chapter" href="Generic_util_iter.html">
 <link title="Generic_util_list" rel="Chapter" href="Generic_util_list.html">
@@ -30,7 +34,6 @@
 <link title="Generic_util_obj_inspect" rel="Chapter" href="Generic_util_obj_inspect.html">
 <link title="Generic_util_sum" rel="Chapter" href="Generic_util_sum.html">
 <link title="Generic_util_option" rel="Chapter" href="Generic_util_option.html">
-<link title="Generic_util_monad" rel="Chapter" href="Generic_util_monad.html">
 <link title="Generic_core_ty" rel="Chapter" href="Generic_core_ty.html">
 <link title="Generic_core_product" rel="Chapter" href="Generic_core_product.html">
 <link title="Generic_core_desc" rel="Chapter" href="Generic_core_desc.html">
@@ -49,7 +52,8 @@
 <link title="Generic_fun_multiplate" rel="Chapter" href="Generic_fun_multiplate.html">
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
-<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html"><title>Generic Programming Library : Generic_fun.Uniplate</title>
+<link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Generic_fun.Uniplate</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Generic_fun.Equal.html" title="Generic_fun.Equal">Previous</a>
@@ -117,15 +121,15 @@ Paramorphism. this is a bottom-up<br>
 <br>
 applicative and monadic variants<br>
 
-<pre><span id="VALtraverse_children"><span class="keyword">val</span> traverse_children</span> : <code class="type">'f App.T.applicative -><br>       'a Ty.T.ty -><br>       ('a -> ('a, 'f) App.T.app) -><br>       'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+<pre><span id="VALtraverse_children"><span class="keyword">val</span> traverse_children</span> : <code class="type">'f Applicative.T.applicative -><br>       'a Ty.T.ty -><br>       ('a -> ('a, 'f) App.T.app) -><br>       'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
 applicative variant of <a href="Generic_fun_uniplate.html#VALmap_children"><code class="code">Generic_fun_uniplate.map_children</code></a><br>
 </div>
 
-<pre><span id="VALtraverse_family"><span class="keyword">val</span> traverse_family</span> : <code class="type">'f App.T.monad -><br>       'a Ty.T.ty -><br>       ('a -> ('a, 'f) App.T.app) -><br>       'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+<pre><span id="VALtraverse_family"><span class="keyword">val</span> traverse_family</span> : <code class="type">'f Monad.T.monad -><br>       'a Ty.T.ty -><br>       ('a -> ('a, 'f) App.T.app) -><br>       'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
 monadic variant of <a href="Generic_fun_uniplate.html#VALmap_family"><code class="code">Generic_fun_uniplate.map_family</code></a><br>
 </div>
 
-<pre><span id="VALmreduce_family"><span class="keyword">val</span> mreduce_family</span> : <code class="type">'f App.T.monad -><br>       'a Ty.T.ty -><br>       ('a -> ('a option, 'f) App.T.app) -><br>       'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
+<pre><span id="VALmreduce_family"><span class="keyword">val</span> mreduce_family</span> : <code class="type">'f Monad.T.monad -><br>       'a Ty.T.ty -><br>       ('a -> ('a option, 'f) App.T.app) -><br>       'a -> ('a, 'f) App.T.app</code></pre><div class="info ">
 monadic variant of <a href="Generic_fun_uniplate.html#VALreduce_family"><code class="code">Generic_fun_uniplate.reduce_family</code></a><br>
 </div>
 </body></html>
