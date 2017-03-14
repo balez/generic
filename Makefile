@@ -7,7 +7,7 @@ OCAMLOPTFLAGS=$(INCLUDES)
 OCAMLC=ocamlc $(OCAMLFLAGS)
 OCAMLOPT=ocamlopt $(OCAMLOPTFLAGS)
 OCAMLDEP=ocamldep $(INCLUDES)
-OCAMLDOC=ocamldoc.opt $(INCLUDES) -w -40
+OCAMLDOC=ocamldoc.opt $(INCLUDES) -w -40 -ppx ./import
 
 METAQUOT=$(shell ocamlfind query ppx_tools)/ppx_metaquot
 
@@ -118,10 +118,24 @@ tests: test_marshal
 generic.cma: generic_util_obj_stub.o $(NS:.ml=.cmo) $(ML:.ml=.cmo)
 	$(OCAMLC) -custom -o $@ -a $^
 
+# PPX
+
+define ppx-cmo=
+ocamlc -c -I +compiler-libs -ppx $(METAQUOT) $<
+endef
+define ppx-exe=
+ocamlc -o $@ -I +compiler-libs ocamlcommon.cma $^
+endef
+
 reify.cmo: reify.ml
-	ocamlc -c -I +compiler-libs -ppx $(METAQUOT) $<
+	$(ppx-cmo)
 reify: generic.cma reify.cmo
-	ocamlc -o $@ -I +compiler-libs ocamlcommon.cma $^
+	$(ppx-exe)
+
+import.cmo: import.ml
+	$(ppx-cmo)
+import: import.cmo
+	$(ppx-exe)
 
 # some times one wants to dump the source after a ppx expansion and check the results:
 tmp.cmo: tmp.ml
@@ -141,8 +155,10 @@ doc/dep.dot: lib $(NS) $(NSI) $(ML) $(MLI)
 	mkdir -p doc
 	$(OCAMLDOC) -dot -o doc/dep.dot $(wordlist 2, $(words $^), $^)
 
-%.ppx: %.ml ppx
-	$(OCAMLC) -o $<.ppx.cmo -ppx ./reify -c $< -dsource
+%.reify: %.ml ppx
+	$(OCAMLC) -o $<.reify.cmo -ppx ./reify -c $< -dsource
+%.import: %.ml import
+	$(OCAMLC) -o $<.import.cmo -ppx ./import -c $< -dsource
 
 generic_test_multiplate.cmo: generic_test_multiplate.ml ppx
 	$(OCAMLC) -o $@ -ppx ./reify -c $<
@@ -184,7 +200,7 @@ $(NS:.ml=.ml.dep): %.ml.dep: %.ml
 
 # ** Ocaml
 define occ=
-$(OCAMLC) -c $<
+$(OCAMLC) -c $< -ppx ./import
 endef
 
 %.cmo: %.ml

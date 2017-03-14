@@ -10,16 +10,9 @@ open Functor.T
 open Applicative.T
 open Monad.T
 
-let get_id = App.get_id
-let get_const = App.get_const
-
-let liftA2 = Applicative.liftA2
-let fun_of_app = Applicative.fun_of_app
-let id_applicative = Applicative.id
-let const_applicative = Applicative.const
-
-let app_of_mon = Monad.app_of_mon
-let id_monad = Monad.id
+[%%import App (get_id, get_const)]
+[%%import Applicative (liftA2, fun_of_app, (id_applicative <- id), (const_applicative <- const))]
+[%%import Monad (app_of_mon, id_monad <- id)]
 
 type 'f plate = {plate : 'a . 'a ty -> 'a -> ('a,'f) App.t}
 type id_plate = {id_plate : 'a . 'a ty -> 'a -> 'a}
