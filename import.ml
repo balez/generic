@@ -15,9 +15,21 @@ The identifiers may be renamed using the syntax:
 
 [%%import Module (x, y' <- y, z)]
 
-TODO which is equivalent to
+which is equivalent to:
 
 [%%import Module (x, (y' <- y), z)]
+
+and is translated to:
+{[
+    let x  = Module.x
+    and y' = Module.y
+    and z  = Module.z
+]}
+
+Alternative notation [%%import M (x ; y' <- y ; z)]
+
+Note: both notations may be mixed, the comma and semi-colon
+have the same meaning.
 
 Invalid extensions are not interpreted and will raise an error.
 
@@ -32,6 +44,29 @@ open Longident
 open Generic_util
 
 let import_name = "import"
+let concat_map f xs = List.concat (List.map f xs)
+
+(* [listify] takes an expression of the shape:
+ a <- (b1,...,bn)
+and returns
+[(a <- b1); b2; ... bn]
+all other expression e are returned as a singleton.
+ *)
+let rec listify e = match e.pexp_desc with
+  | Pexp_setinstvar (a, b) ->
+    let a_with x = {e with pexp_desc = Pexp_setinstvar (a, x)} in
+    (match b.pexp_desc with
+     | Pexp_tuple (b1 :: bs) -> a_with b1 :: concat_map listify bs
+     | _ -> [a_with b])
+  | _ -> [e]
+
+(* [listify_seq] takes an expression of the shape:
+  (e1; e2; .. ; en) and returns the list of expressions
+  [e1; e2; .. en] (and then listify each of them)
+*)
+let rec listify_seq e = match e.pexp_desc with
+  | Pexp_sequence (a, b) -> listify a @ listify_seq b
+  | _ -> listify e
 
 let import loc module_id name new_name =
   { pvb_pat = Pat.var new_name
@@ -63,11 +98,12 @@ let import_list loc mod_id is =
 
 let extension loc = function
   | Pexp_construct (module_name, Some e)
-    -> (match e.pexp_desc with
-        | Pexp_tuple is
-          -> import_list loc module_name.txt is
-        | Pexp_ident _ -> import_list loc module_name.txt [e]
-        | _ -> raise Import)
+    ->
+    let imp = import_list loc module_name.txt in
+    (match e.pexp_desc with
+     | Pexp_tuple is
+       -> imp (concat_map listify_seq is)
+     | _ -> imp (listify_seq e))
   | _ -> raise Import
 
 

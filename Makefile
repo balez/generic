@@ -109,8 +109,8 @@ OTHER_MLI=
 # * Rules
 .PHONY: doc ppx lib clean
 all: lib ppx doc tests
-doc: doc/index.html # doc/dep.dot
-lib: generic.cma
+doc: doc/index.html import # doc/dep.dot
+lib: generic.cma import
 ppx: reify
 tests: test_marshal
 

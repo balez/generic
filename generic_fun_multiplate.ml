@@ -11,8 +11,16 @@ open Applicative.T
 open Monad.T
 
 [%%import App (get_id, get_const)]
-[%%import Applicative (liftA2, fun_of_app, (id_applicative <- id), (const_applicative <- const))]
-[%%import Monad (app_of_mon, id_monad <- id)]
+[%%import Applicative
+    ( liftA2
+    ; fun_of_app
+    ; id_applicative <- id
+    ; const_applicative <- const
+ )]
+[%%import Monad (
+    app_of_mon,
+    id_monad <- id
+)]
 
 type 'f plate = {plate : 'a . 'a ty -> 'a -> ('a,'f) App.t}
 type id_plate = {id_plate : 'a . 'a ty -> 'a -> 'a}
