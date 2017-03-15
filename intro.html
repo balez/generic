@@ -4,17 +4,24 @@
 The library is organised in four namespaces: [Util], [Core],
 [View] and [Fun].
 
-The [Util] namespace will be hidden in the future, it
-contains some definitions that where needed by the [Core]
-namespace but were too general to belong there.
+The main namespace [Generic] contains the namespaces [Util], [View] and [Fun]
+and re-exports the modules of the namespace {!Generic_core}.
+
+The [Util] namespace contains some definitions that where
+needed by the [Core] namespace but were too general to belong
+there.
 
 The [Core] namespace contains all of the definitions required
-for generic programming: types expression are reflected in
-the [Core.Ty.t] type. The structure of types is captured by the
-datatype [Core.Desc.t]. The type-indexed function
-[Core.Desc_fun.view] computes the structure associated with
-each type. It is the most low-level view of OCaml
-types. Higher-level views are derived from this one.
+for generic programming: type expression are reflected in
+the [Core.Ty.t] type, we call such values type witnesses.
+The structure of types is captured by the datatype
+[Core.Desc.t]. The type-indexed function [Core.Desc_fun.view]
+computes the structure associated with each type. It is the
+most low-level view of OCaml types. Higher-level views are
+derived from this one.
+[Core.Extensible] and [Core.Consumer] implement a mechanism
+for creating and extending type indexed functions. This
+enables us to define ad-hoc polymorphic functions.
 
 The [View] namespace defines high-level generic views on
 types. A view is a uniform representation of the structure of
@@ -23,3 +30,14 @@ types on which generic functions can be defined.
 The [Fun] namespace contains generic functions. They are
 defined by induction on the structure of types given by a
 generic view.
+
+Finally, the library comes with two PPX syntax extensions:
+
+<ul>
+<li> [reify] which derives the boilerplate that is
+necessary to add generic support for a user type.
+</li>
+<li> [import] which provides a mechanism for importing a set of
+names from a module.
+</li>
+</ul>

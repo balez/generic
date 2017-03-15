@@ -1,4 +1,4 @@
-(** Computing the low level description of types.
+(** Type indexed function that comptes the type description.
 
     The module {!module:Generic_core_desc} defines the datatype
     [desc] which is a low level generic view giving a detailed

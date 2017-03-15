@@ -100,8 +100,11 @@ generic_fun_show.mli\
 # OTHER is the list of independent files from the library (ppx, tests)
 OTHER_ML=\
 reify.ml\
+import.ml\
 generic_test_marshal.ml\
 generic_test_multiplate.ml\
+generic_test_gadt.ml\
+generic_test_show\
 
 # interfaces for the independent files
 OTHER_MLI=
@@ -112,7 +115,7 @@ all: lib ppx doc tests
 doc: doc/index.html import # doc/dep.dot
 lib: generic.cma import
 ppx: reify
-tests: test_marshal
+tests: test_marshal test_show test_multiplate
 
 # Library (bytecode)
 generic.cma: generic_util_obj_stub.o $(NS:.ml=.cmo) $(ML:.ml=.cmo)
@@ -162,22 +165,23 @@ doc/dep.dot: lib $(NS) $(NSI) $(ML) $(MLI)
 
 generic_test_multiplate.cmo: generic_test_multiplate.ml ppx
 	$(OCAMLC) -o $@ -ppx ./reify -c $<
+test_multiplate: generic.cma generic_test_multiplate.cmo
+	$(OCAMLC) -o $@ $^
 
 generic_test_marshal.cmo: generic_test_marshal.ml ppx
 	$(OCAMLC) -o $@ -ppx ./reify -c $<
-
 test_marshal: generic.cma generic_test_marshal.cmo
 	$(OCAMLC) -o $@ $^
 
 generic_test_gadt.cmo: generic_test_gadt.ml ppx
 	$(OCAMLC) -o $@ -ppx ./reify -c $<
-
-generic_test_gadt.ppx: generic_test_gadt.ml ppx
-	$(OCAMLC) -o $@ -dsource -ppx ./reify -c $<
-
 test_gadt: generic.cma generic_test_gadt.cmo
 	$(OCAMLC) -o $@ $^
 
+generic_test_show.cmo: generic_test_show.ml ppx
+	$(OCAMLC) -o $@ -ppx ./reify -c $<
+test_show: generic.cma generic_test_show.cmo
+	$(OCAMLC) -o $@ $^
 
 # ** Build Dependencies
 # IMPORTANT: source files names may not include the character ':'

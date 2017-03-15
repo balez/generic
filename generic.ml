@@ -1,14 +1,16 @@
 (** Main Namespace for the library.
 
-{!Generic} contains the {!Util} and {!Fun} namespaces,
-and re-exports the modules of the namespace {!Generic_core},
-with one twist: {!Generic_core.Desc} and {!Generic_core.Desc_fun} are merged.
+{!Generic} contains the {!Util}, {!View} and {!Fun} namespaces,
+and re-exports the modules of the namespace {!Generic_core}.
 *)
 
 (** Namespace of utility modules. *)
 module Util = Generic_util
 
-(** Namespace for modules defining generic functions *)
+(** Namespace for modules defining generic views. *)
+module View = Generic_view
+
+(** Namespace for modules defining generic functions. *)
 module Fun = Generic_fun
 
 (** Type witness. *)
@@ -38,8 +40,8 @@ module Extensible = Generic_core_extensible
 (** Extensible type-indexed consumers. *)
 module Consumer = Generic_core_consumer
 
-(** {!Desc} merges the modules {!Generic_core.Desc} and {!Generic_core.Desc_fun}. *)
-module Desc = struct
-  include Generic_core_desc
-  include Generic_core_desc_fun
-end
+(** Type description: a low level generic view of OCaml types.*)
+module Desc = Generic_core_desc
+
+(** Type indexed function that comptes the type description.*)
+module Desc_fun = Generic_core_desc_fun

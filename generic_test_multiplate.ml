@@ -63,7 +63,7 @@ module SYB_Examples = struct
       | Dyn (Salary, S x) -> x
       | _ -> 0.0
     in
-    pre_fold App.float_sum bill_plate Company
+    pre_fold Monoid.float_sum bill_plate Company
 
 
 end
