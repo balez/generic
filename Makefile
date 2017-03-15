@@ -216,7 +216,7 @@ endef
 # Generate the mli to stdout
 # (we don't want to erase the hand written one)
 %.mli.auto: %.ml %.cmo
-	$(OCAMLC) -i  -I +compiler-libs -ppx $(METAQUOT) $<
+	$(OCAMLC) -i -I +compiler-libs -ppx $(METAQUOT) -ppx ./import $<
 
 # This is a static pattern see info: Make > Static Usage
 $(NS:.ml=.cmo): %.cmo: %.ml

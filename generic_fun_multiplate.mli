@@ -172,3 +172,17 @@ val breadth_fold_p : 't monoid -> 't const_plate -> 't const_plate
 
 
 (* TODO: lazy family *)
+
+(** {2 Open recursion } *)
+
+(** We may generalise Ast_mapper and Ast_iterator to any types *)
+
+type 'f openrec = { run : 'f openrec -> 'f plate; }
+
+val default : 'a applicative -> 'a openrec
+(** the default open-recursive transformation applies its openrec argument to
+    all the children of a value.
+{[
+default a = { run = fun r -> traverse_children_p a (r.run r) }
+]}
+ *)

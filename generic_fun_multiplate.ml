@@ -143,3 +143,8 @@ let rec para_d step x =
 let para step t x = para_d step (Dyn (t,x))
 let para_p step =
   const_of_dyn_plate (para_d (dyn_of_const_plate step))
+
+(* Open recursion, like Ast_mapper and Ast_iterator. *)
+
+type 'f openrec = { run : 'f openrec -> 'f plate }
+let default a = { run = fun r -> traverse_children_p a (r.run r) }
