@@ -5,11 +5,11 @@ Strong points
     allows to use many flavours of generic programming, and adapt other
     libraries (examples include Haskell Scrap your boiler plate, LIGD,
     Instant-Generics, RepLib). The type representations are called
-    generic views, there is a default one, which is low level and is
-    automatically derived using the ppx.
+    generic views, there is a default one, `Generic_core_desc` which is
+    low level and is automatically derived using the `reify` ppx.
 
 -   *Automatic* derivation of the boilerplate for reifying types, using
-    the ppx.
+    the `reify` ppx.
 
 -   *Ad-hoc polymorphism* and overloading through type-indexed
     functions. Implemented as extensible functions over the extensible
@@ -37,4 +37,3 @@ Compatibility
 =============
 
 Works with OCaml v.4.04.0
-
