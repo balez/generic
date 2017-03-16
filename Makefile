@@ -113,11 +113,11 @@ OTHER_MLI=
 .PHONY: lib tests doc ppx clean
 #.SECONDARY: $(ML:.ml=.cmo) $(OTHER_ML:.ml=.cmo)
 
-all: lib ppx doc tests
+all: ppx lib tests doc
 doc: doc/index.html import # doc/dep.dot
-lib: generic.cma import
-ppx: reify
-tests: test_marshal test_show test_multiplate
+ppx: reify import
+lib: ppx generic.cma
+tests: ppx test_marshal test_show test_multiplate
 
 # Library (bytecode)
 generic.cma: generic_util_obj_stub.o $(NS:.ml=.cmo) $(ML:.ml=.cmo)

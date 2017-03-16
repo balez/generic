@@ -35,24 +35,39 @@ Invalid extensions are not interpreted and will raise an error.
 
 [[%%import]] is like a selective "include".
 
-At the expression level, [let%import M = (x,y,z) in ...] (with a single %) is translated to
-{[
-  let x = M.x
-  and y = M.y
-  and z = M.z
-  in ...
-]}
-
-
 TODO other syntax
 
-open%only Applicative
-  [@@val liftA2 ]
-  [@@type t]
-  [@@module
+[%%import M (f; g' := g; h)]
 
+[%%import M (f; g' := g; h)
+  [@@type t; u' := u; v]
+  [@@module A; B' := B; C]]
 
+[%%import M
+  [@@val f; g' := g; h ]
+  [@@type t; u' := u; v]
+  [@@module A; B' := B; C]]
 
+open%import M
+  [@@val f; g' := g; h ]
+  [@@type t; u' := u; v]
+  [@@module A; B' := B; C]
+
+{3 local imports}
+
+TODO: At the expression level,
+
+{[
+[%import M (a; g' := g; b)] (g' a b)
+]}
+
+translates to
+{[
+  let a = M.a
+  and g' = M.g
+  and b = M.b
+  in g' a b
+]}
 *)
 
 open Ast_mapper

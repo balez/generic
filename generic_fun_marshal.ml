@@ -26,7 +26,8 @@ type obj = Obj.t
     ( to_obj <- repr
     ; from_obj <- obj
     ; is_int; is_block; field; set_field; size; dup; new_block
-    ; tag; custom_tag; double_tag; string_tag; object_tag; double_array_tag)]
+    ; tag; custom_tag; double_tag; string_tag; object_tag; double_array_tag)
+    [@@type obj := t]]
 
 [%%import Fun ((>>.); (-<))]
 
