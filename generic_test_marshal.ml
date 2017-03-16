@@ -26,10 +26,9 @@ let print_address x = print_string (address x); print_newline ()
 *)
 
 let guard = Exn.guard
-let get_some = Option.get_some
-let unopt = Option.unopt
-let some_if = Option.some_if
-let opt_try = Option.opt_try
+
+[%%import Option (get_some; unopt; some_if; opt_try)]
+
 let (-<) = Fun.(-<)
 
 let debug = true

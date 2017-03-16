@@ -356,6 +356,7 @@ module Ext : sig
   type con = { con : 'a. 'a ty -> 'a Con.t; }
 
   type cons
+
   type 'a extensible = {
     name : string;
     ty : 'a ty;

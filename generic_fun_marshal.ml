@@ -123,10 +123,10 @@ let is_char v =
      try x == Char.code (Char.chr x)
      with Invalid_argument _ -> false
 
-(* {is_abstract t} tests whether the type t is associated with the representation information.
+(* {has_repr t} tests whether the type t is associated with the representation information.
    Note in particular that any type could be in this case, whether or not ty_desc yields Abstract.
  *)
-let is_abstract t =
+let has_repr t =
   try let _ = Repr.repr t in true
   with _ -> false
 
@@ -185,7 +185,7 @@ and check : type a . a ty -> obj -> obj
       (* we must add the back links NOW, before checking if
          we've already visited that value.  *)
       if is_from (!direction)
-         && is_abstract t
+         && has_repr t
          && not (Stack.is_empty path)
       then H.add backlinks v (Stack.top path);
 

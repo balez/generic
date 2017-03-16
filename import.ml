@@ -1,5 +1,5 @@
 (**  A PPX for explicitely listing the names that are imported from a module.
-    usage: [[%%import M (x, y, z)]] will be translated to:
+    usage: [[%%import M (x; y; z)]] will be translated to:
 
 {[
     let x = M.x
@@ -13,23 +13,14 @@
 
 The identifiers may be renamed using the syntax:
 
-[%%import M (x, y' <- y, z)]
+[%%import M (x ; y' := y ; z)]
 
-which is equivalent to:
-
-[%%import M (x, (y' <- y), z)]
-
-and is translated to:
+which is translated to:
 {[
     let x  = M.x
     and y' = M.y
     and z  = M.z
 ]}
-
-Alternative notation [%%import M (x ; y' <- y ; z)]
-
-Note: both notations may be mixed, the comma and semi-colon
-have the same meaning.
 
 Invalid extensions are not interpreted and will raise an error.
 
@@ -80,27 +71,14 @@ open Generic_util
 let import_name = "import"
 let concat_map f xs = List.concat (List.map f xs)
 
-(* [listify] takes an expression of the shape:
- a <- (b1,...,bn)
-and returns
-[(a <- b1); b2; ... bn]
-all other expression e are returned as a singleton.
- *)
-let rec listify e = match e.pexp_desc with
-  | Pexp_setinstvar (a, b) ->
-    let a_with x = {e with pexp_desc = Pexp_setinstvar (a, x)} in
-    (match b.pexp_desc with
-     | Pexp_tuple (b1 :: bs) -> a_with b1 :: concat_map listify bs
-     | _ -> [a_with b])
-  | _ -> [e]
 
-(* [listify_seq] takes an expression of the shape:
+(* [seq] takes an expression of the shape:
   (e1; e2; .. ; en) and returns the list of expressions
   [e1; e2; .. en] (and then listify each of them)
 *)
-let rec listify_seq e = match e.pexp_desc with
-  | Pexp_sequence (a, b) -> listify a @ listify_seq b
-  | _ -> listify e
+let rec seq e = match e.pexp_desc with
+  | Pexp_sequence (a, b) -> a :: seq b
+  | _ -> [e]
 
 let import loc module_id name new_name =
   { pvb_pat = Pat.var new_name
@@ -119,6 +97,10 @@ let import_exp loc module_id e =
        let name_loc = {txt=name; loc=id.loc}
        in import loc module_id name_loc name_loc
      | _ -> raise Import)
+  (* | Pexp_apply (Pexp_ident {txt=":=";_} *)
+  (*              , [ (Nolabel, Pexp_ident new_name) *)
+  (*                , (Nolabel, Pexp_ident old_name)]) -> *)
+  (*   import loc module_id new_name old_name *)
   | Pexp_setinstvar (new_name_loc, {pexp_desc=Pexp_ident id;_}) ->
     (match id.txt with
      | Lident name ->
@@ -132,12 +114,7 @@ let import_list loc mod_id is =
 
 let extension loc = function
   | Pexp_construct (module_name, Some e)
-    ->
-    let imp = import_list loc module_name.txt in
-    (match e.pexp_desc with
-     | Pexp_tuple is
-       -> imp (concat_map listify_seq is)
-     | _ -> imp (listify_seq e))
+    -> import_list loc module_name.txt (seq e)
   | _ -> raise Import
 
 

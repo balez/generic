@@ -121,7 +121,7 @@ tests: ppx test_marshal test_show test_multiplate
 
 # Library (bytecode)
 generic.cma: generic_util_obj_stub.o $(NS:.ml=.cmo) $(ML:.ml=.cmo)
-	$(OCAMLC) -custom -o $@ -a $^
+	$(OCAMLC) -custom -o $@ -a $(wordlist 2, $(words $^), $^)
 
 # PPX
 
@@ -176,17 +176,17 @@ test_multiplate: generic.cma generic_test_multiplate.cmo
 	$(OCAMLC) -o $@ $^
 
 generic_test_marshal.cmo: generic_test_marshal.ml ppx
-	$(OCAMLC) -o $@ -ppx ./reify -c $<
+	$(occ_test)
 test_marshal: generic.cma generic_test_marshal.cmo
 	$(OCAMLC) -o $@ $^
 
 generic_test_gadt.cmo: generic_test_gadt.ml ppx
-	$(OCAMLC) -o $@ -ppx ./reify -c $<
+	$(occ_test)
 test_gadt: generic.cma generic_test_gadt.cmo
 	$(OCAMLC) -o $@ $^
 
 generic_test_show.cmo: generic_test_show.ml ppx
-	$(OCAMLC) -o $@ -ppx ./reify -c $<
+	$(occ_test)
 test_show: generic.cma generic_test_show.cmo
 	$(OCAMLC) -o $@ $^
 
@@ -214,7 +214,7 @@ define occ=
 $(OCAMLC) -c $< -ppx ./import
 endef
 
-%.cmo: %.ml
+%.cmo: %.ml import
 	$(occ)
 
 %.cmi: %.mli

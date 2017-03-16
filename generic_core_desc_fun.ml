@@ -94,10 +94,19 @@ let bytes_desc =
     end))
 
 (**************************************************)
+(** Desc view for core types (defined in Generic.Core.Ty.T) *)
+
 let () =
   begin
     ext Ty.Any { f = fun _ -> NoDesc }; (* in particular, [Fun(a,b)] *)
 
+    ext Ty.Unit
+      { f = fun (type a) (ty : a ty) -> (match ty with
+           | Ty.Unit -> Product (p0
+                                , { fwd = (fun () -> ())
+                                  ; bck = (fun () -> ())})
+           | _ -> assert false : a Desc.t)
+      };
     ext Ty.pair
       { f = fun (type a) (ty : a ty) -> (match ty with
            | Ty.Pair (a,b) -> Product (p2 a b
@@ -266,6 +275,8 @@ let ext_fold ty =
 let ext_conap ty =
   Desc.Ext.conap (extensible ty)
 
+
+(* Desc view for Ty, reflecting the constructors of Generic.Core.Ty.T *)
 let () =
   begin
     ext (Ty.Ty Ty.Any)
@@ -276,6 +287,11 @@ let () =
     ext_add_con (Ty.Ty Ty.Any)
       {con = fun (type a) (ty : a ty) -> (match ty with
            | Ty.Ty Ty.Any -> c0 "Any" Ty.Any
+           | _ -> assert false : a Desc.Con.t) };
+
+    ext_add_con (Ty.Ty Ty.Unit)
+      {con = fun (type a) (ty : a ty) -> (match ty with
+           | Ty.Ty Ty.Unit -> c0 "Unit" Ty.Unit
            | _ -> assert false : a Desc.Con.t) };
 
     ext_add_con (Ty.Ty Ty.Int32)
@@ -365,7 +381,7 @@ let () =
                   (function | Ty.Lazy t -> Some (t,()) | _ -> None)
            | _ -> assert false : a Desc.Con.t)};
 
-    ext_add_con (Ty.Ty (Ty.Ty Ty.Any))
+    ext_add_con (Ty.Ty (Ty.Ty Ty.Any)) (* Reflectin Ty itself *)
       {con = fun (type a) (ty : a ty) -> (match ty with
            | Ty.Ty (Ty.Ty x)
              -> cn "Ty" (cp1 (Ty.Ty x))

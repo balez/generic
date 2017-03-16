@@ -24,6 +24,8 @@ let unapp = function
 type repr_fun =
   { f : 'a . 'a ty -> 'a repr }
 
-let repr_closure = Extensible.create "repr" (* private *)
+let repr_name = "Generic_core_repr.repr"
+let repr_closure = Extensible.create repr_name (* private *)
 let repr t = unapp (repr_closure.f t)
+let view t = repr t
 let ext t f = repr_closure.ext t { f = fun t -> App (f.f t) }

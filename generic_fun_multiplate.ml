@@ -10,7 +10,7 @@ open Functor.T
 open Applicative.T
 open Monad.T
 
-[%%import App (get_id, get_const)]
+[%%import App (get_id; get_const)]
 [%%import Applicative
     ( liftA2
     ; fun_of_app
@@ -19,7 +19,7 @@ open Monad.T
     )
 ]
 [%%import Monad (
-    app_of_mon,
+    app_of_mon;
     id_monad <- id
 )]
 

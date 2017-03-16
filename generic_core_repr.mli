@@ -25,7 +25,13 @@ type repr_fun =
   { f : 'a . 'a ty -> 'a repr }
 
 val repr : 'a ty -> 'a repr
-(** @return the representation associated to an abstract type. *)
+(** @return the representation associated to an abstract type.
+@throw Type_pattern_match_failure repr_name *)
+
+val view : 'a ty -> 'a repr
+(** synonym of {!repr} *)
 
 val ext : 'a Ty.pat -> repr_fun -> unit
 (** [ext t f] extends function [repr] with a new case for type [t] defined by [f]. *)
+
+val repr_name : string
