@@ -59,9 +59,6 @@ module Field : sig
 
   val is_mutable : ('t, 'r) t -> bool
   (** @return true iff the given field mutable, i.e. [is_mutable f = f.set != None] *)
-
-  val anon : 'a ty -> ('a, 'b) t
-  (** Anonynomous field, useful for defining variant constructors with no labels. *)
 end
 
 (** Generic representation of a record's collection of fields. *)
@@ -96,82 +93,6 @@ module Fields : sig
   val types_of_mutable_fields : ('p, 'r) t -> Ty.ty' list
   (** @return the list of the types of all mutable fields. *)
 
-  val anon : 'p Product.t -> ('p, 'r) t
-
-  module Build : sig
-    val fc : 'a ty -> ('b, 'c) t -> ('a * 'b, 'c) t
-    val f0 : (unit, 'a) t
-    val f1 : 'a ty -> ('a * unit, 'b) t
-    val f2 :
-      'a ty -> 'b ty -> ('a * ('b * unit), 'c) t
-    val f3 :
-      'a ty -> 'b ty -> 'c ty -> ('a * ('b * ('c * unit)), 'd) t
-    val f4 :
-      'a ty -> 'b ty -> 'c ty -> 'd ty ->
-      ('a * ('b * ('c * ('d * unit))), 'e) t
-    val f5 :
-      'a ty ->
-      'b ty ->
-      'c ty ->
-      'd ty ->
-      'e ty ->
-      ('a * ('b * ('c * ('d * ('e * unit)))), 'f) t
-    val f6 :
-      'a ty ->
-      'b ty ->
-      'c ty ->
-      'd ty ->
-      'e ty ->
-      'f ty ->
-      ('a * ('b * ('c * ('d * ('e * ('f * unit))))), 'g) t
-    val f7 :
-      'a ty ->
-      'b ty ->
-      'c ty ->
-      'd ty ->
-      'e ty ->
-      'f ty ->
-      'g ty ->
-      ('a * ('b * ('c * ('d * ('e * ('f * ('g * unit)))))), 'h) t
-    val f8 :
-      'a ty ->
-      'b ty ->
-      'c ty ->
-      'd ty ->
-      'e ty ->
-      'f ty ->
-      'g ty ->
-      'h ty ->
-      ('a * ('b * ('c * ('d * ('e * ('f * ('g * ('h * unit))))))), 'i) t
-    val f9 :
-      'a ty ->
-      'b ty ->
-      'c ty ->
-      'd ty ->
-      'e ty ->
-      'f ty ->
-      'g ty ->
-      'h ty ->
-      'i ty ->
-      ('a * ('b * ('c * ('d * ('e * ('f * ('g * ('h * ('i * unit)))))))),
-       'j)
-        t
-    val f10 :
-      'a ty ->
-      'b ty ->
-      'c ty ->
-      'd ty ->
-      'e ty ->
-      'f ty ->
-      'g ty ->
-      'h ty ->
-      'i ty ->
-      'j ty ->
-      ('a *
-       ('b * ('c * ('d * ('e * ('f * ('g * ('h * ('i * ('j * unit))))))))),
-       'k)
-        t
-  end
 end
 
 (** Generic representation of record datatypes. *)
@@ -214,6 +135,11 @@ end (* Record *)
 (** Generic representation of variant constructors. *)
 module Con : sig
 
+  (** The arguments of a constructors are either a tuple or an inline record. *)
+  type ('a,'v) arguments =
+    | Product of 'a Product.t
+    | Record of ('a, 'v) Fields.t
+
   (** {b Constructor description.}
 
       [('t, 'v) desc] describes one of the constructors of variant ['v] of type ['t].
@@ -241,11 +167,10 @@ module Con : sig
       to its argument, for instance the [embed] function for
       the data-constructor [Some : 'a -> 'a option] is [embed
       = fun x -> Some x].
-
   *)
   type ('t, 'v) desc = {
     name : string; (** name of the constructor *)
-    args : ('t, 'v) Fields.t; (** arguments of the constructor *)
+    args : ('t, 'v) arguments; (** arguments of the constructor *)
     embed : 't -> 'v;  (** applies the constructor to the arguments. *)
     proj : 'v -> 't option; (** tries to deconstruct that constructor *)
   }
@@ -262,7 +187,7 @@ module Con : sig
 
   val name : 'v con -> string
   val make :
-    string -> ('a, 'b) Fields.t -> ('a -> 'b) -> ('b -> 'a option) -> 'b con
+    string -> ('a, 'b) arguments -> ('a -> 'b) -> ('b -> 'a option) -> 'b con
   (** Builds a [con] using the corresponding field values *)
 
   val c0 : string -> 'a -> 'a con
@@ -289,6 +214,21 @@ module Con : sig
 
   val subterms : 'v conap -> Ty.dyn list
   (** @return the arguments of a constructor application as a list of dynamic values. O(1).  *)
+
+  (** Helper module for building the argument types. *)
+  module Build :
+  sig
+    val cp0 : (unit, 'v) arguments
+    val cp1 : 'a ty -> ('a * unit, 'b) arguments
+    val cp2 : 'a ty -> 'b ty -> ('a * ('b * unit), 'c) arguments
+    val cp3 : 'a ty -> 'b ty -> 'c ty -> ('a * ('b * ('c * unit)), 'd) arguments
+    val cp4 : 'a ty -> 'b ty -> 'c ty -> 'd ty -> ('a * ('b * ('c * ('d * unit))), 'e) arguments
+    val cp5 : 'a ty -> 'b ty -> 'c ty -> 'd ty -> 'e ty -> ('a * ('b * ('c * ('d * ('e * unit)))), 'f) arguments
+    val cp6 : 'a ty -> 'b ty -> 'c ty -> 'd ty -> 'e ty -> 'f ty -> ('a * ('b * ('c * ('d * ('e * ('f * unit))))), 'g) arguments
+    val cp7 : 'a ty -> 'b ty -> 'c ty -> 'd ty -> 'e ty -> 'f ty -> 'g ty -> ('a * ('b * ('c * ('d * ('e * ('f * ('g * unit)))))), 'h) arguments
+    val cp8 : 'a ty -> 'b ty -> 'c ty -> 'd ty -> 'e ty -> 'f ty -> 'g ty -> 'h ty -> ('a * ('b * ('c * ('d * ('e * ('f * ('g * ('h * unit))))))), 'i) arguments
+    val cp9 : 'a ty -> 'b ty -> 'c ty -> 'd ty -> 'e ty -> 'f ty -> 'g ty -> 'h ty -> 'i ty -> ('a * ('b * ('c * ('d * ('e * ('f * ('g * ('h * ('i * unit)))))))), 'j) arguments
+  end
 end (* Con *)
 
 (** Generic representation of variant datatypes. *)

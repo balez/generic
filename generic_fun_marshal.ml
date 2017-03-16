@@ -266,8 +266,8 @@ and check_concrete : type a . a ty -> obj -> unit
     | NoDesc -> raise (Serialize_exception "Abstract or Class without representation.")
     | _ -> raise (Serialize_exception "Unsupported type description.")
 
-(* This function should always be called to check a field
-   it takes care of the stack invariant
+(* This function should always be called to check a field.
+   It takes care of the stack invariant.
  *)
 and check_field : type a . a ty -> obj -> int -> unit
   = fun t v i ->
@@ -362,15 +362,22 @@ and check_poly_variant : type v . v Desc.Poly.t -> obj -> unit
   with Not_found -> raise (Serialize_exception "Polymorphic variant, constructor not found.")
 
 and check_args : type v . v Desc.Con.t -> obj -> unit
-  = fun (Desc.Con.Con c) -> check_record_fields 0 c.args c.embed
+  = fun (Desc.Con.Con c) ->
+    match c.args with
+    | Desc.Con.Product p -> check_product p
+    | Desc.Con.Record r -> check_record_fields 0 r c.embed
 
 (* Singleton constructor *)
 and check_single : type v . v Desc.Con.t -> obj -> unit
   = fun (Desc.Con.Con c) v ->
-  let open Desc.Fields.T in
-  match c.args with
-  | Cons ({ty;_}, Nil) -> check_field ty v 1
-  | _ -> raise (Serialize_exception "Polymorphic variant, invalid singleton constructor.")
+    let open Desc.Fields.T in
+    let open Product.T in
+    let open Desc.Con in
+    match c.args with
+    | Product (Cons (ty, Nil)) -> check_field ty v 1
+    | Record (Cons ({ty;_}, Nil)) -> check_field ty v 1
+    | _ -> raise (Serialize_exception "Polymorphic variant, invalid singleton constructor.")
+
 
 and check_extensible : type t . t Desc.Ext.t -> obj -> unit
   = fun x v ->
@@ -378,7 +385,9 @@ and check_extensible : type t . t Desc.Ext.t -> obj -> unit
       visit_val_add v (to_obj w);
       let Desc.Con.Con c = Desc.Ext.con x w
       in one_of [ lazy (guard (tag v == object_tag)) (* constant constructor *)
-                ; lazy (check_record_fields 1 c.args c.embed (to_obj w))]
+                ; lazy (match c.args with
+                      | Product p -> check_fields_from 1 p (to_obj w)
+                      | Record r -> check_record_fields 1 r c.embed (to_obj w))]
   with Not_found -> raise (Serialize_exception "Extensible type, constructor not found.")
 
 (* (comment from stdlib/lazy.ml)

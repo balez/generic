@@ -2,8 +2,8 @@ open Generic_core
 open Generic_util
 
 open App.T
+open Desc.Con.Build
 open Product.Build
-open Desc.Fields.Build
 
 type 'a ty = 'a Ty.t
 
@@ -16,13 +16,13 @@ let cn = Desc.Con.make
 (***************************************************)
 let cons_option t = cons
   [ c0 "None" None
-  ; cn "Some" (f1 t)
+  ; cn "Some" (cp1 t)
            (fun (x,()) -> Some x)
            (function Some x -> Some (x,()) | _ -> None)
   ]
 let cons_list t = cons
   [ c0 "[]" []
-  ; cn "::" (f2 t (Ty.List t))
+  ; cn "::" (cp2 t (Ty.List t))
            (fun (x,(xs,())) -> x :: xs)
            (function x :: xs -> Some (x,(xs,())) | _ -> None)
   ]
@@ -327,7 +327,7 @@ let () =
     ext_add_con (Ty.Ty Ty.option)
       {con = fun (type a) (ty : a ty) -> (match ty with
            | Ty.Ty (Ty.Option x)
-             -> cn "Option" (f1 (Ty.Ty x))
+             -> cn "Option" (cp1 (Ty.Ty x))
                   (fun (t,()) -> Ty.Option t)
                   (function | Ty.Option t -> Some (t,()) | _ -> None)
            | _ -> assert false : a Desc.Con.t)};
@@ -335,7 +335,7 @@ let () =
     ext_add_con (Ty.Ty Ty.list)
       {con = fun (type a) (ty : a ty) -> (match ty with
            | Ty.Ty (Ty.List x)
-             -> cn "List" (f1 (Ty.Ty x))
+             -> cn "List" (cp1 (Ty.Ty x))
                   (fun (t,()) -> Ty.List t)
                   (function | Ty.List t -> Some (t,()) | _ -> None)
            | _ -> assert false : a Desc.Con.t)};
@@ -343,7 +343,7 @@ let () =
     ext_add_con (Ty.Ty (Ty.Array Ty.Any))
       {con = fun (type a) (ty : a ty) -> (match ty with
            | Ty.Ty (Ty.Array x)
-             -> cn "Array" (f1 (Ty.Ty x))
+             -> cn "Array" (cp1 (Ty.Ty x))
                   (fun (t,()) -> Ty.Array t)
                   (function | Ty.Array t -> Some (t,()) | _ -> None)
            | _ -> assert false : a Desc.Con.t)};
@@ -351,7 +351,7 @@ let () =
     ext_add_con (Ty.Ty (Ty.Ref Ty.Any))
       {con = fun (type a) (ty : a ty) -> (match ty with
            | Ty.Ty (Ty.Ref x)
-             -> cn "Ref" (f1 (Ty.Ty x))
+             -> cn "Ref" (cp1 (Ty.Ty x))
                   (fun (t,()) -> Ty.Ref t)
                   (function | Ty.Ref t -> Some (t,()) | _ -> None)
            | _ -> assert false : a Desc.Con.t)};
@@ -359,7 +359,7 @@ let () =
     ext_add_con (Ty.Ty (Ty.Lazy Ty.Any))
       {con = fun (type a) (ty : a ty) -> (match ty with
            | Ty.Ty (Ty.Lazy x)
-             -> cn "Ty.Lazy" (f1 (Ty.Ty x))
+             -> cn "Ty.Lazy" (cp1 (Ty.Ty x))
                   (fun (t,()) -> Ty.Lazy t)
                   (function | Ty.Lazy t -> Some (t,()) | _ -> None)
            | _ -> assert false : a Desc.Con.t)};
@@ -367,7 +367,7 @@ let () =
     ext_add_con (Ty.Ty (Ty.Ty Ty.Any))
       {con = fun (type a) (ty : a ty) -> (match ty with
            | Ty.Ty (Ty.Ty x)
-             -> cn "Ty" (f1 (Ty.Ty x))
+             -> cn "Ty" (cp1 (Ty.Ty x))
                   (fun (t,()) -> Ty.Ty t)
                   (function | Ty.Ty t -> Some (t,()) | _ -> None)
            | _ -> assert false : a Desc.Con.t)};
@@ -375,7 +375,7 @@ let () =
     ext_add_con (Ty.Ty Ty.pair)
       {con = fun (type a) (ty : a ty) -> (match ty with
            | Ty.Ty (Ty.Pair (x,y))
-             -> cn "Pair" (f2 (Ty.Ty x) (Ty.Ty y))
+             -> cn "Pair" (cp2 (Ty.Ty x) (Ty.Ty y))
                   (fun (x,(y,())) -> Ty.Pair(x,y))
                   (function | Ty.Pair (x,y) -> Some (x,(y,())) | _ -> None)
            | _ -> assert false : a Desc.Con.t)};
@@ -392,7 +392,7 @@ let () =
   begin
     ext_register Ty.Exn "exn";
     exn_add_con (c0 "Not_found" Not_found);
-    exn_add_con (cn "Invalid_argument" (f1 Ty.String)
+    exn_add_con (cn "Invalid_argument" (cp1 Ty.String)
                         (fun (x,()) -> Invalid_argument x)
                         (function Invalid_argument x -> Some (x,()) | _ -> None))
   end

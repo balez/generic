@@ -17,7 +17,6 @@ type 'a t = 'a view
 
 let set_map from set r x = set (from r) x
 
-
 let field_map m = let open Field.T in
   fun {name; ty; set} ->
     {name; ty; set = Option.map (set_map m) set}
@@ -27,10 +26,14 @@ let rec fields_map : type p . ('b -> 'a) -> (p, 'a) Fields.t -> (p, 'b) Fields.t
   | Nil -> Nil
   | Cons (f, fs) -> Cons (field_map m f, fields_map m fs)
 
+let args_map m = let open Desc.Con in function
+  | Product p -> Product p
+  | Record r -> Record (fields_map m r)
+
 (** @raise Exn.Failed if the representation doesn't correspond to a valid abstract value *)
 let repr r (Con.Con {name; args; embed; proj}) =
     Con.Con { name = name
-            ; args = fields_map r.Repr.to_repr args
+            ; args = args_map r.Repr.to_repr args
             ; embed = Option.get_some -< r.Repr.from_repr -< embed
             ; proj = proj -< r.to_repr
             }
@@ -40,14 +43,14 @@ let rec view : type a . a ty -> a view
     match Desc_fun.view t with
     | Product (p, iso) ->
       [Con { name  = ""
-           ; args  = Fields.anon p
+           ; args  = Product p
            ; embed = iso.fwd
            ; proj  = (fun x -> Some (iso.bck x))
            }
       ]
     | Record r ->
       [Con { name  = ""
-           ; args  = r.fields
+           ; args  = Record r.fields
            ; embed = r.iso.fwd
            ; proj  = (fun x -> Some (r.iso.bck x))
            }

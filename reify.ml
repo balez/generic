@@ -111,10 +111,6 @@ let ld_of_ct ct =
   ; pld_attributes = []
   }
 
-let lds_of_args = function
-  | Pcstr_tuple cts -> List.map ld_of_ct cts
-  | Pcstr_record lds -> lds
-
 let exp_str s = Exp.constant (Pconst_string (s, None))
 let exp_str_append x y = [%expr [%e exp_str x] ^ [%e exp_str y]]
 
@@ -166,21 +162,9 @@ let exp_vars = exp_vars' var_name
 let var_names n =
   List.map (var var_name) (Listx.from_to 1 n)
 
-(** {[ prod [t1;t2..;tn] = Cons (t1 , Cons (t2, ... Cons (tn, Nil) ...)) ]} *)
-let prod =
-  Listx.foldr
-    (fun head tail -> [%expr Generic_core.Product.T.Cons
-        ([%e head] , [%e tail])])
-    [%expr Generic_core.Product.T.Nil]
-
 (** [Ty x1; ... Ty xn] *)
 let ty_args n =
-  List.map (fun x -> [%expr Generic_core.Ty.Ty [%e x]]) (exp_vars n)
-
-(** [Ty x1; ... Ty xn] as a list of label declaration with empty labels *)
-let ty_lds n =
-  List.map (fun x -> ld_of_ct [%type: [%t Typ.var x] Generic_core.Ty.ty])
-     (var_names n)
+  Pcstr_tuple (List.map (fun x -> [%type: [%t Typ.var x] Generic_core.Ty.ty]) (var_names n))
 
 (** (x1, (x2, ..., (xn, ())...)) *)
 let exp_nested_tuple =
@@ -317,6 +301,57 @@ let exp_fields vars =
       [%expr Generic_core.Desc.Fields.Cons ([%e exp_field vars ld], [%e ts])])
     [%expr Generic_core.Desc.Fields.Nil]
 
+(** {[ prod [t1;t2..;tn] = Cons (t1 , Cons (t2, ... Cons (tn, Nil) ...)) ]} *)
+let prod =
+  Listx.foldr
+    (fun head tail -> [%expr Generic_core.Product.T.Cons
+        ([%e head] , [%e tail])])
+    [%expr Generic_core.Product.T.Nil]
+
+let exp_prod vars ts =
+  prod (List.map (witness vars) ts)
+
+type exps_pats =
+  { exps : expression list
+  ; pats : pattern list
+  }
+
+let exp_pat_args xs =
+  let num_args = List.length xs in
+  { exps = exp_vars num_args
+  ; pats = pat_vars num_args
+  }
+
+type exp_pat =
+  { exp : expression
+  ; pat : pattern
+  }
+
+type con_desc =
+  { args : expression
+  ; embed : exp_pat
+  ; proj : exp_pat
+  }
+
+let con_desc vars constr = function
+  | Pcstr_tuple cts ->
+    let a = exp_pat_args cts in
+    { args = [%expr Generic_core.Desc.Con.Product [%e exp_prod vars cts]]
+    ; embed = { pat = pat_nested_tuple a.pats
+              ; exp = exp_cons constr a.exps }
+    ; proj = { pat = pat_cons constr a.pats
+             ; exp = exp_nested_tuple a.exps }
+    }
+  | Pcstr_record lds ->
+    let labels = List.map (fun l -> lid l.pld_name.txt) lds in
+    let a = exp_pat_args lds in
+    { args = [%expr Generic_core.Desc.Con.Record [%e exp_fields vars lds]]
+    ; embed = { pat = pat_nested_tuple a.pats
+              ; exp = exp_cons_record constr labels a.exps }
+    ; proj = { pat = pat_cons_record constr labels a.pats
+             ; exp = exp_nested_tuple a.exps }
+    }
+
 (** Builds a constructor description [Desc.Con] from :
 
     [single]: true if the constructor is the only one for this variant.
@@ -324,45 +359,26 @@ let exp_fields vars =
     [lds]: list of the label declarations for the arguments
     [constr]: name of the constructor
 *)
-let make_con is_tuple single vars lds constr =
-  let num_args = List.length lds in
-  let pat_args = pat_vars num_args in
-  let exp_args = exp_vars num_args in
-  let pat_embed = pat_nested_tuple pat_args in
-  let labels = List.map (fun l -> lid l.pld_name.txt) lds in
-  let exp_embed =
-    if is_tuple then exp_cons constr exp_args
-    else exp_cons_record constr labels exp_args
-  in
-  let pat_proj =
-    if is_tuple then pat_cons constr pat_args
-    else pat_cons_record constr labels pat_args
-  in
-  let exp_proj = exp_nested_tuple exp_args in
+let make_con single vars args constr =
+  let d = con_desc vars constr args in
   [%expr Generic_core.Desc.Con.make
       [%e exp_str constr]
-      [%e exp_fields vars lds]
-      (fun [%p pat_embed] -> [%e exp_embed])
+      [%e d.args]
+      (fun [%p d.embed.pat] -> [%e d.embed.exp])
       [%e if single
-        then [%expr (fun [%p pat_proj] -> Some [%e exp_proj])]
+        then [%expr (fun [%p d.proj.pat] -> Some [%e d.proj.exp])]
         else [%expr
           (function
-            | [%p pat_proj] -> Some [%e exp_proj]
+            | [%p d.proj.pat] -> Some [%e d.proj.exp]
             | _ -> None)]]
   ]
-
-let is_tuple = function
-  | Pcstr_tuple _ -> true
-  | _ -> false
 
 (** [single]: true if the constructor is the only one for this variant.
     [vars] the type parameters of the variant.
     [c] the constructor declaration.
 *)
 let variant_constructor single vars c =
-  let lds = lds_of_args c.pcd_args
-  and constr = c.pcd_name.txt in
-  make_con (is_tuple c.pcd_args) single vars lds constr
+  make_con single vars c.pcd_args c.pcd_name.txt
 
 (* The argument must be a type variable. *)
 let var_name ct = match ct.ptyp_desc with
@@ -469,14 +485,14 @@ let sig_witness' ty_name num_params =
 let sig_witness t =
   sig_witness' t.ptype_name (List.length t.ptype_params)
 
-let make_ext_con is_tuple vars exp_ty pat_ty args constr =
+let make_ext_con vars exp_ty pat_ty args constr =
   [%stri let () = Generic_core.Desc_fun.ext_add_con
                [%e exp_ty]
     { Generic_core.Desc.Ext.con =
         fun (type a)
             (ty : a Generic_core.Ty.ty) -> (match ty with
             | [%p pat_ty]
-              -> [%e make_con is_tuple false vars args constr]
+              -> [%e make_con false vars args constr]
             | _ -> assert false : a Generic_core.Desc.Con.t)}
     ]
 
@@ -488,11 +504,11 @@ let ext_constructor ty params c =
   in let exp_t = exp_cons' ty exp_params
   and pat_t = pat_cons' ty pat_params
   and constr = c.pext_name.txt
-  and (tuple, lds) = match c.pext_kind with
-    | Pext_decl (args, _) -> (is_tuple args, lds_of_args args)
+  and args = match c.pext_kind with
+    | Pext_decl (args, _) -> args
     | _ -> assert false
   in
-  make_ext_con tuple params exp_t pat_t lds constr
+  make_ext_con params exp_t pat_t args constr
 
 (* Effectful statements, to update the type description:
    Desc.view, and Ty_desc.ext
@@ -505,11 +521,10 @@ let new_desc module_path t =
   let pat_constr = pat_cons constr (pat_vars num_params) in
   let ty_desc_ext = (* extend Generic_core.Ty_desc.ext *)
     make_ext_con
-      true
       (var_names num_params)
       [%expr Generic_core.Ty.Ty [%e exp_conpat]]
       [%pat? Generic_core.Ty.Ty [%p pat_constr]]
-      (ty_lds num_params)
+      (ty_args num_params)
       constr
 
   and desc_fun_ext = (* extend Generic_core.Desc_fun.view *)
@@ -738,10 +753,8 @@ let rec main super reify_all module_lid =
   and str_exn e =
     match e.pext_kind with
     | Pext_decl (args, _) ->
-      let lds = lds_of_args args
-      and constr = e.pext_name.txt
-      in
-      [make_ext_con false [] [%expr Exn] [%pat? Exn] lds constr]
+      let constr = e.pext_name.txt in
+      [make_ext_con [] [%expr Exn] [%pat? Exn] args constr]
     | _ -> [] (* TODO DEAL WITH THIS CASE  *)
   and sig_exn _ = []
   and str_typ_ext e =

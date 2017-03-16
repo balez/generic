@@ -21,6 +21,8 @@ res_n g f x_0 .. x_{n-1} == g (f x_0 ... x_{n-1})
 ]}
 *)
 
+val res0 : ('a -> 'b) -> 'a -> 'b
+
 val res1 : ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
 
 val res2 : ('a -> 'b) -> ('c -> 'd -> 'a) -> 'c -> 'd -> 'b

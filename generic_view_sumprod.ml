@@ -45,14 +45,16 @@ type 'a sp =
   | Sum   : 'a sp * 'b sp -> ('a, 'b) sum sp
   | Unit  : unit sp
   | Prod  : 'a sp * 'b sp -> ('a * 'b) sp
-  | Delay   : 'a ty -> 'a sp (* to break the recursion *)
+  | Delay : 'a ty -> 'a sp (* to break the recursion *)
   | Con   : string * 'a sp -> 'a sp
   | Field : string * 'a sp -> 'a sp
   | Iso   : 'a sp * ('a, 'b) Fun.iso -> 'b sp
 
+(* Intermediate type used to compute the sp view for a variant *)
 type 'b varsp =
   | Varsp : 'a sp * ('a -> 'b) * ('b -> 'a option) -> 'b varsp
 
+(* view for an empty variant (no constructor) *)
 let empty_varsp : 'a varsp
   = Varsp (Empty, empty_elim, (fun x -> None))
 
@@ -103,18 +105,24 @@ and field : type a r . (a, r) Field.t -> a sp
 
 (* The tricky part is to build the isomorphism. *)
 and cons : type v . v Con.t list -> v varsp
-  = fun cs -> List.fold_left var empty_varsp cs
+  = fun cs -> List.fold_left con empty_varsp cs
 
-and var : type v . v varsp -> v Con.t -> v varsp
+and ext : type a . a Ext.t -> a varsp
+  = fun e -> Ext.fold e (Fun.flip con) empty_varsp
+
+(* Adding one constructor to a variant view *)
+and con : type v . v varsp -> v Con.t -> v varsp
   = fun (Varsp (s, f, b)) (Con.Con h) ->
-        let s' = Con (h.name, Sum (fields h.args, s))
+        let s' = Con (h.name, Sum (args h.args, s))
         and f' = either h.embed f
         and b' x = (match h.proj x with
             | Some y -> Some (Left y)
             | None -> Option.option right (b x))
         in Varsp (s', f', b')
 
-and ext : type a . a Ext.t -> a varsp
-  = fun e -> Ext.fold e (Fun.flip var) empty_varsp
+and args : type a v . (a, v) Con.arguments -> a sp
+  = function
+    | Product p -> prod p
+    | Record r -> fields r
 
 let sumprod = view

@@ -20,7 +20,6 @@ module Field = struct
   }
 
   let is_mutable fd = fd.set != None
-  let anon t = {name = ""; ty = t; set = None}
 end
 
 module Fields = struct
@@ -46,26 +45,6 @@ module Fields = struct
         if Field.is_mutable f then
           E f.ty :: types_of_mutable_fields fs
         else types_of_mutable_fields fs
-
-  let rec anon : type p . p Product.t -> (p, 'r) t
-    = function
-      | Product.Nil -> Nil
-      | Product.Cons (t, ts) -> Cons (Field.anon t, anon ts)
-
-  module Build = struct
-    let fc x y = Cons (Field.anon x,y)
-    let f0 = Nil
-    let f1 x = fc x f0
-    let f2 x = Fun.res1 (fc x) f1
-    let f3 x = Fun.res2 (fc x) f2
-    let f4 x = Fun.res3 (fc x) f3
-    let f5 x = Fun.res4 (fc x) f4
-    let f6 x = Fun.res5 (fc x) f5
-    let f7 x = Fun.res6 (fc x) f6
-    let f8 x = Fun.res7 (fc x) f7
-    let f9 x = Fun.res8 (fc x) f8
-    let f10 x = Fun.res9 (fc x) f9
-  end
 end
 
 module Record = struct
@@ -102,13 +81,13 @@ module Con = struct
     while the second one will have: { args = p2 a b ; ...}
    *)
 
-  (* type ('a,'v) arguments = *)
-  (*   | Record : ('a, 'v) Fields.t *)
-  (*   | Product : ('a, 'v) Product.t *)
+  type ('a,'v) arguments =
+    | Product of 'a Product.t
+    | Record of ('a, 'v) Fields.t
 
   type ('a, 'v) desc =
     { name  : string
-    ; args  : ('a,'v) Fields.t
+    ; args  : ('a,'v) arguments
     ; embed : 'a -> 'v (* this function should NEVER inspect 'a or the library would cause a segfault. *)
     ; proj  : 'v -> 'a option
     }
@@ -118,13 +97,15 @@ module Con = struct
 
   type 'v t = 'v con
 
-  let product c = Fields.product c.args
+  let product c = match c.args with
+    | Record r -> Fields.product r
+    | Product p -> p
   let con_arity c = Product.length (product c)
   let name (Con c) = c.name
   let arity (Con c) = con_arity c
 
   let make name args embed proj = Con {name; args; embed; proj}
-  let c0 n x = make n Fields.Nil (fun () -> x)
+  let c0 n x = make n (Product Product.Nil) (fun () -> x)
                       (fun y -> if x == y then Some () else None)
 
   (* PRIVATE! and DANGEROUS
@@ -196,6 +177,22 @@ module Con = struct
   let con (Conap (c,x)) = Con c
   let subterms_prod (Conap (c,x)) = Product.Dynprod (product c, x)
   let subterms x = Product.list_of_dynprod (subterms_prod x)
+
+  module Build = struct
+    open Product.Build
+    let product x = Product x
+    let cp0 = Product p0
+    let cp1 x = Fun.res1 product p1 x
+    let cp2 x = Fun.res2 product p2 x
+    let cp3 x = Fun.res3 product p3 x
+    let cp4 x = Fun.res4 product p4 x
+    let cp5 x = Fun.res5 product p5 x
+    let cp6 x = Fun.res6 product p6 x
+    let cp7 x = Fun.res7 product p7 x
+    let cp8 x = Fun.res8 product p8 x
+    let cp9 x = Fun.res9 product p9 x
+  end
+
 end (* Con *)
 
 module Variant = struct
@@ -234,7 +231,7 @@ module Variant = struct
   *)
   let empty_con () = Con.Con
                        { name = "empty_con"
-                       ; args = Cons ({name=""; ty = Sum.Empty; set = None}, Nil)
+                       ; args = Product (Cons (Sum.Empty, Nil))
                        ; embed = (fun _ -> assert false) (* this is the empty function *)
                        ; proj = (fun _ -> None)
                        }

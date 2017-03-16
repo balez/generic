@@ -7,6 +7,7 @@ let uncurry f (x,y) = f x y
 (* composition operators.
    "resN" stands for:
       apply a function on the result of an "n"-ary function *)
+let res0 f g = f g
 let res1 f g x = f (g x)
 (* res2 f g x y = f (g x y) *)
 (* res1 res1 res1 f g x y == res1 (res1 f) g x y == res1 f (g x) y == f (g x y) *)

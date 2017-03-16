@@ -106,7 +106,10 @@ let _ =
 
 (*****************************************)
 (* variants *)
-type ('a,'b) my_variant = A of {a1: 'a; a2: int} | B of 'a * int | C of 'b * (bool * 'b) * 'a
+type ('a,'b) my_variant =
+  | A of {a1: 'a; a2: int}
+  | B of 'a * int
+  | C of 'b * (bool * 'b) * 'a
 
 let () =
   let ty = My_variant (Char, Char)
