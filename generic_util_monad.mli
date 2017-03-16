@@ -5,7 +5,6 @@ open App.T
 open Functor.T
 open Applicative.T
 
-
 module T :
   sig
     type 'f monad = {
@@ -59,6 +58,11 @@ val liftM4 :
   ('d, 'a) app ->
   ('e, 'a) app -> ('f, 'a) app
 
+(** {3 Traversing lists of effectful elements} *)
+
+val traverseM : 'f monad -> ('a -> ('b, 'f) app) -> 'a list -> ('b list, 'f) app
+val sequenceM : 'f monad -> ('a, 'f) app list -> ('a list, 'f) app
+
 (** {2 Instances} *)
 
 val id : App.id monad
@@ -67,28 +71,34 @@ val list : App.list' monad
 
 (** {3 State Monad} *)
 
-type 'b state = STATE
-type (_, _) app +=
-    State : ('b -> 'a * 'b) -> ('a, 'b state) app
-val run_state : ('a, 'b state) app -> 'b -> 'a * 'b
-val state : 'a state monad
-val get : ('a, 'a state) app
-val put : 'a -> (unit, 'a state) app
+module State : sig
+  type 'b state = STATE
+  type (_, _) app +=
+      State : ('b -> 'a * 'b) -> ('a, 'b state) app
+  val run_state : ('a, 'b state) app -> 'b -> 'a * 'b
+  val state : 'a state monad
+  val get : ('a, 'a state) app
+  val put : 'a -> (unit, 'a state) app
+end
 
 (** {3 Reader Monad} *)
 
-type 'b reader = READER
-type (_, _) app +=
-    Reader : ('b -> 'a) -> ('a, 'b reader) app
-val run_reader : ('a, 'b reader) app -> 'b -> 'a
-val reader : 'a reader monad
-val ask : ('a, 'a reader) app
-val local :
-  ('a -> 'b) ->
-  ('c, 'b reader) app ->
-  ('c, 'a reader) app
+module Reader : sig
+  type 'b reader = READER
+  type (_, _) app +=
+      Reader : ('b -> 'a) -> ('a, 'b reader) app
+  val run_reader : ('a, 'b reader) app -> 'b -> 'a
+  val reader : 'a reader monad
+  val ask : ('a, 'a reader) app
+  val local :
+    ('a -> 'b) ->
+    ('c, 'b reader) app ->
+    ('c, 'a reader) app
+end
 
 (** {3 IO Monad} *)
+
+module IO : sig
 
 (** Similar to the Haskell IO Monad.
 The values are computations that may carry effects.
@@ -112,3 +122,5 @@ val run_io : ('a, io) app -> 'a
 
 val io : io monad
 (** The IO monad operations *)
+
+end

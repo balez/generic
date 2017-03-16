@@ -11,7 +11,7 @@ module Util = Generic_util
 module View = Generic_view
 
 (** Namespace for modules defining generic functions. *)
-module Fun = Generic_fun
+module Gfun = Generic_fun
 
 (** Type witness. *)
 module Ty = Generic_core_ty

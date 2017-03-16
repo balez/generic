@@ -123,10 +123,10 @@ let set n x xs =
   in
   if n < 0 then xs else go n xs
 
-(** {[concatmap f x = concat -< map f]}
-    [concatmap] is the flipped bind operator of the list monad
+(** {[concat_map f x = concat -< map f]}
+    [concat_map] is the flipped bind operator of the list monad
  *)
-let concatmap f xs = List.concat (List.map f xs)
+let concat_map f xs = List.concat (List.map f xs)
 
 let monoid = Monoid.list
 

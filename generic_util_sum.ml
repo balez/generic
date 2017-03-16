@@ -1,7 +1,7 @@
 open Generic_core
 open Ty.T
 
-let (-<) = Generic_util.Fun.(-<)
+let (-<) = Generic_util_fun.(-<)
 
 type empty (* empty type : no value *)
 type ('a,'b) sum = Left of 'a | Right of 'b

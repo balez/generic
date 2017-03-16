@@ -1,13 +1,13 @@
 # * Tools and Flags
 
 INCLUDES=
-OCAMLFLAGS=$(INCLUDES) -custom -w -40
+OCAMLFLAGS=$(INCLUDES) -custom -w +44-40
 OCAMLOPTFLAGS=$(INCLUDES)
 
 OCAMLC=ocamlc $(OCAMLFLAGS)
 OCAMLOPT=ocamlopt $(OCAMLOPTFLAGS)
 OCAMLDEP=ocamldep $(INCLUDES)
-OCAMLDOC=ocamldoc.opt $(INCLUDES) -w -40 -ppx ./import
+OCAMLDOC=ocamldoc.opt $(INCLUDES) -w +44-40 -ppx ./import
 
 METAQUOT=$(shell ocamlfind query ppx_tools)/ppx_metaquot
 
@@ -163,8 +163,13 @@ doc/dep.dot: lib $(NS) $(NSI) $(ML) $(MLI)
 %.import: %.ml import
 	$(OCAMLC) -o $<.import.cmo -ppx ./import -c $< -dsource
 
+define occ_test=
+$(OCAMLC) -o $@ -c $< -ppx ./import -ppx ./reify
+endef
+
+
 generic_test_multiplate.cmo: generic_test_multiplate.ml ppx
-	$(OCAMLC) -o $@ -ppx ./reify -c $<
+	$(occ_test)
 test_multiplate: generic.cma generic_test_multiplate.cmo
 	$(OCAMLC) -o $@ $^
 
@@ -220,10 +225,10 @@ endef
 
 # This is a static pattern see info: Make > Static Usage
 $(NS:.ml=.cmo): %.cmo: %.ml
-	$(OCAMLC) -no-alias-deps -w -49 -c $<
+	$(OCAMLC) -no-alias-deps -w A-49 -c $<
 
 $(NSI:.mli=.cmi): %.cmi: %.mli
-	$(OCAMLC) -no-alias-deps -w -49 -c $<
+	$(OCAMLC) -no-alias-deps -w A-49 -c $<
 
 # ** C
 # Using ocamlc for compiling C automatically deals with the location of ocaml headers

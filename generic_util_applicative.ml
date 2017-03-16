@@ -24,6 +24,15 @@ let liftA2 a f x y = a.apply (liftA a f x) y
 let liftA3 a f x y z = a.apply (liftA2 a f x y) z
 let liftA4 a f u v w x = a.apply (liftA3 a f u v w) x
 
+(** {3 Traversing lists of effectful elements } *)
+
+let rec traverse a f =
+  let cons h t = h :: t in function
+    | [] -> a.pure []
+    | h :: t -> liftA2 a cons (f h) (traverse a f t)
+
+let sequence a = traverse a (fun x -> x)
+
 (** {2 Instances} *)
 
 let id =

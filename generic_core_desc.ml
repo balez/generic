@@ -102,9 +102,13 @@ module Con = struct
     while the second one will have: { args = p2 a b ; ...}
    *)
 
+  (* type ('a,'v) arguments = *)
+  (*   | Record : ('a, 'v) Fields.t *)
+  (*   | Product : ('a, 'v) Product.t *)
+
   type ('a, 'v) desc =
     { name  : string
-    ; args  : ('a, 'v) Fields.t (* we should rename desc.args to desc.args_ty *)
+    ; args  : ('a,'v) Fields.t
     ; embed : 'a -> 'v (* this function should NEVER inspect 'a or the library would cause a segfault. *)
     ; proj  : 'v -> 'a option
     }
