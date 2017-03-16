@@ -39,12 +39,16 @@ let print_obj = Obj_inspect.print_obj
 let debug = true
 exception Serialize_exception of string
 
+let serialize_exn s = raise (Serialize_exception s)
+
 (* [exn s f] forces the execution of [f], and re-raise all Serialize exceptions,
 any other exception is caught and a new Serialize_exception is thrown with message [s]
 *)
 let exn s f = try Lazy.force f
   with Serialize_exception _ as e -> raise e
      | _ -> raise (Serialize_exception s)
+
+let unboxed_exn = "Invalid unboxed type representation.";
 
 (* direction of the conversion, TO bytes or FROM bytes *)
 type direction = To | From
@@ -68,12 +72,9 @@ let visit_ty_table = (H.create 10 : ty' H.t)
 let visit_val_table = (H.create 10 : obj H.t)
 let visit_ty = H.find visit_ty_table
 let visit_val v = if is_int v then v else H.find visit_val_table v
-let visit_ty_add v t = H.replace visit_ty_table v (E t)
-let visit_val_add = H.replace visit_val_table
+let visit_ty_set v t = H.replace visit_ty_table v (E t)
+let visit_val_set = H.replace visit_val_table
 let visit_val_mem = H.mem visit_val_table
-let visit_add v t w =
-  visit_ty_add v t;
-  visit_val_add v w
 
 (* backlinks is a hashtable indexed by the raw umarshalled
    values of abstract types. Each of them is associated to
@@ -173,7 +174,7 @@ and check : type a . a ty -> obj -> obj
   = fun t v ->
   let t = Antiunify.resolve_synonym t in
   if is_block v && not (visit_val_mem v) then
-    visit_val_add v (dup v);
+    visit_val_set v (dup v);
   if is_int v     (* immediate values can have many types *)
      || ty_not_comparable t (* we can't check it for equality *)
   then do_check t v
@@ -205,7 +206,7 @@ and check : type a . a ty -> obj -> obj
 (* [memo_check t v] @require [is_bloc v] *)
 and memo_check : type a . a ty -> obj -> obj
   = fun t v ->
-  visit_ty_add v t;
+  visit_ty_set v t;
   do_check t v
 
 and do_check : type a . a ty -> obj -> obj
@@ -224,16 +225,16 @@ and do_check : type a . a ty -> obj -> obj
              match !direction with
              | To ->
                let w = new_block 0 1 in (* tag 0, size 1 *)
-               if is_block v then visit_val_add v w;
+               if is_block v then visit_val_set v w;
                set_field w 0 (check r.repr_ty (obj_to_repr r v));
                w
              | From ->
-               visit_val_add v (obj_default r);
+               visit_val_set v (obj_default r);
                let f1 = field v 0 in (* no back link for this indirection *)
                let w' = check r.repr_ty f1 in
                let w = obj_from_repr r w' in
                Stack.push (fun () -> obj_update r w w') abstract_update;
-               visit_val_add v w;
+               visit_val_set v w;
                w)
       | _ ->
         check_concrete t v;
@@ -257,7 +258,7 @@ and check_concrete : type a . a ty -> obj -> unit
     match desc t with
     | Product (p, iso) -> check_tag 0 >>. check_product p
     | Record r  -> check_record r
-    | Variant v -> check_variant v.cons
+    | Variant v -> check_variant v
     | Extensible x -> check_extensible x
     | Custom d -> guard -< is_custom d.identifier
     | Synonym (t, Equal.Refl) -> assert false (* check t -- never executed since we resolved synonyms earlier *)
@@ -317,13 +318,35 @@ field values themselves.) *)
 
 and check_record : type p r . (p, r) Desc.Record.t -> obj -> unit
   = fun r v ->
-    check_tag 0 v;
-    check_record_fields 0 r.fields r.iso.fwd v;
+    let open Desc.Record in
+    let open Desc.Fields in
+    if r.unboxed then
+      match r.fields with
+      | Cons ({ty;_}, Nil) -> let _ = check ty v in ()
+      | _ -> serialize_exn unboxed_exn;
+    else begin
+      check_tag 0 v;
+      check_record_fields 0 r.fields r.iso.fwd v;
+    end
 
-and check_variant : type v . v Desc.Variant.cons -> obj -> unit
-  = fun cs v ->
-  if is_int v && Fun.in_range (from_obj v) (0, Desc.Variant.cst_len cs - 1) then ()
-  else begin
+and check_variant : type v . v Desc.Variant.t -> obj -> unit
+  = fun d v ->
+    let cs = d.cons in
+    if d.unboxed then
+      begin
+        exn unboxed_exn (lazy (guard (Desc.Variant.cst_len cs == 0
+                                      && Desc.Variant.ncst_len cs == 1)));
+        match Desc.Variant.ncst_get cs 0 with
+        | Desc.Con.Con {args = Product (Product.Cons (ty, Product.Nil)); _} ->
+          let _ = check ty v in ()
+        | Desc.Con.Con {args = Record (Desc.Fields.Cons ({ty;_}, Desc.Fields.Nil)); _} ->
+          let _ = check ty v in ()
+        | _ -> serialize_exn unboxed_exn;
+      end
+    else if is_int v
+         && Fun.in_range (from_obj v) (0, Desc.Variant.cst_len cs - 1)
+    then ()
+    else begin
       guard (tag v < Desc.Variant.ncst_len cs);
       check_args (Desc.Variant.ncst_get cs (tag v)) v;
     end
@@ -382,7 +405,7 @@ and check_single : type v . v Desc.Con.t -> obj -> unit
 and check_extensible : type t . t Desc.Ext.t -> obj -> unit
   = fun x v ->
   try let w = Desc.Ext.fix x (from_obj v) in
-      visit_val_add v (to_obj w);
+      visit_val_set v (to_obj w);
       let Desc.Con.Con c = Desc.Ext.con x w
       in one_of [ lazy (guard (tag v == object_tag)) (* constant constructor *)
                 ; lazy (match c.args with

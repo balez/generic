@@ -178,19 +178,19 @@ let () =
       };
     ext Ty.Bool
       { f = fun (type a) (ty : a ty) -> (match ty with
-           | Ty.Bool -> Variant {name = "bool"; module_path = ["Core"]; cons = cons_bool}
+           | Ty.Bool -> Variant {name = "bool"; module_path = ["Core"]; cons = cons_bool; unboxed = false}
            | _ -> assert false : a Desc.t)
       };
 
     ext Ty.option
       { f = fun (type a) (ty : a ty) -> (match ty with
-           | Ty.Option a -> Variant {name = "option"; module_path = ["Core"]; cons = cons_option a}
+           | Ty.Option a -> Variant {name = "option"; module_path = ["Core"]; cons = cons_option a; unboxed = false}
            | _ -> assert false : a Desc.t)
       };
 
     ext Ty.list
       { f = fun (type a) (ty : a ty) -> (match ty with
-           | Ty.List a -> Variant {name = "list"; module_path = ["Core"]; cons = cons_list a}
+           | Ty.List a -> Variant {name = "list"; module_path = ["Core"]; cons = cons_list a; unboxed = false}
            | _ -> assert false : a Desc.t)
       };
 
@@ -231,6 +231,7 @@ let () =
                     ; iso = { fwd = (fun (x,()) -> ref x)
                             ; bck = (fun r -> (!r, ()))
                             }
+                    ; unboxed = false
                     }
            | _ -> assert false : a Desc.t)
       };

@@ -107,6 +107,7 @@ module Record : sig
       ; module_path : string list
       ; fields : ('p, 'r) Fields.t
       ; iso : ('p, 'r) Fun.iso
+      ; unboxed : bool
       }
   end
 
@@ -117,6 +118,7 @@ module Record : sig
     ; module_path : string list
     ; fields : ('p, 'r) Fields.t
     ; iso : ('p, 'r) Fun.iso
+    ; unboxed : bool
     }
 
   val product : ('p, 'r) t -> 'p Product.t
@@ -261,6 +263,11 @@ module Variant : sig
       good practice to do so.
   *)
 
+  val unboxed_con : 'v Con.t -> 'v cons
+  (** Builds a ['v cons] from a single constructor.
+      [unboxed_con] must be used only to represent unboxed variants.
+  *)
+
   val cst_len : 'v cons -> int
   (** O(1). [cst_len cs] is the number of constant constructors in [cs]. *)
 
@@ -308,11 +315,12 @@ conap cs x = Conap (c,y)  ==>  c.embed y = x
   (** {b Variant.}
       A variant is given by its [name] the module in which it was defined and the set [cons] of its constructors.
   *)
-  type 'v variant = {
-    name : string;
-    module_path : string list;
-    cons : 'v cons;
-  }
+  type 'v variant =
+    { name : string
+    ; module_path : string list
+    ; cons : 'v cons
+    ; unboxed : bool
+    }
 
   (** Synonym for convenience. *)
   type 'v t = 'v variant

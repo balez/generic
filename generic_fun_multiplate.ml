@@ -16,7 +16,8 @@ open Monad.T
     ; fun_of_app
     ; id_applicative <- id
     ; const_applicative <- const
- )]
+    )
+]
 [%%import Monad (
     app_of_mon,
     id_monad <- id

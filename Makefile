@@ -110,7 +110,9 @@ generic_test_show\
 OTHER_MLI=
 
 # * Rules
-.PHONY: doc ppx lib clean
+.PHONY: lib tests doc ppx clean
+#.SECONDARY: $(ML:.ml=.cmo) $(OTHER_ML:.ml=.cmo)
+
 all: lib ppx doc tests
 doc: doc/index.html import # doc/dep.dot
 lib: generic.cma import

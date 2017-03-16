@@ -482,3 +482,18 @@ let () =
     test_cast "polymorphic mutable field" {pmf = []} Pmf;
   end
   *)
+
+(***************************************************)
+(* unboxed *)
+
+type boxed = B of int
+type unboxed = U of int [@@unboxed]
+type unboxed1 = U1 of int [@@ocaml.unboxed]
+type unboxed2 = {u : int} [@@unboxed]
+
+let () = begin
+  test_cast "boxed" (B 4) Boxed;
+  test_cast "unboxed" (U 4) Unboxed;
+  test_cast "ocaml.unboxed" (U1 4) Unboxed1;
+  test_cast "unboxed record" {u = 4} Unboxed2;
+end

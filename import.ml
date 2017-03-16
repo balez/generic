@@ -1,29 +1,29 @@
 (**  A PPX for explicitely listing the names that are imported from a module.
-    usage: [[%%import Module (x, y, z)]] will be translated to:
+    usage: [[%%import M (x, y, z)]] will be translated to:
 
 {[
-    let x = Module.x
-    and y = Module.y
-    and z = Module.z
+    let x = M.x
+    and y = M.y
+    and z = M.z
 ]}
 
-[[%%import Module x]] is translated to [let x = Module x]
+[[%%import M x]] is translated to [let x = M.x]
 
-[[%%import Module]] is not valid.
+[[%%import M]] is not valid.
 
 The identifiers may be renamed using the syntax:
 
-[%%import Module (x, y' <- y, z)]
+[%%import M (x, y' <- y, z)]
 
 which is equivalent to:
 
-[%%import Module (x, (y' <- y), z)]
+[%%import M (x, (y' <- y), z)]
 
 and is translated to:
 {[
-    let x  = Module.x
-    and y' = Module.y
-    and z  = Module.z
+    let x  = M.x
+    and y' = M.y
+    and z  = M.z
 ]}
 
 Alternative notation [%%import M (x ; y' <- y ; z)]
@@ -33,7 +33,26 @@ have the same meaning.
 
 Invalid extensions are not interpreted and will raise an error.
 
-"import" is like a selective "include".
+[[%%import]] is like a selective "include".
+
+At the expression level, [let%import M = (x,y,z) in ...] (with a single %) is translated to
+{[
+  let x = M.x
+  and y = M.y
+  and z = M.z
+  in ...
+]}
+
+
+TODO other syntax
+
+open%only Applicative
+  [@@val liftA2 ]
+  [@@type t]
+  [@@module
+
+
+
 *)
 
 open Ast_mapper

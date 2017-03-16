@@ -55,6 +55,7 @@ module Record = struct
       ; module_path : string list
       ; fields : ('p, 'r) Fields.t
       ; iso : ('p, 'r) Fun.iso
+      ; unboxed : bool
       }
   end
   type ('p,'r) t = ('p,'r) T.record =
@@ -62,6 +63,7 @@ module Record = struct
     ; module_path : string list
     ; fields : ('p, 'r) Fields.t
     ; iso : ('p, 'r) Fun.iso
+    ; unboxed : bool
     }
   let product r = Fields.product r.fields
   let types_of_mutable_fields r = Fields.types_of_mutable_fields r.fields
@@ -161,7 +163,7 @@ module Con = struct
     let v = dummy c
     in if Objx.is_con v && Objx.gsize v == arity c
        then snd (Objx.con_id v)
-       else local_invalid_arg ("cons: inconsistent description of constructor ("^name c^")")
+       else local_invalid_arg ("cons: inconsistent description of constructor (" ^ name c ^ ")")
 
   (* constructor application *)
   type 'v conap =
@@ -272,10 +274,15 @@ module Variant = struct
     let (c0,cn) = List.partition (fun c -> Con.arity c == 0) cs
     in (cons_array c0, cons_array cn)
 
+  (* [unboxed_con] constructs the [cons] value for a single constructor with a single field. *)
+  let unboxed_con c =
+    (Array.of_list [], Array.make 1 c)
+
   type 'v variant =
     { name : string
     ; module_path : string list
     ; cons : 'v cons
+    ; unboxed : bool
     }
 
   type 'v t = 'v variant

@@ -32,6 +32,18 @@
     files, only the [ty] extensions are derived.
 
     TODO: better error locations.
+
+    Support for:
+    - variants but not GADTs
+    - extensible variants
+    - inline records in variant constructors
+    - records
+    - unboxed variants constructors ([@@unboxed] or [@@ocaml.unboxed])
+    - unboxed records ([@@unboxed] or [@@ocaml.unboxed])
+    - classes
+    - synonyms
+    - abstract types ([@@abstract])
+
 *)
 
 
@@ -85,7 +97,6 @@ let has_dont_reify = has_attr dont_reify_attrname
 let tydecl_dont_reify = tydecl_has_attr dont_reify_attrname
 let tydecl_abstract = tydecl_has_attr abstract_attrname
 let tydecl_no_desc = tydecl_has_attr no_desc_attrname
-
 
 (* Obtain the name of the witness given the name of the type.
    (not a longident)
@@ -391,6 +402,18 @@ let var_name ct = match ct.ptyp_desc with
 let params t =
   List.map (fun (t,_) -> var_name t) t.ptype_params
 
+let is_unboxed t =
+  has_attr "unboxed" t.ptype_attributes
+  || has_attr "ocaml.unboxed" t.ptype_attributes
+let unboxed t =
+  if is_unboxed t
+  then [%expr true] else [%expr false]
+
+let cons unboxed e =
+  if unboxed
+  then [%expr Generic_core.Desc.Variant.unboxed_con (List.hd [%e e])]
+  else [%expr Generic_core.Desc.Variant.cons [%e e]]
+
 (** Assumes [t.ptype_kind = Ptype_variant cds] *)
 let desc_variant module_path t cds =
   let single = List.length cds = 1 in
@@ -398,8 +421,9 @@ let desc_variant module_path t cds =
       { Generic_core.Desc.Variant.name = [%e exp_str t.ptype_name.txt]
       ; Generic_core.Desc.Variant.module_path = [%e exp_str_list module_path]
       ; Generic_core.Desc.Variant.cons =
-          Generic_core.Desc.Variant.cons
-            [%e exp_list (List.map (variant_constructor single (params t)) cds)]
+          [%e cons (is_unboxed t)
+              (exp_list (List.map (variant_constructor single (params t)) cds))]
+      ; Generic_core.Desc.Variant.unboxed = [%e unboxed t]
       }]
 
 let exp_iso vars lds =
@@ -418,6 +442,7 @@ let desc_record module_path t lds =
       ; Generic_core.Desc.Record.module_path = [%e exp_str_list module_path]
       ; Generic_core.Desc.Record.fields = [%e exp_fields (params t) lds]
       ; Generic_core.Desc.Record.iso = [%e exp_iso (params t) lds]
+      ; Generic_core.Desc.Record.unboxed = [%e unboxed t]
       }
   ]
 
