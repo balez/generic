@@ -1,3 +1,14 @@
+(* TODO:
+
+   - Optimize the hashtables by hashing the addresses of the
+     blocks. This require to recomputing the tables after
+     each pass of the garbage collection.
+
+   - Make a topological sort before traversing so that the
+     anti-unifier of the roots of the strongly connected
+     components may be computed before traversing them.
+
+*)
 open Generic_core
 open Generic_util
 
@@ -10,30 +21,20 @@ type ty' = Ty.ty'
  *)
 
 type obj = Obj.t
-let to_obj = Obj.repr
-let from_obj = Obj.obj
-let is_int = Obj.is_int
-let is_block = Obj.is_block
-let field = Obj.field
-let set_field = Obj.set_field
-let size = Obj.size
-let dup = Obj.dup
-let new_block = Obj.new_block
-let tag = Obj.tag
-let custom_tag = Obj.custom_tag
-let double_tag = Obj.double_tag
-let string_tag = Obj.string_tag
-let object_tag = Obj.object_tag
-let double_array_tag = Obj.double_array_tag
 
-let (>>.) = Fun.(>>.)
-let (-<) = Fun.(-<)
+[%%import Obj
+    ( to_obj <- repr
+    ; from_obj <- obj
+    ; is_int; is_block; field; set_field; size; dup; new_block
+    ; tag; custom_tag; double_tag; string_tag; object_tag; double_array_tag)]
 
-let guard = Exn.guard
-let one_of = Exn.one_of
-let desc = Desc_fun.view
+[%%import Fun ((>>.); (-<))]
 
-let print_obj = Obj_inspect.print_obj
+[%%import Exn (guard, one_of)]
+
+[%%import Desc_fun (desc <- view)]
+
+[%%import Obj_inspect (print_obj)]
 
 (**************************************************)
 let debug = true
