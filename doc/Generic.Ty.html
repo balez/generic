@@ -5,7 +5,7 @@
 <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="Start" href="index.html">
-<link rel="previous" href="Generic.Fun.html">
+<link rel="previous" href="Generic.Gfun.html">
 <link rel="next" href="Generic.Ty_desc.html">
 <link rel="Up" href="Generic.html">
 <link title="Index of types" rel=Appendix href="index_types.html">
@@ -18,7 +18,6 @@
 <link title="Generic_core" rel="Chapter" href="Generic_core.html">
 <link title="Generic_view" rel="Chapter" href="Generic_view.html">
 <link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
-<link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
 <link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
@@ -53,7 +52,8 @@
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
 <link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
-<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><link title="Type Reflection" rel="Section" href="#2_TypeReflection">
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html">
+<link title="Generic" rel="Chapter" href="Generic.html"><link title="Type Reflection" rel="Section" href="#2_TypeReflection">
 <link title="Type Patterns" rel="Section" href="#2_TypePatterns">
 <link title="Dynamic values" rel="Section" href="#2_Dynamicvalues">
 <link title="Forgetting the index" rel="Subsection" href="#3_Forgettingtheindex">
@@ -65,14 +65,14 @@
 <title>Generic Programming Library : Generic.Ty</title>
 </head>
 <body>
-<div class="navbar"><a class="pre" href="Generic.Fun.html" title="Generic.Fun">Previous</a>
+<div class="navbar"><a class="pre" href="Generic.Gfun.html" title="Generic.Gfun">Previous</a>
 &nbsp;<a class="up" href="Generic.html" title="Generic">Up</a>
 &nbsp;<a class="post" href="Generic.Ty_desc.html" title="Generic.Ty_desc">Next</a>
 </div>
 <h1>Module <a href="type_Generic.Ty.html">Generic.Ty</a></h1>
 
 <pre><span class="keyword">module</span> Ty: <code class="type"><a href="Generic_core_ty.html">Generic_core_ty</a></code></pre><div class="info module top">
-Type witness.<br>
+Type witnesses.<br>
 </div>
 <hr width="100%">
 <br>
@@ -414,17 +414,40 @@ Values tagged with their type witness.
 
 <pre><span id="TYPEtyped"><span class="keyword">type</span> <code class="type">'a</code> typed</span> = <code class="type">'a <a href="Generic_core_ty.Typed.html#TYPEtyped">Typed.typed</a></code> </pre>
 
-
-<pre><span class="keyword">module</span> <a href="Generic_core_ty.Dyn.html">Dyn</a>: <code class="code">sig</code> <a href="Generic_core_ty.Dyn.html">..</a> <code class="code">end</code></pre><div class="info">
-Dynamic values are the union of all types.
-</div>
-
-<pre><span id="TYPEdyn"><span class="keyword">type</span> <code class="type"></code>dyn</span> = <code class="type"><a href="Generic_core_ty.Dyn.html#TYPEdyn">Dyn.dyn</a></code> = </pre><table class="typetable">
+<pre><code><span class="keyword">type</span> <code class="type">'_</code> <a href="Generic_core_ty.html#TYPEty">Generic_core_ty.ty</a> += </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTdyn.Dyn"><span class="constructor">Dyn</span></span> <span class="keyword">:</span> <code class="type">'a <a href="Generic_core_ty.html#TYPEtyped">typed</a></code> <span class="keyword">-></span> <code class="type"><a href="Generic_core_ty.html#TYPEdyn">dyn</a></code></code></td>
+<code><span id="EXTENSIONTyped">Typed</span> <span class="keyword">:</span> <code class="type">'a <a href="Generic_core_ty.html#TYPEty">ty</a></code> <span class="keyword">-></span> <code class="type">'a <a href="Generic_core_ty.html#TYPEtyped">typed</a> <a href="Generic_core_ty.html#TYPEty">ty</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><span class="keyword">module</span> <a href="Generic_core_ty.Dynamic.html">Dynamic</a>: <code class="code">sig</code> <a href="Generic_core_ty.Dynamic.html">..</a> <code class="code">end</code></pre><div class="info">
+Dynamic values are the union of all types.
+</div>
+
+<pre><span id="TYPEdynamic"><span class="keyword">type</span> <code class="type"></code>dynamic</span> = <code class="type"><a href="Generic_core_ty.Dynamic.html#TYPEdynamic">Dynamic.dynamic</a></code> = </pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdynamic.Dyn"><span class="constructor">Dyn</span></span> <span class="keyword">:</span> <code class="type">'a <a href="Generic_core_ty.html#TYPEtyped">typed</a></code> <span class="keyword">-></span> <code class="type"><a href="Generic_core_ty.html#TYPEdynamic">dynamic</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="TYPEdyn"><span class="keyword">type</span> <code class="type"></code>dyn</span> = <code class="type"><a href="Generic_core_ty.html#TYPEdynamic">dynamic</a></code> </pre>
+
+<pre><code><span class="keyword">type</span> <code class="type">'_</code> <a href="Generic_core_ty.html#TYPEty">Generic_core_ty.ty</a> += </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="EXTENSIONDynamic">Dynamic</span> <span class="keyword">:</span> <code class="type"><a href="Generic_core_ty.html#TYPEdyn">dyn</a> <a href="Generic_core_ty.html#TYPEty">ty</a></code></code></td>
 
 </tr></table>
 

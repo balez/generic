@@ -14,7 +14,6 @@
 <link title="Generic_core" rel="Chapter" href="Generic_core.html">
 <link title="Generic_view" rel="Chapter" href="Generic_view.html">
 <link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
-<link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
 <link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
@@ -49,7 +48,8 @@
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
 <link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
-<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Index of modules</title>
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html">
+<link title="Generic" rel="Chapter" href="Generic.html"><title>Generic Programming Library : Index of modules</title>
 </head>
 <body>
 <div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
@@ -88,8 +88,11 @@ Generic representation of array-like datatypes.
 <code class="code">open Build</code> to bring <code class="code">p0</code> to <code class="code">p6</code> in scope
 </div>
 </td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html">Build</a> [<a href="Generic_core_desc.Fields.html">Generic_core_desc.Fields</a>]</td>
-<td></td></tr>
+<tr><td><a href="Generic_core_desc.Con.Build.html">Build</a> [<a href="Generic_core_desc.Con.html">Generic_core_desc.Con</a>]</td>
+<td><div class="info">
+Helper module for building the argument types.
+</div>
+</td></tr>
 <tr><td align="left"><br>C</td></tr>
 <tr><td><a href="Generic_core_desc.Class.html">Class</a> [<a href="Generic_core_desc.html">Generic_core_desc</a>]</td>
 <td><div class="info">
@@ -125,7 +128,7 @@ Generic representation of custom datatypes.
 <td></td></tr>
 <tr><td><a href="Generic.Desc.html">Desc</a> [<a href="Generic.html">Generic</a>]</td>
 <td><div class="info">
-<a href="Generic.Desc.html"><code class="code">Generic.Desc</code></a> merges the modules <a href="Generic_core.Desc.html"><code class="code">Desc</code></a> and <a href="Generic_core.Desc_fun.html"><code class="code">Desc_fun</code></a>.
+Union of <code class="code">Generic_core_Desc</code> and <code class="code">Generic_core_Desc_fun</code>
 </div>
 </td></tr>
 <tr><td><a href="Generic_core.Desc.html">Desc</a> [<a href="Generic_core.html">Generic_core</a>]</td>
@@ -138,7 +141,7 @@ A low level generic view of OCaml types.
 Computing the low level description of types.
 </div>
 </td></tr>
-<tr><td><a href="Generic_core_ty.Dyn.html">Dyn</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
+<tr><td><a href="Generic_core_ty.Dynamic.html">Dynamic</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
 <td><div class="info">
 Dynamic values are the union of all types.
 </div>
@@ -187,11 +190,6 @@ Generic representation of a record field.
 Generic representation of a record's collection of fields.
 </div>
 </td></tr>
-<tr><td><a href="Generic.Fun.html">Fun</a> [<a href="Generic.html">Generic</a>]</td>
-<td><div class="info">
-Namespace for modules defining generic functions
-</div>
-</td></tr>
 <tr><td><a href="Generic_util.Fun.html">Fun</a> [<a href="Generic_util.html">Generic_util</a>]</td>
 <td><div class="info">
 Function combinators.
@@ -205,7 +203,7 @@ Functorial map and instances for option, list, identity, constant.
 <tr><td align="left"><br>G</td></tr>
 <tr><td><a href="Generic.html">Generic</a> </td>
 <td><div class="info">
-Main Namespace for the library.
+Main module for using the library.
 </div>
 </td></tr>
 <tr><td><a href="Generic_core.html">Generic_core</a> </td>
@@ -230,7 +228,7 @@ Type description: a low level generic view of OCaml types.
 </td></tr>
 <tr><td><a href="Generic_core_desc_fun.html">Generic_core_desc_fun</a> </td>
 <td><div class="info">
-Computing the low level description of types.
+Type indexed function that comptes the type description.
 </div>
 </td></tr>
 <tr><td><a href="Generic_core_equal.html">Generic_core_equal</a> </td>
@@ -260,7 +258,7 @@ Representation of abstract datatypes.
 </td></tr>
 <tr><td><a href="Generic_core_ty.html">Generic_core_ty</a> </td>
 <td><div class="info">
-Type witness.
+Type witnesses.
 </div>
 </td></tr>
 <tr><td><a href="Generic_core_ty_desc.html">Generic_core_ty_desc</a> </td>
@@ -270,7 +268,7 @@ Generic view for the type <a href="Generic_core_ty.html#TYPEty"><code class="cod
 </td></tr>
 <tr><td><a href="Generic_fun.html">Generic_fun</a> </td>
 <td><div class="info">
-Namespace for modules defining generic functions
+Namespace for modules defining generic functions.
 </div>
 </td></tr>
 <tr><td><a href="Generic_fun_deepfix.html">Generic_fun_deepfix</a> </td>
@@ -403,6 +401,11 @@ Sum of Product view
     replicating the Haskell LIGD library
 </div>
 </td></tr>
+<tr><td><a href="Generic.Gfun.html">Gfun</a> [<a href="Generic.html">Generic</a>]</td>
+<td><div class="info">
+Generic functions
+</div>
+</td></tr>
 <tr><td align="left"><br>H</td></tr>
 <tr><td><a href="Generic_util.Hash.html">Hash</a> [<a href="Generic_util.html">Generic_util</a>]</td>
 <td><div class="info">
@@ -410,6 +413,8 @@ Extra functions on hashtables
 </div>
 </td></tr>
 <tr><td align="left"><br>I</td></tr>
+<tr><td><a href="Generic_util_monad.IO.html">IO</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<td></td></tr>
 <tr><td><a href="Generic_util.Iter.html">Iter</a> [<a href="Generic_util.html">Generic_util</a>]</td>
 <td><div class="info">
 Iterative functions.
@@ -444,6 +449,8 @@ Monads and instances for option, list, identity, state, reader, input-output.
 Monoid and instances for integers, floats, booleans, options, lists.
 </div>
 </td></tr>
+<tr><td><a href="Generic.Multiplate.html">Multiplate</a> [<a href="Generic.html">Generic</a>]</td>
+<td></td></tr>
 <tr><td><a href="Generic_fun.Multiplate.html">Multiplate</a> [<a href="Generic_fun.html">Generic_fun</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>O</td></tr>
@@ -494,6 +501,8 @@ Witness of product types.
 </div>
 </td></tr>
 <tr><td align="left"><br>R</td></tr>
+<tr><td><a href="Generic_util_monad.Reader.html">Reader</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<td></td></tr>
 <tr><td><a href="Generic_core_desc.Record.html">Record</a> [<a href="Generic_core_desc.html">Generic_core_desc</a>]</td>
 <td><div class="info">
 Generic representation of record datatypes.
@@ -510,9 +519,15 @@ Representation of abstract datatypes.
 </div>
 </td></tr>
 <tr><td align="left"><br>S</td></tr>
+<tr><td><a href="Generic.SafeMarshal.html">SafeMarshal</a> [<a href="Generic.html">Generic</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_fun.Show.html">Show</a> [<a href="Generic_fun.html">Generic_fun</a>]</td>
+<td></td></tr>
 <tr><td><a href="Generic_fun_equal.Spine.html">Spine</a> [<a href="Generic_fun_equal.html">Generic_fun_equal</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_view.Spine.html">Spine</a> [<a href="Generic_view.html">Generic_view</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_monad.State.html">State</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_util.Sum.html">Sum</a> [<a href="Generic_util.html">Generic_util</a>]</td>
 <td><div class="info">
@@ -574,12 +589,12 @@ Module defining the types <a href="Generic_util_app.T.html#TYPEapp"><code class=
 </td></tr>
 <tr><td><a href="Generic.Ty.html">Ty</a> [<a href="Generic.html">Generic</a>]</td>
 <td><div class="info">
-Type witness.
+Type witnesses.
 </div>
 </td></tr>
 <tr><td><a href="Generic_core.Ty.html">Ty</a> [<a href="Generic_core.html">Generic_core</a>]</td>
 <td><div class="info">
-Type witness.
+Type witnesses.
 </div>
 </td></tr>
 <tr><td><a href="Generic.Ty_desc.html">Ty_desc</a> [<a href="Generic.html">Generic</a>]</td>
@@ -598,13 +613,10 @@ Values tagged with their type witness.
 </div>
 </td></tr>
 <tr><td align="left"><br>U</td></tr>
+<tr><td><a href="Generic.Uniplate.html">Uniplate</a> [<a href="Generic.html">Generic</a>]</td>
+<td></td></tr>
 <tr><td><a href="Generic_fun.Uniplate.html">Uniplate</a> [<a href="Generic_fun.html">Generic_fun</a>]</td>
 <td></td></tr>
-<tr><td><a href="Generic.Util.html">Util</a> [<a href="Generic.html">Generic</a>]</td>
-<td><div class="info">
-Namespace of utility modules.
-</div>
-</td></tr>
 <tr><td align="left"><br>V</td></tr>
 <tr><td><a href="Generic_core_desc.Variant.html">Variant</a> [<a href="Generic_core_desc.html">Generic_core_desc</a>]</td>
 <td><div class="info">

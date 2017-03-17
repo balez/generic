@@ -14,7 +14,6 @@
 <link title="Generic_core" rel="Chapter" href="Generic_core.html">
 <link title="Generic_view" rel="Chapter" href="Generic_view.html">
 <link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
-<link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
 <link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
@@ -49,7 +48,8 @@
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
 <link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
-<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Index of values</title>
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html">
+<link title="Generic" rel="Chapter" href="Generic.html"><title>Generic Programming Library : Index of values</title>
 </head>
 <body>
 <div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
@@ -91,13 +91,6 @@
 Boolean monoid under conjunction.
 </div>
 </td></tr>
-<tr><td><a href="Generic_core_desc.Fields.html#VALanon">anon</a> [<a href="Generic_core_desc.Fields.html">Generic_core_desc.Fields</a>]</td>
-<td></td></tr>
-<tr><td><a href="Generic_core_desc.Field.html#VALanon">anon</a> [<a href="Generic_core_desc.Field.html">Generic_core_desc.Field</a>]</td>
-<td><div class="info">
-Anonynomous field, useful for defining variant constructors with no labels.
-</div>
-</td></tr>
 <tr><td><a href="Generic_core_antiunify.html#VALanti_unify">anti_unify</a> [<a href="Generic_core_antiunify.html">Generic_core_antiunify</a>]</td>
 <td><div class="info">
 Anti-unification for type patterns.
@@ -127,7 +120,7 @@ The arity of a constructor is the number of its arguments.
 array == Array Any
 </div>
 </td></tr>
-<tr><td><a href="Generic_util_monad.html#VALask">ask</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<tr><td><a href="Generic_util_monad.Reader.html#VALask">ask</a> [<a href="Generic_util_monad.Reader.html">Generic_util_monad.Reader</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>C</td></tr>
 <tr><td><a href="Generic_core_desc.Con.html#VALc0">c0</a> [<a href="Generic_core_desc.Con.html">Generic_core_desc.Con</a>]</td>
@@ -217,10 +210,10 @@ O(1).
 Constructor application: the pair of a constructor and its list of arguments.
 </div>
 </td></tr>
-<tr><td><a href="Generic_util_list.html#VALconcatmap">concatmap</a> [<a href="Generic_util_list.html">Generic_util_list</a>]</td>
+<tr><td><a href="Generic_util_list.html#VALconcat_map">concat_map</a> [<a href="Generic_util_list.html">Generic_util_list</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">concatmap f x = concat -&lt; map f</code></pre>
-    <code class="code">concatmap</code> is the flipped bind operator of the list monad
+<pre class="codepre"><code class="code">concat_map f x = concat -&lt; map f</code></pre>
+    <code class="code">concat_map</code> is the flipped bind operator of the list monad
 </div>
 </td></tr>
 <tr><td><a href="Generic_core_ty.html#VALconpat">conpat</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
@@ -254,6 +247,26 @@ Builds a <code class="code">'v cons</code> from a list of constructor descriptio
 Constant function, ignore the second argument.
 </div>
 </td></tr>
+<tr><td><a href="Generic_core_desc.Con.Build.html#VALcp0">cp0</a> [<a href="Generic_core_desc.Con.Build.html">Generic_core_desc.Con.Build</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Con.Build.html#VALcp1">cp1</a> [<a href="Generic_core_desc.Con.Build.html">Generic_core_desc.Con.Build</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Con.Build.html#VALcp2">cp2</a> [<a href="Generic_core_desc.Con.Build.html">Generic_core_desc.Con.Build</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Con.Build.html#VALcp3">cp3</a> [<a href="Generic_core_desc.Con.Build.html">Generic_core_desc.Con.Build</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Con.Build.html#VALcp4">cp4</a> [<a href="Generic_core_desc.Con.Build.html">Generic_core_desc.Con.Build</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Con.Build.html#VALcp5">cp5</a> [<a href="Generic_core_desc.Con.Build.html">Generic_core_desc.Con.Build</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Con.Build.html#VALcp6">cp6</a> [<a href="Generic_core_desc.Con.Build.html">Generic_core_desc.Con.Build</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Con.Build.html#VALcp7">cp7</a> [<a href="Generic_core_desc.Con.Build.html">Generic_core_desc.Con.Build</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Con.Build.html#VALcp8">cp8</a> [<a href="Generic_core_desc.Con.Build.html">Generic_core_desc.Con.Build</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_core_desc.Con.Build.html#VALcp9">cp9</a> [<a href="Generic_core_desc.Con.Build.html">Generic_core_desc.Con.Build</a>]</td>
+<td></td></tr>
 <tr><td><a href="Generic_core_consumer.html#VALcreate">create</a> [<a href="Generic_core_consumer.html">Generic_core_consumer</a>]</td>
 <td><div class="info">
 <code class="code">create name</code>, creates a new closure initially empty:
@@ -301,6 +314,12 @@ Returns the identifier of a custom block,
 <td></td></tr>
 <tr><td><a href="Generic_fun_deepfix.html#VALdeepfix">deepfix</a> [<a href="Generic_fun_deepfix.html">Generic_fun_deepfix</a>]</td>
 <td></td></tr>
+<tr><td><a href="Generic_fun_multiplate.html#VALdefault">default</a> [<a href="Generic_fun_multiplate.html">Generic_fun_multiplate</a>]</td>
+<td><div class="info">
+the default open-recursive transformation applies its openrec argument to
+    all the children of a value.
+</div>
+</td></tr>
 <tr><td><a href="Generic_util_list.html#VALdrop_while">drop_while</a> [<a href="Generic_util_list.html">Generic_util_list</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_util_obj.html#VALdup_if_block">dup_if_block</a> [<a href="Generic_util_obj.html">Generic_util_obj</a>]</td>
@@ -313,7 +332,7 @@ Duplicate a block.
 <tr><td align="left"><br>E</td></tr>
 <tr><td><a href="Generic_util_sum.html#VALeither">either</a> [<a href="Generic_util_sum.html">Generic_util_sum</a>]</td>
 <td></td></tr>
-<tr><td><a href="Generic_util_monad.html#VALembed_io">embed_io</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<tr><td><a href="Generic_util_monad.IO.html#VALembed_io">embed_io</a> [<a href="Generic_util_monad.IO.html">Generic_util_monad.IO</a>]</td>
 <td><div class="info">
 Embed an effectful computation in the IO monad
 </div>
@@ -400,28 +419,6 @@ Extensible variants are declared with this function.
 </div>
 </td></tr>
 <tr><td align="left"><br>F</td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALf0">f0</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALf1">f1</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALf10">f10</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALf2">f2</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALf3">f3</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALf4">f4</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALf5">f5</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALf6">f6</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALf7">f7</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALf8">f8</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALf9">f9</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
 <tr><td><a href="Generic_fun_multiplate.html#VALfamily">family</a> [<a href="Generic_fun_multiplate.html">Generic_fun_multiplate</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_fun_uniplate.html#VALfamily">family</a> [<a href="Generic_fun_uniplate.html">Generic_fun_uniplate</a>]</td>
@@ -436,8 +433,6 @@ A family is a list of descendents.
     the value itself and the descendents of its immediate children
 </div>
 </td></tr>
-<tr><td><a href="Generic_core_desc.Fields.Build.html#VALfc">fc</a> [<a href="Generic_core_desc.Fields.Build.html">Generic_core_desc.Fields.Build</a>]</td>
-<td></td></tr>
 <tr><td><a href="Generic_util_obj.html#VALfields_all2">fields_all2</a> [<a href="Generic_util_obj.html">Generic_util_obj</a>]</td>
 <td><div class="info">
 <code class="code">fields_all p x y</code> holds iff <code class="code">x</code> and <code class="code">y</code> are both be block of the same size,
@@ -548,7 +543,7 @@ Use the plate on each child to get an element of the
 <code class="code">get a n</code> returns the element at index <code class="code">n</code> of array <code class="code">a</code>.
 </div>
 </td></tr>
-<tr><td><a href="Generic_util_monad.html#VALget">get</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<tr><td><a href="Generic_util_monad.State.html#VALget">get</a> [<a href="Generic_util_monad.State.html">Generic_util_monad.State</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_util_app.html#VALget_array">get_array</a> [<a href="Generic_util_app.html">Generic_util_app</a>]</td>
 <td></td></tr>
@@ -630,7 +625,7 @@ Multiplicative monoid.
 Additive monoid.
 </div>
 </td></tr>
-<tr><td><a href="Generic_util_monad.html#VALio">io</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<tr><td><a href="Generic_util_monad.IO.html#VALio">io</a> [<a href="Generic_util_monad.IO.html">Generic_util_monad.IO</a>]</td>
 <td><div class="info">
 The IO monad operations
 </div>
@@ -742,7 +737,7 @@ Given a obj of type <code class="code">(x0,...xn)</code>,
      computes a nested product <code class="code">(x0, (x1, (..., xn) ...))</code>
 </div>
 </td></tr>
-<tr><td><a href="Generic_util_monad.html#VALlocal">local</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<tr><td><a href="Generic_util_monad.Reader.html#VALlocal">local</a> [<a href="Generic_util_monad.Reader.html">Generic_util_monad.Reader</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>M</td></tr>
 <tr><td><a href="Generic_core_desc.Con.html#VALmake">make</a> [<a href="Generic_core_desc.Con.html">Generic_core_desc.Con</a>]</td>
@@ -945,6 +940,11 @@ Returns the hash value associated with a constructor of a polymorphic variant
 <td><div class="info">
 </div>
 </td></tr>
+<tr><td><a href="Generic_fun_uniplate.html#VALpost_family">post_family</a> [<a href="Generic_fun_uniplate.html">Generic_fun_uniplate</a>]</td>
+<td><div class="info">
+<a href="Generic_fun_uniplate.html#VALpost_family"><code class="code">Generic_fun_uniplate.post_family</code></a> lists the descendents in post-order: the leaves are first and the root is last
+</div>
+</td></tr>
 <tr><td><a href="Generic_fun_multiplate.html#VALpost_fold">post_fold</a> [<a href="Generic_fun_multiplate.html">Generic_fun_multiplate</a>]</td>
 <td><div class="info">
 folds a family in post-order
@@ -993,7 +993,7 @@ Specialisation of <code class="code">pure_plate</code> to the identity functor.
 A plate that lift all values into the applicative functor.
 </div>
 </td></tr>
-<tr><td><a href="Generic_util_monad.html#VALput">put</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<tr><td><a href="Generic_util_monad.State.html#VALput">put</a> [<a href="Generic_util_monad.State.html">Generic_util_monad.State</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>Q</td></tr>
 <tr><td><a href="Generic_core_ty.html#VALquadruple">quadruple</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
@@ -1001,7 +1001,7 @@ A plate that lift all values into the applicative functor.
 <tr><td><a href="Generic_core_ty.html#VALquintuple">quintuple</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>R</td></tr>
-<tr><td><a href="Generic_util_monad.html#VALreader">reader</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<tr><td><a href="Generic_util_monad.Reader.html#VALreader">reader</a> [<a href="Generic_util_monad.Reader.html">Generic_util_monad.Reader</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_view_spine.html#VALrebuild">rebuild</a> [<a href="Generic_view_spine.html">Generic_view_spine</a>]</td>
 <td><div class="info">
@@ -1029,6 +1029,10 @@ Replacing the children of a value with new children.
 <td><div class="info">
 </div>
 </td></tr>
+<tr><td><a href="Generic_core_repr.html#VALrepr_name">repr_name</a> [<a href="Generic_core_repr.html">Generic_core_repr</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_fun.html#VALres0">res0</a> [<a href="Generic_util_fun.html">Generic_util_fun</a>]</td>
+<td></td></tr>
 <tr><td><a href="Generic_util_fun.html#VALres1">res1</a> [<a href="Generic_util_fun.html">Generic_util_fun</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_util_fun.html#VALres2">res2</a> [<a href="Generic_util_fun.html">Generic_util_fun</a>]</td>
@@ -1054,14 +1058,14 @@ Recursively replace every occurence of type synonyms with their base type
 </td></tr>
 <tr><td><a href="Generic_util_sum.html#VALright">right</a> [<a href="Generic_util_sum.html">Generic_util_sum</a>]</td>
 <td></td></tr>
-<tr><td><a href="Generic_util_monad.html#VALrun_io">run_io</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<tr><td><a href="Generic_util_monad.IO.html#VALrun_io">run_io</a> [<a href="Generic_util_monad.IO.html">Generic_util_monad.IO</a>]</td>
 <td><div class="info">
 Run the computation with side effects to obtain a result
 </div>
 </td></tr>
-<tr><td><a href="Generic_util_monad.html#VALrun_reader">run_reader</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<tr><td><a href="Generic_util_monad.Reader.html#VALrun_reader">run_reader</a> [<a href="Generic_util_monad.Reader.html">Generic_util_monad.Reader</a>]</td>
 <td></td></tr>
-<tr><td><a href="Generic_util_monad.html#VALrun_state">run_state</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<tr><td><a href="Generic_util_monad.State.html#VALrun_state">run_state</a> [<a href="Generic_util_monad.State.html">Generic_util_monad.State</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>S</td></tr>
 <tr><td><a href="Generic_util_hash.html#VALsafe_find">safe_find</a> [<a href="Generic_util_hash.html">Generic_util_hash</a>]</td>
@@ -1089,7 +1093,11 @@ and a function to replace the children.
 </td></tr>
 <tr><td><a href="Generic_core_ty.html#VALseptuple">septuple</a> [<a href="Generic_core_ty.html">Generic_core_ty</a>]</td>
 <td></td></tr>
+<tr><td><a href="Generic_util_applicative.html#VALsequence">sequence</a> [<a href="Generic_util_applicative.html">Generic_util_applicative</a>]</td>
+<td></td></tr>
 <tr><td><a href="Generic_util_list.html#VALsequence">sequence</a> [<a href="Generic_util_list.html">Generic_util_list</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_monad.html#VALsequenceM">sequenceM</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_core_desc.Array.intf-c.html#VALset">set</a> [<a href="Generic_core_desc.Array.intf-c.html">Generic_core_desc.Array.intf</a>]</td>
 <td><div class="info">
@@ -1136,7 +1144,7 @@ Add a ad-hoc case for <a href="Generic_fun_show.html#VALshow"><code class="code"
 </td></tr>
 <tr><td><a href="Generic_view_spine.html#VALspine">spine</a> [<a href="Generic_view_spine.html">Generic_view_spine</a>]</td>
 <td></td></tr>
-<tr><td><a href="Generic_util_monad.html#VALstate">state</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
+<tr><td><a href="Generic_util_monad.State.html#VALstate">state</a> [<a href="Generic_util_monad.State.html">Generic_util_monad.State</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_core_desc.Con.html#VALsubterms">subterms</a> [<a href="Generic_core_desc.Con.html">Generic_core_desc.Con</a>]</td>
 <td><div class="info">
@@ -1181,7 +1189,11 @@ Low level functions
 Traversing a product type with effects
 </div>
 </td></tr>
+<tr><td><a href="Generic_util_applicative.html#VALtraverse">traverse</a> [<a href="Generic_util_applicative.html">Generic_util_applicative</a>]</td>
+<td></td></tr>
 <tr><td><a href="Generic_util_list.html#VALtraverse">traverse</a> [<a href="Generic_util_list.html">Generic_util_list</a>]</td>
+<td></td></tr>
+<tr><td><a href="Generic_util_monad.html#VALtraverseM">traverseM</a> [<a href="Generic_util_monad.html">Generic_util_monad</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_fun_multiplate.html#VALtraverse_children">traverse_children</a> [<a href="Generic_fun_multiplate.html">Generic_fun_multiplate</a>]</td>
 <td><div class="info">
@@ -1225,6 +1237,11 @@ triple == Triple (Any,Any,Any)
 </div>
 </td></tr>
 <tr><td align="left"><br>U</td></tr>
+<tr><td><a href="Generic_core_desc.Variant.html#VALunboxed_con">unboxed_con</a> [<a href="Generic_core_desc.Variant.html">Generic_core_desc.Variant</a>]</td>
+<td><div class="info">
+Builds a <code class="code">'v cons</code> from a single constructor.
+</div>
+</td></tr>
 <tr><td><a href="Generic_util_fun.html#VALuncurry">uncurry</a> [<a href="Generic_util_fun.html">Generic_util_fun</a>]</td>
 <td></td></tr>
 <tr><td><a href="Generic_util_option.html#VALunopt">unopt</a> [<a href="Generic_util_option.html">Generic_util_option</a>]</td>
@@ -1253,6 +1270,11 @@ view = sumprod
 <tr><td><a href="Generic_view_spine.html#VALview">view</a> [<a href="Generic_view_spine.html">Generic_view_spine</a>]</td>
 <td><div class="info">
 view = spine
+</div>
+</td></tr>
+<tr><td><a href="Generic_core_repr.html#VALview">view</a> [<a href="Generic_core_repr.html">Generic_core_repr</a>]</td>
+<td><div class="info">
+synonym of <a href="Generic_core_repr.html#VALrepr"><code class="code">Generic_core_repr.repr</code></a>
 </div>
 </td></tr>
 <tr><td><a href="Generic_core_desc_fun.html#VALview">view</a> [<a href="Generic_core_desc_fun.html">Generic_core_desc_fun</a>]</td>

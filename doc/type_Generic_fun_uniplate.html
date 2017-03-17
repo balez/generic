@@ -13,7 +13,6 @@
 <link title="Generic_core" rel="Chapter" href="Generic_core.html">
 <link title="Generic_view" rel="Chapter" href="Generic_view.html">
 <link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
-<link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
 <link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
@@ -48,7 +47,8 @@
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
 <link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
-<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Generic_fun_uniplate</title>
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html">
+<link title="Generic" rel="Chapter" href="Generic.html"><title>Generic Programming Library : Generic_fun_uniplate</title>
 </head>
 <body>
 <code class="code"><span class="keyword">sig</span><br>
@@ -57,6 +57,7 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;replace_children&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;map_children&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;family&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;post_family&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;map_family&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;reduce_family&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Generic_core</span>.<span class="constructor">Ty</span>.<span class="constructor">T</span>.ty&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;option)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a<br>

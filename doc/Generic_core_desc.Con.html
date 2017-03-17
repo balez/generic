@@ -18,7 +18,6 @@
 <link title="Generic_core" rel="Chapter" href="Generic_core.html">
 <link title="Generic_view" rel="Chapter" href="Generic_view.html">
 <link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
-<link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
 <link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
@@ -53,7 +52,8 @@
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
 <link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
-<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Generic_core_desc.Con</title>
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html">
+<link title="Generic" rel="Chapter" href="Generic.html"><title>Generic Programming Library : Generic_core_desc.Con</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Generic_core_desc.Record.html" title="Generic_core_desc.Record">Previous</a>
@@ -66,6 +66,27 @@
 Generic representation of variant constructors.<br>
 </div>
 <hr width="100%">
+
+<pre><code><span id="TYPEarguments"><span class="keyword">type</span> <code class="type">('a, 'v)</code> arguments</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTarguments.Product"><span class="constructor">Product</span></span> <span class="keyword">of</span> <code class="type">'a Product.t</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTarguments.Record"><span class="constructor">Record</span></span> <span class="keyword">of</span> <code class="type">('a, 'v) <a href="Generic_core_desc.Fields.html#TYPEt">Generic_core_desc.Fields.t</a></code></code></td>
+
+</tr></table>
+
+<div class="info ">
+The arguments of a constructors are either a tuple or an inline record.<br>
+</div>
+
 
 <pre><code><span id="TYPEdesc"><span class="keyword">type</span> <code class="type">('t, 'v)</code> desc</span> = {</code></pre><table class="typetable">
 <tr>
@@ -82,7 +103,7 @@ name of the constructor<br>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTdesc.args">args</span>&nbsp;: <code class="type">('t, 'v) <a href="Generic_core_desc.Fields.html#TYPEt">Generic_core_desc.Fields.t</a></code>;</code></td>
+<code><span id="TYPEELTdesc.args">args</span>&nbsp;: <code class="type">('t, 'v) <a href="Generic_core_desc.Con.html#TYPEarguments">arguments</a></code>;</code></td>
 <td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
 arguments of the constructor<br>
 </div>
@@ -170,7 +191,7 @@ Synonym for convenience.<br>
 
 
 <pre><span id="VALname"><span class="keyword">val</span> name</span> : <code class="type">'v <a href="Generic_core_desc.Con.html#TYPEcon">con</a> -> string</code></pre>
-<pre><span id="VALmake"><span class="keyword">val</span> make</span> : <code class="type">string -><br>       ('a, 'b) <a href="Generic_core_desc.Fields.html#TYPEt">Generic_core_desc.Fields.t</a> -><br>       ('a -> 'b) -> ('b -> 'a option) -> 'b <a href="Generic_core_desc.Con.html#TYPEcon">con</a></code></pre><div class="info ">
+<pre><span id="VALmake"><span class="keyword">val</span> make</span> : <code class="type">string -><br>       ('a, 'b) <a href="Generic_core_desc.Con.html#TYPEarguments">arguments</a> -><br>       ('a -> 'b) -> ('b -> 'a option) -> 'b <a href="Generic_core_desc.Con.html#TYPEcon">con</a></code></pre><div class="info ">
 Builds a <code class="code">con</code> using the corresponding field values<br>
 </div>
 
@@ -210,5 +231,9 @@ The arity of a constructor is the number of its arguments.
 
 <pre><span id="VALsubterms"><span class="keyword">val</span> subterms</span> : <code class="type">'v <a href="Generic_core_desc.Con.html#TYPEconap">conap</a> -> Ty.dyn list</code></pre><div class="info ">
 <b>Returns</b> the arguments of a constructor application as a list of dynamic values. O(1).<br>
+</div>
+
+<pre><span class="keyword">module</span> <a href="Generic_core_desc.Con.Build.html">Build</a>: <code class="code">sig</code> <a href="Generic_core_desc.Con.Build.html">..</a> <code class="code">end</code></pre><div class="info">
+Helper module for building the argument types.
 </div>
 </body></html>

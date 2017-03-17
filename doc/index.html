@@ -15,7 +15,6 @@
 <link title="Generic_core" rel="Chapter" href="Generic_core.html">
 <link title="Generic_view" rel="Chapter" href="Generic_view.html">
 <link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
-<link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
 <link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
@@ -50,10 +49,12 @@
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
 <link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
-<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library</title>
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html">
+<link title="Generic" rel="Chapter" href="Generic.html"><title>Generic Programming Library</title>
 </head>
 <body>
 <h1>Generic Programming Library</h1>
+<h1 id="1_GenericLibraryReference">Generic Library Reference</h1>
 <ul class="indexlist">
 <li><a href="index_types.html">Index of types</a></li>
 <li><a href="index_extensions.html">Index of extensions</a></li>
@@ -66,7 +67,7 @@
 <br>
 <table class="indextable">
 <tr><td class="module"><a href="Generic.html">Generic</a></td><td><div class="info">
-Main Namespace for the library.
+Main module for using the library.
 </div>
 </td></tr>
 <tr><td class="module"><a href="Generic_util.html">Generic_util</a></td><td><div class="info">
@@ -82,38 +83,69 @@ Namespace for modules defining generic views.
 </div>
 </td></tr>
 <tr><td class="module"><a href="Generic_fun.html">Generic_fun</a></td><td><div class="info">
-Namespace for modules defining generic functions
+Namespace for modules defining generic functions.
 </div>
 </td></tr>
 </table>
 
 <p>
 
-The library is organised in four namespaces: <code class="code">Util</code>, <code class="code">Core</code>,
-<code class="code">View</code> and <code class="code">Fun</code>.
+<h2 id="2_MainModule">Main Module</h2>
+The module <code class="code">Generic</code> is meant to be used as a single entry
+point for using the library. It re-export the content of all
+the other namespaces.
 <p>
 
-The <code class="code">Util</code> namespace will be hidden in the future, it
-contains some definitions that where needed by the <code class="code">Core</code>
-namespace but were too general to belong there.
+<h2 id="2_Namespaces">Namespaces</h2>
+The library is organised in four namespaces: <code class="code">Generic_util</code>, <code class="code">Generic_core</code>,
+<code class="code">Generic_view</code> and <code class="code">Generic_fun</code>.
 <p>
 
-The <code class="code">Core</code> namespace contains all of the definitions required
-for generic programming: types expression are reflected in
-the <code class="code">Core.Ty.t</code> type. The structure of types is captured by the
-datatype <code class="code">Core.Desc.t</code>. The type-indexed function
-<code class="code">Core.Desc_fun.view</code> computes the structure associated with
-each type. It is the most low-level view of OCaml
-types. Higher-level views are derived from this one.
-<p>
-
-The <code class="code">View</code> namespace defines high-level generic views on
+<ul>
+<li>
+The <code class="code">Generic_util</code> namespace contains some definitions that where
+needed by the <code class="code">Core</code> namespace but were too general to belong
+there.
+</li>
+<li>
+The modules in namespace <code class="code">Generic_core</code> contain all of the definitions required
+for generic programming: type expression are reflected in
+the <code class="code">Generic_core.Ty.t</code> type, we call such values type witnesses.
+The structure of types is captured by the datatype
+<code class="code">Generic_core.Desc.t</code>. The type-indexed function <code class="code">Generic_core.Desc_fun.view</code>
+computes the structure associated with each type. It is the
+most low-level view of OCaml types. Higher-level views are
+derived from this one.
+<code class="code">Generic_core.Extensible</code> and <code class="code">Generic_core.Consumer</code> implement a mechanism
+for creating and extending type indexed functions. This
+enables us to define ad-hoc polymorphic functions.
+</li>
+<li>
+The modules in namespace <code class="code">Generic_view</code> define high-level generic views on
 types. A view is a uniform representation of the structure of
 types on which generic functions can be defined.
+</li>
+<li>
+The modules in namespace <code class="code">Generic_fun</code> contain generic functions. They are
+defined by induction on the structure of types given by a
+generic view.
+</li>
+</ul>
+
 <p>
 
-The <code class="code">Fun</code> namespace contains generic functions. They are
-defined by induction on the structure of types given by a
-generic view.<br>
+<h2 id="2_PPXSyntaxExtension">PPX Syntax Extension</h2>
+The library comes with two PPX syntax extensions:
+<p>
+
+<ul>
+<li> <code class="code">reify</code> which derives the boilerplate that is
+necessary to add generic support for a user type.
+</li>
+<li> <code class="code">import</code> which provides a mechanism for importing a set of
+names from a module.
+</li>
+</ul>
+<br>
 </body>
 </html>

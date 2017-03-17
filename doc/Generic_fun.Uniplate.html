@@ -18,7 +18,6 @@
 <link title="Generic_core" rel="Chapter" href="Generic_core.html">
 <link title="Generic_view" rel="Chapter" href="Generic_view.html">
 <link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
-<link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
 <link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
@@ -53,7 +52,8 @@
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
 <link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
-<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Generic_fun.Uniplate</title>
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html">
+<link title="Generic" rel="Chapter" href="Generic.html"><title>Generic Programming Library : Generic_fun.Uniplate</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Generic_fun.Equal.html" title="Generic_fun.Equal">Previous</a>
@@ -95,6 +95,10 @@ Replace the children of a value using the given function.<br>
 A family is a list of descendents.
 A descendent of a value is either the value itself or a descendent of one of its children.
 <code class="code">family</code> builds a pre-order family where the value is listed before its descendents<br>
+</div>
+
+<pre><span id="VALpost_family"><span class="keyword">val</span> post_family</span> : <code class="type">'a Ty.T.ty -> 'a -> 'a list</code></pre><div class="info ">
+<a href="Generic_fun_uniplate.html#VALpost_family"><code class="code">Generic_fun_uniplate.post_family</code></a> lists the descendents in post-order: the leaves are first and the root is last<br>
 </div>
 
 <pre><span id="VALmap_family"><span class="keyword">val</span> map_family</span> : <code class="type">'a Ty.T.ty -> ('a -> 'a) -> 'a -> 'a</code></pre><div class="info ">

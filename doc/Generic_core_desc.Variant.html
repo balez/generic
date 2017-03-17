@@ -18,7 +18,6 @@
 <link title="Generic_core" rel="Chapter" href="Generic_core.html">
 <link title="Generic_view" rel="Chapter" href="Generic_view.html">
 <link title="Generic_fun" rel="Chapter" href="Generic_fun.html">
-<link title="Generic" rel="Chapter" href="Generic.html">
 <link title="Generic_util_fun" rel="Chapter" href="Generic_util_fun.html">
 <link title="Generic_util_app" rel="Chapter" href="Generic_util_app.html">
 <link title="Generic_util_monoid" rel="Chapter" href="Generic_util_monoid.html">
@@ -53,7 +52,8 @@
 <link title="Generic_fun_deepfix" rel="Chapter" href="Generic_fun_deepfix.html">
 <link title="Generic_fun_marshal" rel="Chapter" href="Generic_fun_marshal.html">
 <link title="Generic_fun_equal" rel="Chapter" href="Generic_fun_equal.html">
-<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html"><title>Generic Programming Library : Generic_core_desc.Variant</title>
+<link title="Generic_fun_show" rel="Chapter" href="Generic_fun_show.html">
+<link title="Generic" rel="Chapter" href="Generic.html"><title>Generic Programming Library : Generic_core_desc.Variant</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Generic_core_desc.Con.html" title="Generic_core_desc.Con">Previous</a>
@@ -93,6 +93,11 @@ Builds a <code class="code">'v cons</code> from a list of constructor descriptio
       The constructors do not necessarily need to be given in
       the same order as in the datatype definition, but it is
       good practice to do so.<br>
+</div>
+
+<pre><span id="VALunboxed_con"><span class="keyword">val</span> unboxed_con</span> : <code class="type">'v <a href="Generic_core_desc.Con.html#TYPEt">Generic_core_desc.Con.t</a> -> 'v <a href="Generic_core_desc.Variant.html#TYPEcons">cons</a></code></pre><div class="info ">
+Builds a <code class="code">'v cons</code> from a single constructor.
+      <code class="code">unboxed_con</code> must be used only to represent unboxed variants.<br>
 </div>
 
 <pre><span id="VALcst_len"><span class="keyword">val</span> cst_len</span> : <code class="type">'v <a href="Generic_core_desc.Variant.html#TYPEcons">cons</a> -> int</code></pre><div class="info ">
@@ -164,6 +169,13 @@ O(1). Deconstructs a value into a pair of a constructor and its arguments.<br>
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
 <code><span id="TYPEELTvariant.cons">cons</span>&nbsp;: <code class="type">'v <a href="Generic_core_desc.Variant.html#TYPEcons">cons</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvariant.unboxed">unboxed</span>&nbsp;: <code class="type">bool</code>;</code></td>
 
 </tr></table>
 }
