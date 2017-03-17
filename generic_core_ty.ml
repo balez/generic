@@ -150,10 +150,12 @@ let conpat' (E t) = E (conpat t)
 module Typed = struct
   type 'a typed = 'a ty * 'a
 end
-type 'a typed = 'a Typed.typed
+include Typed
+type _ ty += Typed : 'a ty -> 'a typed ty
 
-
-module Dyn = struct
-  type dyn = Dyn : 'a typed -> dyn
+module Dynamic = struct
+  type dynamic = Dyn : 'a typed -> dynamic
+  type dyn = dynamic
 end
-type dyn = Dyn.dyn = Dyn : 'a typed -> dyn
+include Dynamic
+type _ ty += Dynamic : dynamic ty

@@ -11,6 +11,33 @@ OCAMLDOC=ocamldoc.opt $(INCLUDES) -w +44-40 -ppx ./import
 
 METAQUOT=$(shell ocamlfind query ppx_tools)/ppx_metaquot
 
+# * Compiling and linking
+
+define build_deps =
+$(OCAMLDEP) $(foreach ns,$(NS),-map $(ns)) $< > $@
+endef
+
+define occ=
+$(OCAMLC) -c $< -ppx ./import
+endef
+
+define occ_reify=
+$(occ) -ppx ./reify
+endef
+
+define link=
+$(OCAMLC) -o $@  $^
+endef
+
+define occ_ppx=
+ocamlc -c -I +compiler-libs -ppx $(METAQUOT) $<
+endef
+
+define link_ppx=
+ocamlc -o $@ -I +compiler-libs ocamlcommon.cma $^
+endef
+
+
 # * Source files
 # NS: list of namespaces (ml)
 # NSI: list of namespace interfaces (mli)
@@ -29,7 +56,7 @@ METAQUOT=$(shell ocamlfind query ppx_tools)/ppx_metaquot
 # linking order of the corresponding cmos.  All the
 # namespaces are linked before the ml files.
 
-NS=generic_util.ml generic_core.ml generic_view.ml generic_fun.ml generic.ml
+NS=generic_util.ml generic_core.ml generic_view.ml generic_fun.ml
 NSI=
 
 ML=\
@@ -68,6 +95,7 @@ generic_fun_deepfix.ml\
 generic_fun_marshal.ml\
 generic_fun_equal.ml\
 generic_fun_show.ml\
+generic.ml
 
 MLI=\
 generic_util_obj.mli\
@@ -121,26 +149,19 @@ tests: ppx test_marshal test_show test_multiplate
 
 # Library (bytecode)
 generic.cma: generic_util_obj_stub.o $(NS:.ml=.cmo) $(ML:.ml=.cmo)
-	$(OCAMLC) -custom -o $@ -a $(wordlist 2, $(words $^), $^)
+	$(OCAMLC) -custom -o $@ -a $^
 
 # PPX
 
-define ppx-cmo=
-ocamlc -c -I +compiler-libs -ppx $(METAQUOT) $<
-endef
-define ppx-exe=
-ocamlc -o $@ -I +compiler-libs ocamlcommon.cma $^
-endef
-
 reify.cmo: reify.ml
-	$(ppx-cmo)
+	$(occ_ppx)
 reify: generic.cma reify.cmo
-	$(ppx-exe)
+	$(link_ppx)
 
 import.cmo: import.ml
-	$(ppx-cmo)
+	$(occ_ppx)
 import: import.cmo
-	$(ppx-exe)
+	$(link_ppx)
 
 # some times one wants to dump the source after a ppx expansion and check the results:
 tmp.cmo: tmp.ml
@@ -165,40 +186,31 @@ doc/dep.dot: lib $(NS) $(NSI) $(ML) $(MLI)
 %.import: %.ml import
 	$(OCAMLC) -o $<.import.cmo -ppx ./import -c $< -dsource
 
-define occ_test=
-$(OCAMLC) -o $@ -c $< -ppx ./import -ppx ./reify
-endef
-
-
 generic_test_multiplate.cmo: generic_test_multiplate.ml ppx
-	$(occ_test)
+	$(occ_reify)
 test_multiplate: generic.cma generic_test_multiplate.cmo
-	$(OCAMLC) -o $@ $^
+	$(link)
 
 generic_test_marshal.cmo: generic_test_marshal.ml ppx
-	$(occ_test)
+	$(occ_reify)
 test_marshal: generic.cma generic_test_marshal.cmo
-	$(OCAMLC) -o $@ $^
+	$(link)
 
 generic_test_gadt.cmo: generic_test_gadt.ml ppx
-	$(occ_test)
+	$(occ_reify)
 test_gadt: generic.cma generic_test_gadt.cmo
-	$(OCAMLC) -o $@ $^
+	$(link)
 
 generic_test_show.cmo: generic_test_show.ml ppx
-	$(occ_test)
+	$(occ_reify)
 test_show: generic.cma generic_test_show.cmo
-	$(OCAMLC) -o $@ $^
+	$(link)
 
 # ** Build Dependencies
 # IMPORTANT: source files names may not include the character ':'
 # Using [sed] we add the dependency file itself as a target.
 # sed -r 's:^([^:]*):\1$@ :g' > $@
 # that's not necessary for ocaml in fact.
-
-define build_deps =
-$(OCAMLDEP) $(foreach ns,$(NS),-map $(ns)) $< > $@
-endef
 
 %.mli.dep: %.mli
 	$(build_deps)
@@ -209,11 +221,6 @@ endef
 $(NS:.ml=.ml.dep): %.ml.dep: %.ml
 	$(OCAMLDEP) -as-map $< > $@
 
-# ** Ocaml
-define occ=
-$(OCAMLC) -c $< -ppx ./import
-endef
-
 %.cmo: %.ml import
 	$(occ)
 
@@ -223,7 +230,7 @@ endef
 # Generate the mli to stdout
 # (we don't want to erase the hand written one)
 %.mli.auto: %.ml
-	$(OCAMLC) -i -I +compiler-libs -ppx $(METAQUOT) -ppx ./import $<
+	$(OCAMLC) -i -I +compiler-libs -ppx $(METAQUOT) -ppx ./import -ppx ./reify $<
 
 # This is a static pattern see info: Make > Static Usage
 $(NS:.ml=.cmo): %.cmo: %.ml

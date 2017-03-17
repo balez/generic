@@ -2,7 +2,7 @@ open Generic_core
 open Generic_util
 open Generic_view
 open Ty.T
-open Ty.Dyn
+open Ty.Dynamic
 open Desc (* TODO remove *)
 open App.T
 open Monoid.T
@@ -56,6 +56,9 @@ let compose_id g f =
 let append_plate m g f =
   {const_plate = fun t x -> m.mappend (g.const_plate t x) (f.const_plate t x)}
 
+let append_plate' m g f =
+  (append_plate m g f).const_plate
+
 (****************************************************)
 let pure_plate {pure; apply} =
   { plate = fun t x -> pure x }
@@ -65,7 +68,6 @@ let pure_const_plate {mempty; _} =
   { const_plate = fun t x -> mempty }
 
 (****************************************************)
-
 let traverse a {plate} p x
   = let rec go : type p . p Product.t * p -> (p, 'f) App.t
     = let open Product in function
@@ -105,11 +107,12 @@ let map_children_p f = {id_plate = fun t x ->
   get_id (traverse_children id_applicative (id_plate f) t x)}
 let map_children f = (map_children_p f).id_plate
 
-let rec traverse_family_p m f =
-  compose_monad m f (traverse_children_p (app_of_mon m) (traverse_family_p m f))
+let rec traverse_family_p m f = {plate = fun t x ->
+    (compose_monad m f (traverse_children_p (app_of_mon m) (traverse_family_p m f)))
+    .plate t x}
 let traverse_family m f = (traverse_family_p m f).plate
 
-let rec map_family_p f = {id_plate = fun t x ->
+let map_family_p f = {id_plate = fun t x ->
   get_id (traverse_family id_monad (id_plate f) t x)}
 let map_family f = (map_family_p f).id_plate
 
@@ -120,15 +123,19 @@ let fold_children_d m f =
 let fold_children m f =
   (fold_children_p m (const_of_dyn_plate f)).const_plate
 
-let rec pre_fold_p m f =
-  append_plate m f (fold_children_p m (pre_fold_p m f))
+let rec pre_fold_p m f = {const_plate = fun t x ->
+    (append_plate m f (fold_children_p m (pre_fold_p m f)))
+    .const_plate t x}
+
 let pre_fold_d m f =
   dyn_of_const_plate (pre_fold_p m (const_of_dyn_plate f))
 let pre_fold m f =
   (pre_fold_p m (const_of_dyn_plate f)).const_plate
 
-let rec post_fold_p m f =
-  append_plate m (fold_children_p m (post_fold_p m f)) f
+let rec post_fold_p m f = {const_plate = fun t x ->
+    (append_plate m (fold_children_p m (post_fold_p m f)) f)
+    .const_plate t x}
+
 let post_fold_d m f =
   dyn_of_const_plate (post_fold_p m (const_of_dyn_plate f))
 let post_fold m f =

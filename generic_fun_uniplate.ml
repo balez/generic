@@ -43,6 +43,7 @@ let children a x = fst (scrap a x)
 let replace_children a x = snd (scrap a x)
 
 let rec family a x = x :: List.concat (List.map (family a) (children a x))
+let post_family a x = List.rev (family a x)
 
 let map_children a f x =
   let (cs, rep) = scrap a x

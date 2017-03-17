@@ -11,7 +11,7 @@
 open Generic_core
 open Generic_util
 open Ty.T
-open Ty.Dyn
+open Ty.Dynamic
 open App.T
 open Product.T
 open Monoid.T

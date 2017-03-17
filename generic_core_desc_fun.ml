@@ -413,3 +413,56 @@ let () =
                         (fun (x,()) -> Invalid_argument x)
                         (function Invalid_argument x -> Some (x,()) | _ -> None))
   end
+
+(* Generic_core.typed *)
+let () =
+  ext_add_con
+    (Ty.Ty (Ty.Typed Ty.Any))
+    {
+      Desc.Ext.con = fun (type a) ->
+        fun (ty : a Ty.ty)  ->
+          (match ty with
+           | Ty.Ty (Ty.Typed x1) ->
+               Desc.Con.make "Typed"
+                 (Desc.Con.Product
+                    (Product.T.Cons
+                       ((Ty.Ty x1), Product.T.Nil)))
+                 (fun (x1,())  -> Ty.Typed x1)
+                 (function | Ty.Typed x1 -> Some (x1, ()) | _ -> None)
+           | _ -> assert false : a Desc.Con.t)
+    };
+
+  ext (Ty.Typed Ty.Any)
+    {
+      f = fun (type a) ->
+        fun (ty : a Ty.ty)  ->
+          (match ty with
+           | Ty.Typed x1 ->
+               Desc.Synonym
+                 ((Ty.Pair ((Ty.Ty x1), x1)),
+                  Equal.Refl)
+           | _ -> assert false : a Desc.t)
+    };
+
+(* Generic_core.dynamic *)
+  ext_add_con (Ty.Ty Ty.Dynamic)
+    {
+      Desc.Ext.con = fun (type a) ->
+        fun (ty : a Ty.ty)  ->
+          (match ty with
+           | Ty.Ty (Ty.Dynamic) ->
+               Desc.Con.make "Dynamic"
+                 (Desc.Con.Product Product.T.Nil)
+                 (fun ()  -> Ty.Dynamic)
+                 (function | Ty.Dynamic  -> Some () | _ -> None)
+           | _ -> assert false : a Desc.Con.t)
+    };
+
+  ext Ty.Dynamic
+    {
+      f = fun (type a) ->
+        fun (ty : a Ty.ty)  ->
+          (match ty with
+           | Ty.Dynamic  -> Desc.Abstract
+           | _ -> assert false : a Desc.t)
+    }

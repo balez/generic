@@ -1,11 +1,10 @@
 [@@@reify_all]
 open Generic
-open Gfun
 open Ty.T
 
-[%%import Util.Option (some_if)]
+[%%import Option (some_if)]
 
-let p t x = print_endline (Show.show t x)
+let p t x = print_endline (Gfun.show t x)
 
 (* Naturals *)
 type nat = int [@@abstract]
@@ -21,10 +20,13 @@ let () =
           | _ -> assert false
     }
 
+type my_variant =
+  | A of { field : string }
+
 let () =
   p (List Int) [3;4;5];
   p Unit ();
-  p (Pair (Char, Float)) ('a',0.5);
+  p (Pair (Char, Float)) ('a', 0.5);
   p (Triple (Int32, Int64, Nativeint)) (Int32.max_int, Int64.max_int, Nativeint.max_int);
   p (Array Bool) [| false ; true |];
   p (Ty Any) Any;
@@ -34,3 +36,4 @@ let () =
   p (Array Float) [| 0.0 |];
   p (List Any) [];
   p (Array Any) [||];
+  p (My_variant) (A {field = "now"});

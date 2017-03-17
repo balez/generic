@@ -4,7 +4,8 @@
    Note: lazy values are forced.
 *)
 
-open Generic
+open Generic_core
+open Generic_util
 open Ty.T
 
 (* Extensible function whose default case is given by the generic function. *)
@@ -43,7 +44,8 @@ let show_args : type p v . (p, v) Desc.Con.arguments -> p -> string
     let open Product in
     match args with
     | Product Nil -> ""
-    | Product (Cons (t, Nil)) -> " " ^ show t (fst x)
+    (* depend on context *)
+    (*    | Product (Cons (t, Nil)) -> " " ^ show t (fst x) *)
     | Product p -> " (" ^ show_product p x ^ ")"
     | Record r -> " {" ^ show_fields r x ^ "}"
 
@@ -60,6 +62,9 @@ let try_repr default t x =
   try show_repr (Repr.view t) x
   with Extensible.Type_pattern_match_failure s when s = Repr.repr_name
     -> default
+
+let show_dyn = function
+  | Ty.Dyn (t, x) -> show t x
 
 (* Generic case, calls [show] recursively. *)
 let show_default : type a . a ty -> a -> string
@@ -79,6 +84,7 @@ let show_default : type a . a ty -> a -> string
     | Array a -> "[|" ^ String.concat "; " (List.map (show a) (Array.to_list x)) ^ "|]"
     | List a -> "[" ^ String.concat "; " (List.map (show a) x) ^ "]"
     | Fun (a,b) -> "<fun>"
+    | Ty.Dynamic -> show_dyn x
     | t -> (match Desc_fun.view t with
             | Product (p, {fwd;bck}) ->
               "(" ^ show_product p (bck x) ^ ")"

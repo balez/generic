@@ -51,6 +51,9 @@ A descendent of a value is either the value itself or a descendent of one of its
 val family : 'a ty -> 'a -> 'a list
 
 
+(** {!post_family} lists the descendents in post-order: the leaves are first and the root is last *)
+val post_family : 'a ty -> 'a -> 'a list
+
 (** Bottom up (Depth-first, post-order) traversal of a value of a recursive type. The
     given function is applied to each member of the family.
 *)

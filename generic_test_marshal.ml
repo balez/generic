@@ -1,13 +1,11 @@
 [@@@reify_all]
-
-open Generic_core
-open Generic_util
+open Generic
 
 open Ty.T
 open Desc.T
 open Product.Build
 
-module M = Generic_fun_marshal
+module M = SafeMarshal
 
 (* let () = Printexc.record_backtrace true *)
 
@@ -318,7 +316,7 @@ class point init =
 
 let () =
   begin
-    Desc_fun.ext Point { f = fun (type a) (ty : a ty) -> (match ty with
+    Desc.ext Point { f = fun (type a) (ty : a ty) -> (match ty with
         | Point -> Class { name = "Point"
                          ; methods =
                              [ Method get_x
@@ -366,19 +364,19 @@ let () = a_b_cycle # get_b # set_a a_b_cycle
 
 let () =
   begin
-    Desc_fun.ext_add_con (Ty A)
+    Desc.ext_add_con (Ty A)
       {con = fun (type a) (ty : a ty) ->
           (match ty with Ty A -> Desc.Con.c0 "A" A
                        | _ -> assert false : a Desc.Con.t)};
-    Desc_fun.ext_add_con (Ty B)
+    Desc.ext_add_con (Ty B)
       {con = fun (type a) (ty : a ty) ->
           (match ty with Ty B -> Desc.Con.c0 "B" B
                        | _ -> assert false : a Desc.Con.t)};
 
-    Desc_fun.ext A { f = fun (type a) (ty : a ty) -> match ty with
+    Desc.ext A { f = fun (type a) (ty : a ty) -> match ty with
         | A -> (Abstract : a desc)
         | _ -> assert false };
-    Desc_fun.ext B { f = fun (type a) (ty : a ty) -> match ty with
+    Desc.ext B { f = fun (type a) (ty : a ty) -> match ty with
         | B -> (Abstract : a desc)
         | _ -> assert false };
     Repr.ext A
@@ -451,7 +449,7 @@ let () =
 type _ ty += Pmf : pmf ty
 let () =
   begin
-    Desc_fun.ext_add_con (Ty Pmf)
+    Desc.ext_add_con (Ty Pmf)
     { con = fun (type a) (Ty Pmf : a ty)
           -> (Desc.Con.make "Pmf" p0
                      (fun () -> Pmf)
@@ -460,7 +458,7 @@ let () =
               : a Desc.Con.t)
     };
 
-    Desc_fun.ext Pmf {
+    Desc.ext Pmf {
       f = fun (type a) (Pmf : a ty) ->
           ( Record
               { name = "pmf"

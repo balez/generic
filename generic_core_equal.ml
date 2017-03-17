@@ -182,3 +182,29 @@ let () =
         | Some Refl, Some Refl -> Some (Refl : (a, b) equal)
         | _ , _ -> None)
       | _ , _ -> None };
+
+  ext (Ty.Typed Any)
+    {
+      f = fun (type a) -> fun (type b) ->
+        fun (a : a ty)  ->
+          fun (b : b ty)  ->
+            match (a, b) with
+            | (Ty.Typed x1,Ty.Typed y1) ->
+                (match equal x1 y1 with
+                 | Some (Refl ) ->
+                     Some (Refl : (a,b) equal)
+                 | _ -> None)
+            | (_,_) -> None
+    };
+
+
+  ext Ty.Dynamic
+    {
+      f = fun (type a) -> fun (type b) ->
+        fun (a : a ty)  ->
+        fun (b : b ty)  ->
+          match (a, b) with
+          | (Ty.Dynamic, Ty.Dynamic ) ->
+            Some (Refl : (a,b) equal)
+          | (_,_) -> None
+    };

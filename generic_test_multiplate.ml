@@ -1,16 +1,17 @@
 [@@@reify_all]
 open Generic
 open Ty.T
-open Ty.Dyn
-open Util
+open Ty.Dynamic
 open Monad.T
 
-[%%import Monad (liftM, sequenceM)]
+[%%import Monad (liftM; sequenceM)]
+
+let p t x = print_endline (Gfun.show t x)
 
 (** Examples from the paper "Scrap Your Boilerplate: A Practical Design Pattern for Generic Programming"
     By Ralf Lammel and Simon Peyton Jones *)
 module SYB_Examples = struct
-  open Gfun.Multiplate
+  open Multiplate
 
   (* organisation of a company *)
 
@@ -61,18 +62,50 @@ module SYB_Examples = struct
         | _ -> None
     in Listx.find_some goal (family Company x)
 
-  (* summing up all the salaries *)
-  let salary_bill =
+  (* Summing up all the salaries *)
+  let salary_bill company =
     let bill_plate = function
       | Dyn (Salary, S x) -> x
       | _ -> 0.0
     in
-    pre_fold Monoid.float_sum bill_plate Company
+    pre_fold Monoid.float_sum bill_plate Company company
 
+  module Tests = struct
+    let company =
+      C [ D ( "Sales"
+            , E (P ("Aldo", "Roma"), S 5000.)
+            , [ PU (E (P ("Victor", "London"), S 4200.))
+              ; PU (E (P ("James", "Mexico"), S 4000.))
+              ; DU (D ("Clothes"
+                      , E (P ("Oliver", "Madrid"), S 3500.)
+                      , [ PU (E (P ("Anne", "Oslo"), S 2400.))
+                        ; PU (E (P ("Renee", "Paris"), S 2000.))]))])
+        ; D ( "Accounting"
+            , E (P ("Erica", "Budapest"), S 4300.)
+            , [ PU (E (P ("Jasmin", "Lisboa"), S 3900.))
+              ; PU (E (P ("Robert", "Berlin"), S 3800.))
+              ; PU (E (P ("Damien", "Istanbul"), S 2500.))])
+        ; D ( "Development"
+            , E (P ("Jeremy", "Honolulu"), S 3000.)
+            , [ PU (E (P ("Yousef", "Zanzibar"), S 2000.))
+              ; DU (D ( "Testing"
+                      , E (P ("Albert", "Monaco"), S 1400.)
+                      , []))
+              ; DU (D ( "Lab"
+                      , E (P ("Rebecca", "Nueva York"), S 2300.)
+                      , []))])
+        ; D ("Marketing"
+            , E (P ("Yvonne", "Saint Petersburg"), S 1234.)
+            , [])]
+
+    let () = p (List Ty.Dynamic) (family Company company)
+
+    (*    let () = p Company (increase 2.0 company) *)
+  end
 end
 
 module Compos_Examples = struct
-  open Gfun.Uniplate
+  open Uniplate
   open Monad.State
   open Monad.Reader
 
@@ -97,7 +130,7 @@ module Compos_Examples = struct
     | _ -> []
 
   let constants' e =
-    Listx.concat_map is_cst (family Expr e)
+    Listx.concat_map is_cst (post_family Expr e)
 
   let height a = para a @@ fun _ -> function
     | [] -> 0
@@ -137,7 +170,7 @@ module Compos_Examples = struct
     | Cst _ -> liftM state (fun i -> Var ("x" ^ string_of_int i)) incr
     | x -> state.return x
 
-  let abstract e = run_state (abstract_state e) 0
+  let abstract e = fst (run_state (abstract_state e) 0)
 
   module Free_Vars = struct
     type scoped = string list reader [@@dont_reify]
@@ -151,5 +184,31 @@ module Compos_Examples = struct
         | Let (n, _, _) -> extend_scope n r
         | _ -> r
       let free_vars x = run_reader (free_vars_scoped x) []
+  end
+
+  module Tests = struct
+    let rec a = Let ("x", b, c)
+    and b = Add (Cst 3, Sub (Var "u", Neg (Sub (Cst 5, Var "v"))))
+    and c = Let ("y", Neg (Neg (Var "u")), d)
+    and d = Add (Neg (Var "x"), Add (Cst 6, Var "y"))
+
+    let env =
+      let u = Add (Cst 7, Cst 8)
+      and v = Var "w" in
+      let open Env in
+      add "u" u (add "v" v empty)
+
+    let () =
+      let open Free_Vars in
+      p (List Int) @@ constants' a;
+      p Bool @@ Gfun.equal (List Int) (constants a) (constants' a);
+      p (List Int) @@ List.map (height Expr) [a; b; c; d];
+      p Expr @@ a;
+      p Expr @@ subst env a;
+      p Expr @@ const_fold (subst env a);
+      p Expr @@ simplify a;
+      p Expr @@ simplify_more a;
+      p Expr @@ abstract a;
+      p (List String) @@ free_vars a;
   end
 end

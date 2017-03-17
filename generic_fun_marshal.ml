@@ -31,7 +31,7 @@ type obj = Obj.t
 
 [%%import Fun ((>>.); (-<))]
 
-[%%import Exn (guard, one_of)]
+[%%import Exn (guard; one_of)]
 
 [%%import Desc_fun (desc <- view)]
 
