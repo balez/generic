@@ -11,6 +11,8 @@ OCAMLDOC=ocamldoc.opt $(INCLUDES) -w +44-40 -ppx ./import
 
 METAQUOT=$(shell ocamlfind query ppx_tools)/ppx_metaquot
 
+DOC=gh-pages/doc
+
 # * Compiling and linking
 
 define build_deps =
@@ -142,7 +144,7 @@ OTHER_MLI=
 #.SECONDARY: $(ML:.ml=.cmo) $(OTHER_ML:.ml=.cmo)
 
 all: ppx lib tests doc
-doc: doc/index.html import # doc/dep.dot
+doc: $(DOC)/index.html import # doc/dep.dot
 ppx: reify import
 lib: ppx generic.cma
 tests: ppx test_marshal test_show test_multiplate
@@ -167,19 +169,20 @@ import: import.cmo
 tmp.cmo: tmp.ml
 	ocamlc -I +compiler-libs -c $<
 
-# NOTE about the rule "doc/index.html":
+# NOTE about the rule "$(DOC)/index.html":
 # I added the library as a prerequisite
 # because ocamldoc complained of ubound modules otherwise.
 # Since it is not a source file, we remove it from the command line
 # with "$(wordlist 2, $(words $^), $^)".
 
-doc/index.html: lib $(NS) $(NSI) $(ML) $(MLI)
-	mkdir -p doc
-	$(OCAMLDOC) -html -t "Generic Programming Library" -intro intro.html -hide Generic_util,Generic_core -d doc $(wordlist 2, $(words $^), $^)
+$(DOC)/index.html: lib $(NS) $(NSI) $(ML) $(MLI)
+	mkdir -p $(DOC)
+	cp style.css $(DOC)
+	$(OCAMLDOC) -html -css-style style.css -t "Generic Programming Library" -intro intro.html -hide Generic_util,Generic_core -d $(DOC) $(wordlist 2, $(words $^), $^)
 
-doc/dep.dot: lib $(NS) $(NSI) $(ML) $(MLI)
-	mkdir -p doc
-	$(OCAMLDOC) -dot -o doc/dep.dot $(wordlist 2, $(words $^), $^)
+$(DOC)/dep.dot: lib $(NS) $(NSI) $(ML) $(MLI)
+	mkdir -p $(DOC)
+	$(OCAMLDOC) -dot -o $(DOC)/dep.dot $(wordlist 2, $(words $^), $^)
 
 %.reify: %.ml ppx
 	$(OCAMLC) -o $<.reify.cmo -ppx ./reify -c $< -dsource
@@ -258,4 +261,3 @@ $(NSI:.mli=.cmi): %.cmi: %.mli
 clean:
 	rm -f test_marshal reify
 	rm -f *.cm[ioxa] *.dep *.o
-	rm -rf doc

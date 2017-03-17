@@ -1,37 +1,49 @@
+<h1>Generic Library Reference</h1>
 {!indexlist}
 {!modules: Generic Generic_util Generic_core Generic_view Generic_fun}
 
-The library is organised in four namespaces: [Util], [Core],
-[View] and [Fun].
+<h2>Main Module</h2>
+The module {!Generic} is meant to be used as a single entry
+point for using the library. It re-export the content of all
+the other namespaces.
 
-The main namespace [Generic] contains the namespaces [Util], [View] and [Fun]
-and re-exports the modules of the namespace {!Generic_core}.
+<h2>Namespaces</h2>
+The library is organised in four namespaces: {!Generic_util}, {!Generic_core},
+{!Generic_view} and {!Generic_fun}.
 
-The [Util] namespace contains some definitions that where
-needed by the [Core] namespace but were too general to belong
+<ul>
+  <li>
+The {!Generic_util} namespace contains some definitions that where
+needed by the {!Core} namespace but were too general to belong
 there.
-
-The [Core] namespace contains all of the definitions required
+</li>
+  <li>
+The modules in namespace {!Generic_core} contain all of the definitions required
 for generic programming: type expression are reflected in
-the [Core.Ty.t] type, we call such values type witnesses.
+the {!Generic_core.Ty.t} type, we call such values type witnesses.
 The structure of types is captured by the datatype
-[Core.Desc.t]. The type-indexed function [Core.Desc_fun.view]
+{!Generic_core.Desc.t}. The type-indexed function {!Generic_core.Desc_fun.view}
 computes the structure associated with each type. It is the
 most low-level view of OCaml types. Higher-level views are
 derived from this one.
-[Core.Extensible] and [Core.Consumer] implement a mechanism
+{!Generic_core.Extensible} and {!Generic_core.Consumer} implement a mechanism
 for creating and extending type indexed functions. This
 enables us to define ad-hoc polymorphic functions.
-
-The [View] namespace defines high-level generic views on
+</li>
+<li>
+The modules in namespace {!Generic_view} define high-level generic views on
 types. A view is a uniform representation of the structure of
 types on which generic functions can be defined.
-
-The [Fun] namespace contains generic functions. They are
+</li>
+<li>
+The modules in namespace {!Generic_fun} contain generic functions. They are
 defined by induction on the structure of types given by a
 generic view.
+</li>
+</ul>
 
-Finally, the library comes with two PPX syntax extensions:
+<h2>PPX Syntax Extension</h2>
+The library comes with two PPX syntax extensions:
 
 <ul>
 <li> [reify] which derives the boilerplate that is

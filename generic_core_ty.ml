@@ -1,4 +1,4 @@
-(* * Generic_core_ty: Type reflection
+(* * Generic_core_ty: Type witnesses.
 
 In this module, we define the type =_ ty= reflecting type terms to value terms.
 We call such terms /type codes/.

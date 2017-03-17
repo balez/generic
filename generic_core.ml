@@ -1,6 +1,6 @@
 (** Namespace of core modules for the generic library. *)
 
-(** Type witness. *)
+(** Type witnesses. *)
 module Ty = Generic_core_ty
 
 (** Generic view for the type witnesses. *)

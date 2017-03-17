@@ -1,4 +1,4 @@
-(** Type witness.
+(** Type witnesses.
 
 The type [_ ty] reflects type terms as value terms.
 We call such terms /type codes/.
