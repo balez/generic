@@ -79,7 +79,7 @@ module SYB_Examples = struct
               ; DU (D ("Clothes"
                       , E (P ("Oliver", "Madrid"), S 3500.)
                       , [ PU (E (P ("Anne", "Oslo"), S 2400.))
-                        ; PU (E (P ("Renee", "Paris"), S 2000.))]))])
+                        ; PU (E (P ("Renee", "Paris"), S 2345.))]))])
         ; D ( "Accounting"
             , E (P ("Erica", "Budapest"), S 4300.)
             , [ PU (E (P ("Jasmin", "Lisboa"), S 3900.))
@@ -98,9 +98,13 @@ module SYB_Examples = struct
             , E (P ("Yvonne", "Saint Petersburg"), S 1234.)
             , [])]
 
-    let () = p (List Ty.Dynamic) (family Company company)
+    (* let () = p (List Ty.Dynamic) (family Company company) *)
 
-    (*    let () = p Company (increase 2.0 company) *)
+    let () = p Company @@ company
+    let () = p Company @@ increase 2.0 company
+    let () = p Company @@ flatten "Clothes" company
+    let () = p (Option Float) @@ salary "Renee" company
+    let () = p Float @@ salary_bill company
   end
 end
 
