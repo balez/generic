@@ -1,0 +1,32 @@
+opam-version: "1.2"
+name: "genric"
+version: "0.1"
+maintainer: "fbalestrieri@orange.fr"
+authors: [
+  "Balestrieri"
+]
+homepage: "https://github.com/balez/generic"
+license: "GNU Lesser General Public License version 2.1"
+dev-repo: "https://github.com/balez/generic"
+tags: [
+  "generic programming"
+]
+
+build:[
+  ["jbuilder" "build" "--only-packages" "generic" "--root" "." "-j" jobs "@install"]
+]
+
+install: [
+  ["jbuilder" "install"]
+]
+
+remove: [
+  ["jbuilder" "uninstall"]
+]
+
+depends: [
+  "jbuilder"
+  "ocamlfind"
+]
+
+available: [ ocaml-version >= "4.02.3" ]

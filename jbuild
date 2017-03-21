@@ -1,0 +1,29 @@
+(jbuild_version 1)
+
+(library
+ (
+  (name generic)
+  (public_name generic)
+  (modules (generic))
+  (libraries (generic_util generic_view generic_fun generic_core))
+  )
+ )
+
+(library
+ (
+  (name reify)
+  (modules (reify))
+  (libraries (ppx_tools.metaquot))
+  (kind ppx_rewriter)
+  )
+ )
+
+
+(library
+ (
+  (name import)
+  (modules (import))
+  (libraries (ppx_tools.metaquot generic_util))
+  (kind ppx_rewriter)
+  )
+ )
