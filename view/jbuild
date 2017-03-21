@@ -1,0 +1,13 @@
+(jbuild_version 1)
+
+(library
+ (
+  (name generic_view)
+  (modules (generic_view_spine
+            generic_view_sumprod
+            generic_view_conlist
+            )
+           )
+  (libraries (import))
+  )
+ )

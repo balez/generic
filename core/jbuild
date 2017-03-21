@@ -1,0 +1,21 @@
+(jbuild_version 1)
+
+(library
+ (
+  (name generic_core)
+  (modules (ty
+            product
+            desc
+            ty_desc
+            patterns
+            extensible
+            consumer
+            desc_fun
+            antiunify
+            repr
+            equal
+            )
+           )
+  (libraries ())
+  )
+ )

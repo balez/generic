@@ -1,0 +1,16 @@
+(jbuild_version 1)
+
+(library
+ (
+  (name generic_fun)
+  (modules (generic_fun_uniplate
+            generic_fun_multiplate
+            generic_fun_deepfix
+            generic_fun_marshal
+            generic_fun_equal
+            generic_fun_show
+                )
+           )
+  (libraries (import))
+  )
+ )

@@ -1,0 +1,25 @@
+(jbuild_version 1)
+
+(library
+ (
+  (name generic_util)
+  (modules (fun
+            app
+            monoid
+            functor
+            applicative
+            monad
+            hash
+            iter
+            listx
+            misc
+            exn
+            objx
+            obj_inspect
+            sum
+            option
+            )
+           )
+  (libraries (generic_core))
+  )
+ )
