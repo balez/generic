@@ -91,24 +91,24 @@ Namespace for modules defining generic functions.
 <p>
 
 <h2 id="2_MainModule">Main Module</h2>
-The module <code class="code">Generic</code> is meant to be used as a single entry
+The module <a href="Generic.html"><code class="code">Generic</code></a> is meant to be used as a single entry
 point for using the library. It re-export the content of all
 the other namespaces.
 <p>
 
 <h2 id="2_Namespaces">Namespaces</h2>
-The library is organised in four namespaces: <code class="code">Generic_util</code>, <code class="code">Generic_core</code>,
-<code class="code">Generic_view</code> and <code class="code">Generic_fun</code>.
+The library is organised in four namespaces: <a href="Generic_util.html"><code class="code">Generic_util</code></a>, <a href="Generic_core.html"><code class="code">Generic_core</code></a>,
+<a href="Generic_view.html"><code class="code">Generic_view</code></a> and <a href="Generic_fun.html"><code class="code">Generic_fun</code></a>.
 <p>
 
 <ul>
 <li>
-The <code class="code">Generic_util</code> namespace contains some definitions that where
+The <a href="Generic_util.html"><code class="code">Generic_util</code></a> namespace contains some definitions that where
 needed by the <code class="code">Core</code> namespace but were too general to belong
 there.
 </li>
 <li>
-The modules in namespace <code class="code">Generic_core</code> contain all of the definitions required
+The modules in namespace <a href="Generic_core.html"><code class="code">Generic_core</code></a> contain all of the definitions required
 for generic programming: type expression are reflected in
 the <code class="code">Generic_core.Ty.t</code> type, we call such values type witnesses.
 The structure of types is captured by the datatype
@@ -116,17 +116,17 @@ The structure of types is captured by the datatype
 computes the structure associated with each type. It is the
 most low-level view of OCaml types. Higher-level views are
 derived from this one.
-<code class="code">Generic_core.Extensible</code> and <code class="code">Generic_core.Consumer</code> implement a mechanism
+<a href="Generic_core.Extensible.html"><code class="code">Extensible</code></a> and <a href="Generic_core.Consumer.html"><code class="code">Consumer</code></a> implement a mechanism
 for creating and extending type indexed functions. This
 enables us to define ad-hoc polymorphic functions.
 </li>
 <li>
-The modules in namespace <code class="code">Generic_view</code> define high-level generic views on
+The modules in namespace <a href="Generic_view.html"><code class="code">Generic_view</code></a> define high-level generic views on
 types. A view is a uniform representation of the structure of
 types on which generic functions can be defined.
 </li>
 <li>
-The modules in namespace <code class="code">Generic_fun</code> contain generic functions. They are
+The modules in namespace <a href="Generic_fun.html"><code class="code">Generic_fun</code></a> contain generic functions. They are
 defined by induction on the structure of types given by a
 generic view.
 </li>

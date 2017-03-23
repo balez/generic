@@ -79,7 +79,6 @@ a.anchor
   font-style: normal;
   padding-right: 1ex; padding-left: 1ex; /* To remain selectable */
   color: #AAA; }
-a:hover {background-color: #ddd; text-decoration: underline}
 
 /* Sections and document divisions
 
