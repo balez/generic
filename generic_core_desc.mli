@@ -576,25 +576,25 @@ module T : sig
     | Array      : 'e ty * (module Array.intf with type t = 'a and type elt = 'e) -> 'a desc
     | Product    : 'ts Product.t * ('ts , 'p) Fun.iso -> 'p desc
     | Record     : ('p,'r) Record.t -> 'r desc
-    | Variant    : 'v Variant.t -> 'v desc
-    | Extensible : 'a Ext.t -> 'a desc
-    | Custom     : 'a Custom.t -> 'a desc
-    | Class      : 'c Class.t  -> 'c desc
     | Synonym    : 'a ty * ('a,'b) Equal.t -> 'b desc
-    | Abstract   : 'a desc
-    | NoDesc     : 'a desc
+    | Variant    of 'a Variant.t
+    | Extensible of 'a Ext.t
+    | Custom     of 'a Custom.t
+    | Class      of 'a Class.t
+    | Abstract
+    | NoDesc
 end
 
 type 'a desc = 'a T.desc =
     | Array      : 'e ty * (module Array.intf with type t = 'a and type elt = 'e) -> 'a desc
     | Product    : 'ts Product.t * ('ts , 'p) Fun.iso -> 'p desc
     | Record     : ('p,'r) Record.t -> 'r desc
-    | Variant    : 'v Variant.t -> 'v desc
-    | Extensible : 'a Ext.t -> 'a desc
-    | Custom     : 'a Custom.t -> 'a desc
-    | Class      : 'c Class.t  -> 'c desc
     | Synonym    : 'a ty * ('a,'b) Equal.t -> 'b desc
-    | Abstract   : 'a desc
-    | NoDesc     : 'a desc
+    | Variant    of 'a Variant.t
+    | Extensible of 'a Ext.t
+    | Custom     of 'a Custom.t
+    | Class      of 'a Class.t
+    | Abstract
+    | NoDesc
 
 type 'a t = 'a T.desc

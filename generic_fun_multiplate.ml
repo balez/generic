@@ -68,14 +68,11 @@ let pure_const_plate {mempty; _} =
   { const_plate = fun t x -> mempty }
 
 (****************************************************)
-let traverse a {plate} p x
-  = let rec go : type p . p Product.t * p -> (p, 'f) App.t
-    = let open Product in function
-      | Nil , () -> a.pure ()
-      | Cons (t, ts) , (x, xs) ->
-        let pair a b = (a,b) in
-        liftA2 a pair (plate t x) (go (ts, xs))
-    in go (p,x)
+let rec traverse : type a . 'f applicative -> 'f plate -> a Product.t -> a -> (a, 'f) app
+  = fun a f p x -> let open Product in match (p, x) with
+    | Nil          , ()      -> a.pure ()
+    | Cons (t, ts) , (x, xs) -> let pair a b = (a,b)
+                                in liftA2 a pair (f.plate t x) (traverse a f ts xs)
 
 let map f p x = get_id (traverse id_applicative (id_plate f) p x)
 
