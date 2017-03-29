@@ -1,0 +1,4 @@
+generic_util_obj_inspect.cmo : generic_util_obj.cmi generic_util.cmo \
+    generic_util_obj_inspect.cmi
+generic_util_obj_inspect.cmx : generic_util_obj.cmx generic_util.cmx \
+    generic_util_obj_inspect.cmi

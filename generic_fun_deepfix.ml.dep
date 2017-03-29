@@ -1,0 +1,6 @@
+generic_fun_deepfix.cmo : generic_fun_multiplate.cmi generic_fun.cmo \
+    generic_core_ty.cmi generic_core_desc_fun.cmi generic_core_desc.cmi \
+    generic_core.cmo
+generic_fun_deepfix.cmx : generic_fun_multiplate.cmx generic_fun.cmx \
+    generic_core_ty.cmx generic_core_desc_fun.cmx generic_core_desc.cmx \
+    generic_core.cmx

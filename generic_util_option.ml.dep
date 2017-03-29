@@ -1,0 +1,4 @@
+generic_util_option.cmo : generic_util_functor.cmo generic_util_exn.cmo \
+    generic_util.cmo
+generic_util_option.cmx : generic_util_functor.cmx generic_util_exn.cmx \
+    generic_util.cmx

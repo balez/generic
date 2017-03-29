@@ -1,0 +1,2 @@
+generic_core_ty_desc.cmi : generic_core_ty.cmi generic_core_desc.cmi \
+    generic_core.cmo

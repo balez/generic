@@ -1,0 +1,10 @@
+generic_fun_show.cmo : generic_util.cmo generic_core_ty.cmi \
+    generic_core_repr.cmi generic_core_product.cmi \
+    generic_core_extensible.cmi generic_core_equal.cmi \
+    generic_core_desc_fun.cmi generic_core_desc.cmi generic_core_consumer.cmi \
+    generic_core.cmo generic_fun_show.cmi
+generic_fun_show.cmx : generic_util.cmx generic_core_ty.cmx \
+    generic_core_repr.cmx generic_core_product.cmx \
+    generic_core_extensible.cmx generic_core_equal.cmx \
+    generic_core_desc_fun.cmx generic_core_desc.cmx generic_core_consumer.cmx \
+    generic_core.cmx generic_fun_show.cmi

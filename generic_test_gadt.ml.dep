@@ -1,0 +1,6 @@
+generic_test_gadt.cmo : generic_util.cmo generic_core_ty.cmi \
+    generic_core_product.cmi generic_core_desc_fun.cmi generic_core_desc.cmi \
+    generic_core.cmo
+generic_test_gadt.cmx : generic_util.cmx generic_core_ty.cmx \
+    generic_core_product.cmx generic_core_desc_fun.cmx generic_core_desc.cmx \
+    generic_core.cmx

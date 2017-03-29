@@ -1,0 +1,10 @@
+generic_core_desc.cmo : generic_util_sum.cmi generic_util_option.cmo \
+    generic_util_obj.cmi generic_util_list.cmo generic_util_fun.cmi \
+    generic_util_exn.cmo generic_util.cmo generic_core_ty.cmi \
+    generic_core_product.cmi generic_core_equal.cmi generic_core.cmo \
+    generic_core_desc.cmi
+generic_core_desc.cmx : generic_util_sum.cmx generic_util_option.cmx \
+    generic_util_obj.cmx generic_util_list.cmx generic_util_fun.cmx \
+    generic_util_exn.cmx generic_util.cmx generic_core_ty.cmx \
+    generic_core_product.cmx generic_core_equal.cmx generic_core.cmx \
+    generic_core_desc.cmi

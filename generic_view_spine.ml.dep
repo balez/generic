@@ -1,0 +1,8 @@
+generic_view_spine.cmo : generic_util_exn.cmo generic_util.cmo \
+    generic_core_ty.cmi generic_core_product.cmi generic_core_equal.cmi \
+    generic_core_desc_fun.cmi generic_core_desc.cmi generic_core.cmo \
+    generic_view_spine.cmi
+generic_view_spine.cmx : generic_util_exn.cmx generic_util.cmx \
+    generic_core_ty.cmx generic_core_product.cmx generic_core_equal.cmx \
+    generic_core_desc_fun.cmx generic_core_desc.cmx generic_core.cmx \
+    generic_view_spine.cmi

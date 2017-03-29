@@ -1,0 +1,3 @@
+generic_core_desc.cmi : generic_util_fun.cmi generic_util.cmo \
+    generic_core_ty.cmi generic_core_product.cmi generic_core_equal.cmi \
+    generic_core.cmo

@@ -1,0 +1,3 @@
+generic_fun_uniplate.cmi : generic_util_monad.cmi \
+    generic_util_applicative.cmo generic_util_app.cmi generic_util.cmo \
+    generic_core_ty.cmi generic_core.cmo

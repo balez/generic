@@ -1,0 +1,4 @@
+generic_util_sum.cmo : generic_util_fun.cmi generic_core_ty.cmi \
+    generic_core.cmo generic_util_sum.cmi
+generic_util_sum.cmx : generic_util_fun.cmx generic_core_ty.cmx \
+    generic_core.cmx generic_util_sum.cmi

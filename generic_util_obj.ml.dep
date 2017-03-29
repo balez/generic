@@ -1,0 +1,4 @@
+generic_util_obj.cmo : generic_util_iter.cmi generic_util.cmo \
+    generic_util_obj.cmi
+generic_util_obj.cmx : generic_util_iter.cmx generic_util.cmx \
+    generic_util_obj.cmi

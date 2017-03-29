@@ -1,0 +1,10 @@
+generic_fun_equal.cmo : generic_view_sumprod.cmi generic_view_spine.cmi \
+    generic_view_conlist.cmi generic_view.cmo generic_util_sum.cmi \
+    generic_util_exn.cmo generic_util.cmo generic_core_ty.cmi \
+    generic_core_product.cmi generic_core_desc.cmi generic_core.cmo \
+    generic_fun_equal.cmi
+generic_fun_equal.cmx : generic_view_sumprod.cmx generic_view_spine.cmx \
+    generic_view_conlist.cmx generic_view.cmx generic_util_sum.cmx \
+    generic_util_exn.cmx generic_util.cmx generic_core_ty.cmx \
+    generic_core_product.cmx generic_core_desc.cmx generic_core.cmx \
+    generic_fun_equal.cmi

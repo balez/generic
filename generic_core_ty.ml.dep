@@ -1,0 +1,2 @@
+generic_core_ty.cmo : generic_core_ty.cmi
+generic_core_ty.cmx : generic_core_ty.cmi

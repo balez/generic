@@ -1,0 +1,10 @@
+generic_fun_uniplate.cmo : generic_view_spine.cmi generic_view.cmo \
+    generic_util_monad.cmi generic_util_list.cmo generic_util_fun.cmi \
+    generic_util_applicative.cmo generic_util_app.cmi generic_util.cmo \
+    generic_core_ty.cmi generic_core_equal.cmi generic_core_desc_fun.cmi \
+    generic_core_desc.cmi generic_core.cmo generic_fun_uniplate.cmi
+generic_fun_uniplate.cmx : generic_view_spine.cmx generic_view.cmx \
+    generic_util_monad.cmx generic_util_list.cmx generic_util_fun.cmx \
+    generic_util_applicative.cmx generic_util_app.cmx generic_util.cmx \
+    generic_core_ty.cmx generic_core_equal.cmx generic_core_desc_fun.cmx \
+    generic_core_desc.cmx generic_core.cmx generic_fun_uniplate.cmi

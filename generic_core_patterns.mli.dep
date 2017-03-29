@@ -1,0 +1,1 @@
+generic_core_patterns.cmi : generic_core_ty.cmi generic_core.cmo

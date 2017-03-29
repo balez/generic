@@ -1,0 +1,6 @@
+generic_core_equal.cmo : generic_util_app.cmi generic_util.cmo \
+    generic_core_ty.cmi generic_core_extensible.cmi generic_core.cmo \
+    generic_core_equal.cmi
+generic_core_equal.cmx : generic_util_app.cmx generic_util.cmx \
+    generic_core_ty.cmx generic_core_extensible.cmx generic_core.cmx \
+    generic_core_equal.cmi

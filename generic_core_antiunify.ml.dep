@@ -1,0 +1,6 @@
+generic_core_antiunify.cmo : generic_core_ty_desc.cmi generic_core_ty.cmi \
+    generic_core_product.cmi generic_core_equal.cmi generic_core_desc_fun.cmi \
+    generic_core_desc.cmi generic_core.cmo generic_core_antiunify.cmi
+generic_core_antiunify.cmx : generic_core_ty_desc.cmx generic_core_ty.cmx \
+    generic_core_product.cmx generic_core_equal.cmx generic_core_desc_fun.cmx \
+    generic_core_desc.cmx generic_core.cmx generic_core_antiunify.cmi

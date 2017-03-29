@@ -1,0 +1,6 @@
+generic_util_list.cmo : generic_util_monoid.cmo generic_util_monad.cmi \
+    generic_util_fun.cmi generic_util_applicative.cmo generic_util_app.cmi \
+    generic_util.cmo
+generic_util_list.cmx : generic_util_monoid.cmx generic_util_monad.cmx \
+    generic_util_fun.cmx generic_util_applicative.cmx generic_util_app.cmx \
+    generic_util.cmx

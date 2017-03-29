@@ -1,0 +1,2 @@
+generic_util_functor.cmo : generic_util_app.cmi generic_util.cmo
+generic_util_functor.cmx : generic_util_app.cmx generic_util.cmx

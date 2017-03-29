@@ -1,0 +1,2 @@
+generic_view_sumprod.cmi : generic_util_sum.cmi generic_util_fun.cmi \
+    generic_util.cmo generic_core_ty.cmi generic_core.cmo

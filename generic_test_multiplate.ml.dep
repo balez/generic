@@ -1,0 +1,2 @@
+generic_test_multiplate.cmo : generic.cmo
+generic_test_multiplate.cmx : generic.cmx

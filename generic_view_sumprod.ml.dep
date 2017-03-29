@@ -1,0 +1,10 @@
+generic_view_sumprod.cmo : generic_util_sum.cmi generic_util_option.cmo \
+    generic_util_fun.cmi generic_util.cmo generic_core_ty.cmi \
+    generic_core_repr.cmi generic_core_product.cmi generic_core_equal.cmi \
+    generic_core_desc_fun.cmi generic_core_desc.cmi generic_core.cmo \
+    generic_view_sumprod.cmi
+generic_view_sumprod.cmx : generic_util_sum.cmx generic_util_option.cmx \
+    generic_util_fun.cmx generic_util.cmx generic_core_ty.cmx \
+    generic_core_repr.cmx generic_core_product.cmx generic_core_equal.cmx \
+    generic_core_desc_fun.cmx generic_core_desc.cmx generic_core.cmx \
+    generic_view_sumprod.cmi
