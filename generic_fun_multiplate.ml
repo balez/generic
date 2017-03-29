@@ -10,6 +10,7 @@ open Functor.T
 open Applicative.T
 open Monad.T
 
+(* OCAML 4.04
 [%%import App (get_id; get_const)]
 [%%import Applicative
     ( liftA2
@@ -22,6 +23,16 @@ open Monad.T
     app_of_mon;
     id_monad <- id
 )]
+ *)
+
+let get_id            = App.get_id
+let get_const         = App.get_const
+let liftA2            = Applicative.liftA2
+let fun_of_app        = Applicative.fun_of_app
+let id_applicative    = Applicative.id
+let const_applicative = Applicative.const
+let app_of_mon        = Monad.app_of_mon
+let id_monad          = Monad.id
 
 type 'f plate = {plate : 'a . 'a ty -> 'a -> ('a,'f) App.t}
 type id_plate = {id_plate : 'a . 'a ty -> 'a -> 'a}
@@ -68,14 +79,11 @@ let pure_const_plate {mempty; _} =
   { const_plate = fun t x -> mempty }
 
 (****************************************************)
-let traverse a {plate} p x
-  = let rec go : type p . p Product.t * p -> (p, 'f) App.t
-    = let open Product in function
-      | Nil , () -> a.pure ()
-      | Cons (t, ts) , (x, xs) ->
-        let pair a b = (a,b) in
-        liftA2 a pair (plate t x) (go (ts, xs))
-    in go (p,x)
+let rec traverse : type a . 'f applicative -> 'f plate -> a Product.t -> a -> (a, 'f) app
+  = fun a f p x -> let open Product in match (p, x) with
+    | Nil          , ()      -> a.pure ()
+    | Cons (t, ts) , (x, xs) -> let pair a b = (a,b)
+                                in liftA2 a pair (f.plate t x) (traverse a f ts xs)
 
 let map f p x = get_id (traverse id_applicative (id_plate f) p x)
 

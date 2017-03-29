@@ -21,7 +21,7 @@ type ty' = Ty.ty'
  *)
 
 type obj = Obj.t
-
+(* OCAML 4.04
 [%%import Obj
     ( to_obj <- repr
     ; from_obj <- obj
@@ -36,6 +36,29 @@ type obj = Obj.t
 [%%import Desc_fun (desc <- view)]
 
 [%%import Obj_inspect (print_obj)]
+*)
+let to_obj           = Obj.repr
+and from_obj         = Obj.obj
+and is_int           = Obj.is_int
+and is_block         = Obj.is_block
+and field            = Obj.field
+and set_field        = Obj.set_field
+and size             = Obj.size
+and dup              = Obj.dup
+and new_block        = Obj.new_block
+and tag              = Obj.tag
+and custom_tag       = Obj.custom_tag
+and double_tag       = Obj.double_tag
+and string_tag       = Obj.string_tag
+and object_tag       = Obj.object_tag
+and double_array_tag = Obj.double_array_tag
+let (>>.)            = Fun.(>>.)
+and (-<)             = Fun.(-<)
+let guard            = Exn.guard
+and one_of           = Exn.one_of
+let desc             = Desc_fun.view
+let print_obj        = Obj_inspect.print_obj
+
 
 (**************************************************)
 let debug = true

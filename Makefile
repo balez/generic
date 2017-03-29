@@ -146,7 +146,7 @@ OTHER_MLI=
 all: ppx lib tests doc
 doc: $(DOC)/index.html import # doc/dep.dot
 ppx: reify import
-lib: ppx generic.cma
+lib: generic.cma
 tests: ppx test_marshal test_show test_multiplate
 
 # Library (bytecode)
@@ -215,14 +215,14 @@ test_show: generic.cma generic_test_show.cmo
 # sed -r 's:^([^:]*):\1$@ :g' > $@
 # that's not necessary for ocaml in fact.
 
-%.mli.dep: %.mli
-	$(build_deps)
-
-%.ml.dep: %.ml
-	$(build_deps)
-
-$(NS:.ml=.ml.dep): %.ml.dep: %.ml
-	$(OCAMLDEP) -as-map $< > $@
+# %.mli.dep: %.mli
+# 	$(build_deps)
+#
+# %.ml.dep: %.ml
+# 	$(build_deps)
+#
+# $(NS:.ml=.ml.dep): %.ml.dep: %.ml
+# 	$(OCAMLDEP) -as-map $< > $@
 
 %.cmo: %.ml import
 	$(occ)

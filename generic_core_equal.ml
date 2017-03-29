@@ -10,9 +10,10 @@ x : ('a,'b) equal is a witness that 'a and 'b are intensionally equal. *)
 type (_,_) equal = Refl : ('a,'a) equal
 type ('a,'b) t = ('a,'b) equal
 
+type 'a equalto = {f : 'b . 'b Ty.t -> ('a, 'b) equal option}
 
 type tag = Tag
-type (_,_) app += App : {f : 'b . 'b Ty.t -> ('a, 'b) equal option} -> ('a, tag) app
+type (_,_) app += App : 'a equalto -> ('a, tag) app
 
 let equal_closure = Extensible.create "Generic_core_equal.equal" (* private *)
 
